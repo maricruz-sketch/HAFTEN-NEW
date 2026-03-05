@@ -7,1247 +7,1506 @@
     <title>Marcas – Haften</title>
     <meta name="description"
         content="Haften representa más de 25 marcas internacionales líderes en innovación, precisión y calidad para sistemas HVAC/R y BMS." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" />
-    <link rel="stylesheet" href="haften.css" />
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" />
+    <!-- Restore accent immediately -->
+    <script>(function () { var a = localStorage.getItem('haften-accent'); if (a) document.documentElement.setAttribute('data-accent', a); })();</script>
     <style>
-        /* ─── NAVBAR RESPONSIVE MEJORADO ─── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         html,
         body {
             max-width: 100vw;
             overflow-x: hidden;
         }
 
-        .nav-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            padding: clamp(10px, 2vw, 18px) clamp(16px, 5vw, 52px);
-            position: relative;
+        :root {
+            --ac: #C1272D;
+            --ac-rgb: 193, 39, 45;
+            --ac-dark: #9a1e23;
+            --ac-light: #fff0f0;
+            --nav-h: 72px;
+            --bg: #fff;
+            --bg-2: #f7f8fa;
+            --bg-dark: #0d0f14;
+            --text: #111318;
+            --text-2: #5a6070;
+            --text-3: #9aa0b0;
+            --border: #e8eaef;
+            --radius: 12px;
+            --radius-lg: 18px;
+            --radius-xl: 24px;
+            --shadow-xs: 0 1px 4px rgba(0, 0, 0, .06);
+            --shadow-md: 0 6px 20px rgba(0, 0, 0, .09);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, .12);
+            --shadow-xl: 0 24px 56px rgba(0, 0, 0, .16);
+            --tr: all .25s ease;
+            --tr-spring: all .35s cubic-bezier(.34, 1.56, .64, 1);
         }
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: clamp(14px, 2.2vw, 36px);
-            margin: 0;
-            flex-wrap: nowrap !important;
+        [data-accent="red"] {
+            --ac: #C1272D;
+            --ac-rgb: 193, 39, 45;
+            --ac-dark: #9a1e23;
+            --ac-light: #fff0f0;
         }
 
-        #menu-toggle {
-            display: none;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 6px 4px;
-            margin-left: 0;
-            transition: transform 0.3s ease;
+        [data-accent="blue"] {
+            --ac: #1a6ef5;
+            --ac-rgb: 26, 110, 245;
+            --ac-dark: #1458c4;
+            --ac-light: #edf3ff;
         }
 
-        #menu-toggle:hover {
-            transform: scale(1.1);
+        [data-accent="emerald"] {
+            --ac: #059669;
+            --ac-rgb: 5, 150, 105;
+            --ac-dark: #047857;
+            --ac-light: #ecfdf5;
         }
 
-        #menu-toggle span {
+        [data-accent="violet"] {
+            --ac: #7c3aed;
+            --ac-rgb: 124, 58, 237;
+            --ac-dark: #6d28d9;
+            --ac-light: #f5f3ff;
+        }
+
+        [data-accent="orange"] {
+            --ac: #ea580c;
+            --ac-rgb: 234, 88, 12;
+            --ac-dark: #c2410c;
+            --ac-light: #fff7ed;
+        }
+
+        [data-accent="rose"] {
+            --ac: #e11d48;
+            --ac-rgb: 225, 29, 72;
+            --ac-dark: #be123c;
+            --ac-light: #fff1f2;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
             display: block;
-            width: 24px;
-            height: 2.5px;
-            background-color: var(--ac, #C1272D);
-            margin: 5.5px 0;
-            border-radius: 2px;
-            transition: all 0.35s cubic-bezier(.4, 0, .2, 1);
         }
 
-        #menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(11px, 11px);
+        .container {
+            width: 100%;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 clamp(20px, 5vw, 80px);
         }
 
-        #menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-            transform: translateX(-8px);
-        }
-
-        #menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(8px, -8px);
-        }
-
-        @media (max-width: 1220px) {
-            #menu-toggle {
-                display: block;
-            }
-
-            .nav-settings {
-                display: flex;
-                align-items: center;
-                margin-left: auto;
-                gap: clamp(10px, 2vw, 16px);
-                margin-right: 10px;
-            }
-
-            .nav-links {
-                position: fixed;
-                top: var(--nav-h, 70px);
-                left: 0;
-                width: 100%;
-                max-height: calc(100vh - 70px);
-                background: #ffffff;
-                flex-direction: column;
-                align-items: stretch;
-                padding: clamp(20px, 5vw, 32px);
-                box-shadow: 0 12px 48px rgba(0, 0, 0, .15);
-                z-index: 9998;
-                opacity: 0;
-                visibility: hidden;
-                transform: translateY(-20px);
-                transition: all 0.38s cubic-bezier(.34, .67, .36, 1.56);
-                overflow-y: auto;
-            }
-
-            .nav-links.active,
-            .nav-links.open,
-            .nav-links.show {
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
-            }
-
-            .nav-link {
-                padding: clamp(10px, 2vw, 16px) clamp(12px, 2vw, 18px);
-                border-radius: 10px;
-                font-size: clamp(0.9rem, 2.5vw, 1rem);
-                transition: all 0.26s cubic-bezier(.4, 0, .2, 1);
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                color: var(--text);
-            }
-
-            .nav-link:hover {
-                background: rgba(193, 39, 45, 0.08);
-                color: var(--ac);
-                transform: translateX(4px);
-            }
-
-            .nav-link.active {
-                color: var(--ac);
-            }
-
-            .nav-cta {
-                display: flex;
-                align-items: center;
-                margin-top: clamp(12px, 3vw, 20px);
-                padding: clamp(11px, 2vw, 14px) clamp(16px, 3vw, 22px);
-                width: 100%;
-                justify-content: center;
-                background: var(--ac);
-                color: #fff;
-                border-radius: 8px;
-                font-weight: 600;
-                gap: 8px;
-            }
-
-            .nav-logo img {
-                max-height: clamp(32px, 8vw, 48px);
-            }
-        }
-
-        @media (max-width: 900px) {
-            .nav-inner {
-                padding: 10px clamp(12px, 4vw, 28px);
-            }
-
-            .nav-settings {
-                gap: 8px;
-                margin-right: 8px;
-            }
-
-            .nav-logo-text {
-                font-size: clamp(0.95rem, 3vw, 1.2rem) !important;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .nav-inner {
-                padding: 8px clamp(10px, 3vw, 16px);
-            }
-
-            .nav-links {
-                padding: clamp(16px, 4vw, 24px);
-            }
-
-            .nav-link {
-                font-size: 0.92rem;
-                padding: 10px 12px;
-            }
-
-            .nav-settings {
-                gap: 6px;
-            }
-
-            .lang-pill {
-                transform: scale(0.85);
-                transform-origin: right center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-inner {
-                padding: 8px 10px;
-            }
-
-            .nav-logo-text {
-                font-size: 0.9rem !important;
-            }
-
-            .nav-settings {
-                transform: scale(0.9);
-                transform-origin: right center;
-            }
-        }
-
-        /* ─── PAGE LOADER ─── */
+        /* ── LOADER */
         #page-loader {
             position: fixed;
             inset: 0;
-            background: #0a0c14;
+            background: var(--bg-dark);
             z-index: 99999;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            gap: 18px;
+            transition: opacity .5s ease, visibility .5s ease;
         }
 
-        #page-loader.fade-out {
+        #page-loader.gone {
             opacity: 0;
             visibility: hidden;
         }
 
         .loader-logo {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-size: 2.4rem;
             font-weight: 900;
-            color: #ffffff;
-            margin-bottom: 24px;
-            letter-spacing: -0.04em;
+            color: #fff;
+            letter-spacing: -.04em;
         }
 
         .loader-logo span {
-            color: var(--ac, #C1272D);
+            color: var(--ac);
         }
 
         .loader-bar-wrap {
-            width: clamp(160px, 50vw, 220px);
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
+            width: 200px;
+            height: 3px;
+            background: rgba(255, 255, 255, .1);
+            border-radius: 2px;
             overflow: hidden;
-            margin-bottom: 16px;
         }
 
         .loader-bar {
-            width: 0%;
             height: 100%;
-            background: var(--ac, #C1272D);
-            border-radius: 4px;
-            animation: loadingBar 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            background: var(--ac);
+            animation: loadBar 1.4s cubic-bezier(.4, 0, .2, 1) forwards;
+        }
+
+        @keyframes loadBar {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
         }
 
         .loader-text {
-            font-family: 'Outfit', sans-serif;
-            font-size: clamp(0.7rem, 1.8vw, 0.8rem);
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 0.15em;
+            font-size: .72rem;
+            letter-spacing: .2em;
+            color: rgba(255, 255, 255, .35);
             text-transform: uppercase;
-            font-weight: 500;
         }
 
-        @keyframes loadingBar {
-            0% {
-                width: 0%;
-            }
-
-            40% {
-                width: 60%;
-            }
-
-            100% {
-                width: 100%;
-            }
+        /* ── NAVBAR */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-h);
+            background: rgba(255, 255, 255, .96);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: box-shadow .3s ease;
         }
 
-        /* ─── HERO MEJORADO ─── */
-        .brands-hero {
-            margin-top: var(--nav-h, 70px);
-            position: relative;
-            height: clamp(320px, 55vh, 480px);
-            overflow: hidden;
+        #navbar.scrolled {
+            box-shadow: 0 4px 24px rgba(0, 0, 0, .08);
+        }
+
+        .nav-inner {
             display: flex;
             align-items: center;
-            justify-content: center;
-        }
-
-        .brands-hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M 80 0 L 0 0 0 80" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="1200" height="600" fill="url(%23grid)"/></svg>');
-            background-size: 100% 100%;
-            z-index: 1;
-        }
-
-        .brands-hero::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                linear-gradient(180deg, rgba(193, 39, 45, 0.45) 0%, rgba(193, 39, 45, 0.5) 50%, rgba(193, 39, 45, 0.55) 100%),
-                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 30%, rgba(0, 0, 0, 0.08) 0%, transparent 50%);
-            z-index: 2;
-        }
-
-        .brands-hero img {
-            width: 100%;
+            justify-content: space-between;
             height: 100%;
-            object-fit: cover;
-            object-position: center;
-            position: absolute;
-            inset: 0;
-            opacity: 0.7;
-            z-index: 0;
+            padding: 0 clamp(16px, 4vw, 40px);
+            gap: 16px;
         }
 
-        .brands-hero-overlay {
-            position: relative;
-            z-index: 3;
+        .nav-logo {
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-            padding: clamp(32px, 6vw, 64px);
-            max-width: 900px;
-            width: 100%;
+            flex-shrink: 0;
         }
 
-        .brands-hero-icon {
-            display: inline-flex;
+        .nav-logo img {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .nav-logo-text {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text);
+            letter-spacing: -.04em;
+        }
+
+        .nav-logo-text span {
+            color: var(--ac);
+        }
+
+        .nav-links {
+            display: flex;
             align-items: center;
-            justify-content: center;
-            width: clamp(56px, 10vw, 80px);
-            height: clamp(56px, 10vw, 80px);
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            color: #fff;
-            margin-bottom: clamp(16px, 3vw, 28px);
-            backdrop-filter: blur(10px);
-            border: 1.5px solid rgba(255, 255, 255, 0.3);
-            animation: float 3s ease-in-out infinite;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            gap: clamp(4px, 1.2vw, 20px);
+            flex-wrap: nowrap;
         }
 
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-8px);
-            }
+        .nav-link {
+            font-size: .86rem;
+            font-weight: 600;
+            color: var(--text-2);
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: var(--tr);
+            white-space: nowrap;
         }
 
-        .brands-hero-label {
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--ac);
+            background: var(--ac-light);
+        }
+
+        .nav-cta {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: clamp(0.75rem, 1.8vw, 0.85rem);
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.95);
-            padding: clamp(8px, 1.5vw, 12px) clamp(16px, 2.5vw, 22px);
-            background: rgba(255, 255, 255, 0.18);
+            padding: 9px 20px;
+            background: var(--ac);
+            color: #fff;
             border-radius: 100px;
-            backdrop-filter: blur(12px);
-            border: 1.5px solid rgba(255, 255, 255, 0.3);
-            margin-bottom: clamp(18px, 3vw, 26px);
-            animation: slideDown 0.8s cubic-bezier(.34, .67, .36, 1.56);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            font-size: .85rem;
+            font-weight: 700;
+            transition: var(--tr-spring);
+            white-space: nowrap;
         }
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
+        .nav-cta:hover {
+            background: var(--ac-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(var(--ac-rgb), .3);
+        }
+
+        .nav-settings {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1001;
+        }
+
+        #menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 8px;
+            transition: var(--tr);
+        }
+
+        #menu-toggle:hover {
+            background: var(--bg-2);
+        }
+
+        #menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--ac);
+            border-radius: 2px;
+            transition: all .3s ease;
+        }
+
+        #menu-toggle.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        #menu-toggle.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        #menu-toggle.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* Accent switcher */
+        .theme-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            padding: 7px 11px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-2);
+            font-size: .85rem;
+            transition: var(--tr);
+        }
+
+        .theme-btn:hover {
+            background: var(--bg-2);
+            color: var(--ac);
+            border-color: var(--ac);
+        }
+
+        .accent-panel {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            box-shadow: var(--shadow-xl);
+            z-index: 999;
+            min-width: 200px;
+        }
+
+        .accent-panel.open {
+            display: block;
+        }
+
+        .accent-panel-label {
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--text-2);
+            margin-bottom: 12px;
+        }
+
+        .accent-swatches {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .ac-swatch {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: var(--tr);
+            box-shadow: var(--shadow-xs);
+        }
+
+        .ac-swatch:hover,
+        .ac-swatch.active {
+            border-color: var(--text);
+            transform: scale(1.15);
+        }
+
+        .ac-swatch[data-accent="red"] {
+            background: #C1272D;
+        }
+
+        .ac-swatch[data-accent="blue"] {
+            background: #1a6ef5;
+        }
+
+        .ac-swatch[data-accent="emerald"] {
+            background: #059669;
+        }
+
+        .ac-swatch[data-accent="violet"] {
+            background: #7c3aed;
+        }
+
+        .ac-swatch[data-accent="orange"] {
+            background: #ea580c;
+        }
+
+        .ac-swatch[data-accent="rose"] {
+            background: #e11d48;
+        }
+
+        .lang-pill {
+            display: flex;
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 4px;
+            gap: 2px;
+            cursor: pointer;
+        }
+
+        .lang-opt {
+            padding: 5px 10px;
+            border-radius: 100px;
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--text-2);
+            transition: var(--tr);
+        }
+
+        .lang-opt.active {
+            background: var(--ac);
+            color: #fff;
+        }
+
+        @media(max-width:1024px) {
+            #menu-toggle {
+                display: flex;
             }
 
-            to {
+            .nav-links {
+                position: fixed;
+                top: var(--nav-h);
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, .98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: stretch;
+                padding: 16px 20px 24px;
+                gap: 4px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, .12);
+                border-bottom: 1px solid var(--border);
+                z-index: 999;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all .3s cubic-bezier(.4, 0, .2, 1);
+            }
+
+            .nav-links.open {
                 opacity: 1;
+                visibility: visible;
                 transform: translateY(0);
             }
+
+            .nav-link {
+                padding: 12px 14px;
+                font-size: .95rem;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .nav-cta {
+                margin-top: 8px;
+                justify-content: center;
+                padding: 13px 18px;
+            }
         }
 
-        .brands-hero-overlay h1 {
+        /* ══════════════════════════════════════
+     HERO — fondo oscuro premium con patrón
+  ══════════════════════════════════════ */
+        .brands-hero {
+            position: relative;
+            margin-top: var(--nav-h);
+            min-height: clamp(420px, 60vh, 560px);
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: #0a0c14;
+        }
+
+        /* Imagen real con overlay */
+        .hero-img-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=85');
+            background-size: cover;
+            background-position: center 40%;
+            opacity: .22;
+            filter: saturate(0.4);
+        }
+
+        /* Degradado diagonal de acento */
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                    rgba(var(--ac-rgb), .80) 0%,
+                    rgba(var(--ac-rgb), .40) 38%,
+                    rgba(6, 8, 18, .70) 70%,
+                    rgba(6, 8, 18, .92) 100%);
+        }
+
+        /* Grid de puntos */
+        .hero-dots {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, .10) 1px, transparent 1px);
+            background-size: 36px 36px;
+            pointer-events: none;
+        }
+
+        /* Círculo decorativo grande */
+        .hero-circle {
+            position: absolute;
+            right: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 560px;
+            height: 560px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .06);
+            pointer-events: none;
+        }
+
+        .hero-circle::before {
+            content: '';
+            position: absolute;
+            inset: 60px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .06);
+        }
+
+        .hero-circle::after {
+            content: '';
+            position: absolute;
+            inset: 130px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .08);
+            background: radial-gradient(circle, rgba(var(--ac-rgb), .12) 0%, transparent 70%);
+        }
+
+        /* Logos flotantes decorativos */
+        .hero-floating-logos {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hfl {
+            position: absolute;
+            width: clamp(52px, 6vw, 72px);
+            height: clamp(52px, 6vw, 72px);
+            background: rgba(255, 255, 255, .07);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: floatLogo var(--d, 6s) var(--delay, 0s) ease-in-out infinite alternate;
+        }
+
+        .hfl img {
+            max-height: 28px;
+            max-width: 46px;
+            object-fit: contain;
+            filter: brightness(10) opacity(.7);
+        }
+
+        @keyframes floatLogo {
+            from {
+                transform: translateY(0) rotate(var(--r, 0deg));
+            }
+
+            to {
+                transform: translateY(-14px) rotate(var(--r, 0deg));
+            }
+        }
+
+        /* Content */
+        .hero-content-brands {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: clamp(48px, 8vh, 80px) clamp(24px, 6vw, 80px);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .hero-left-brands {}
+
+        .hero-eyebrow-brands {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, .12);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 100px;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            color: #fff;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: heroIn .8s .2s cubic-bezier(.34, 1.56, .64, 1) forwards;
+        }
+
+        .hero-heading-brands {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: clamp(2.4rem, 6.5vw, 4rem);
+            font-size: clamp(2.6rem, 5vw, 4rem);
             font-weight: 900;
             color: #fff;
-            margin-bottom: clamp(14px, 2vw, 22px);
-            letter-spacing: -0.04em;
-            line-height: 1.1;
-            animation: scaleIn 0.8s 0.2s cubic-bezier(.34, .67, .36, 1.56) backwards;
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+            line-height: 1.06;
+            letter-spacing: -.04em;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: heroIn .9s .35s cubic-bezier(.34, 1.56, .64, 1) forwards;
         }
 
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .hero-heading-brands span {
+            color: #ffb3b0;
         }
 
-        .brands-hero-overlay p {
-            color: rgba(255, 255, 255, 0.92);
-            font-size: clamp(0.95rem, 2vw, 1.15rem);
-            max-width: 700px;
+        .hero-sub-brands {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, .72);
             line-height: 1.7;
-            animation: slideDown 0.8s 0.4s cubic-bezier(.34, .67, .36, 1.56) backwards;
-            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            margin-bottom: 36px;
+            opacity: 0;
+            animation: heroIn .8s .5s ease forwards;
         }
 
-        .hero-accent-line {
-            width: clamp(60px, 15vw, 120px);
-            height: 4px;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(255, 255, 255, 0) 100%);
-            margin: clamp(20px, 3vw, 30px) auto;
-            border-radius: 2px;
-            animation: expandWidth 0.8s 0.6s cubic-bezier(.34, .67, .36, 1.56) backwards;
-            box-shadow: 0 2px 12px rgba(255, 255, 255, 0.3);
+        .hero-cta-brands {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: heroIn .8s .65s ease forwards;
         }
 
-        @keyframes expandWidth {
+        .btn-hero-w {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 26px;
+            background: #fff;
+            color: var(--text);
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: .9rem;
+            border: 2px solid #fff;
+            transition: var(--tr-spring);
+        }
+
+        .btn-hero-w:hover {
+            background: rgba(255, 255, 255, .9);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
+        }
+
+        .btn-hero-o {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 26px;
+            color: #fff;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: .9rem;
+            border: 2px solid rgba(255, 255, 255, .4);
+            background: rgba(255, 255, 255, .08);
+            backdrop-filter: blur(8px);
+            transition: var(--tr-spring);
+        }
+
+        .btn-hero-o:hover {
+            background: rgba(255, 255, 255, .18);
+            transform: translateY(-2px);
+        }
+
+        /* Stats right side */
+        .hero-stats-brands {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-width: 200px;
+            opacity: 0;
+            animation: heroIn .9s .8s cubic-bezier(.34, 1.56, .64, 1) forwards;
+        }
+
+        .hstat {
+            background: rgba(255, 255, 255, .1);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, .16);
+            border-radius: 16px;
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: var(--tr);
+        }
+
+        .hstat:hover {
+            background: rgba(255, 255, 255, .16);
+        }
+
+        .hstat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(var(--ac-rgb), .3);
+            border: 1px solid rgba(var(--ac-rgb), .4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffb3b0;
+            font-size: .95rem;
+            flex-shrink: 0;
+        }
+
+        .hstat-num {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .hstat-lbl {
+            font-size: .72rem;
+            color: rgba(255, 255, 255, .55);
+            margin-top: 2px;
+        }
+
+        @keyframes heroIn {
             from {
-                width: 0;
                 opacity: 0;
+                transform: translateY(24px)
             }
 
             to {
-                width: 100%;
                 opacity: 1;
+                transform: translateY(0)
             }
         }
 
-        /* ─── BRANDS SECTION ─── */
-        .brands-main {
-            padding: clamp(60px, 12vw, 100px) 0;
+        /* Scroll line bottom */
+        .hero-bottom-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 2;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(var(--ac-rgb), .7), rgba(255, 255, 255, .4), rgba(var(--ac-rgb), .7), transparent);
         }
 
-        .container {
-            max-width: 1300px;
+        /* ══════════════════════════════════════
+     FILTER BAR — sticky
+  ══════════════════════════════════════ */
+        .filter-bar-wrap {
+            position: sticky;
+            top: var(--nav-h);
+            z-index: 900;
+            background: rgba(255, 255, 255, .96);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 16px rgba(0, 0, 0, .06);
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            padding: 14px clamp(20px, 5vw, 80px);
+            overflow-x: auto;
+            max-width: 1240px;
             margin: 0 auto;
-            padding: 0 clamp(16px, 5vw, 52px);
+            scrollbar-width: none;
         }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: clamp(48px, 8vw, 72px);
+        .filter-bar::-webkit-scrollbar {
+            display: none;
         }
 
-        .section-label {
-            display: inline-block;
-            font-size: clamp(0.7rem, 1.5vw, 0.82rem);
+        .filter-label {
+            font-size: .72rem;
             font-weight: 700;
-            letter-spacing: 0.17em;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            white-space: nowrap;
+            padding-right: 8px;
+            border-right: 1px solid var(--border);
+            margin-right: 4px;
+        }
+
+        .fbtn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border: 1.5px solid var(--border);
+            background: #fff;
+            color: var(--text-2);
+            border-radius: 100px;
+            font-size: .84rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--tr-spring);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .fbtn:hover {
+            border-color: rgba(var(--ac-rgb), .4);
+            color: var(--ac);
+            background: var(--ac-light);
+        }
+
+        .fbtn.active {
+            background: var(--ac);
+            border-color: var(--ac);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(var(--ac-rgb), .3);
+        }
+
+        .fbtn i {
+            font-size: .75rem;
+        }
+
+        /* ══════════════════════════════════════
+     BRANDS GRID — nuevo diseño
+  ══════════════════════════════════════ */
+        .brands-section {
+            padding: clamp(60px, 8vw, 100px) 0;
+        }
+
+        .brands-intro {
+            text-align: center;
+            margin-bottom: clamp(48px, 6vw, 72px);
+        }
+
+        .brands-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .18em;
             text-transform: uppercase;
             color: var(--ac);
-            padding: clamp(6px, 1.5vw, 10px) clamp(12px, 2vw, 16px);
-            background: rgba(193, 39, 45, 0.1);
-            border-radius: 100px;
-            margin-bottom: clamp(16px, 2vw, 24px);
+            margin-bottom: 14px;
         }
 
-        .section-title {
+        .brands-title {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-size: clamp(1.9rem, 3.2vw, 2.8rem);
             font-weight: 900;
-            color: var(--text);
-            margin-bottom: clamp(14px, 2vw, 20px);
-            letter-spacing: -0.035em;
+            letter-spacing: -.03em;
+            line-height: 1.1;
+            margin-bottom: 14px;
         }
 
-        .section-title span {
+        .brands-title span {
             color: var(--ac);
         }
 
-        .brand-divider {
-            width: clamp(40px, 8vw, 80px);
-            height: 3px;
-            background: linear-gradient(90deg, var(--ac), transparent);
-            margin: clamp(20px, 3vw, 28px) auto;
-            border-radius: 2px;
-        }
-
-        .section-desc {
-            font-size: clamp(0.95rem, 2vw, 1.05rem);
+        .brands-sub {
+            font-size: .97rem;
             color: var(--text-2);
-            max-width: 700px;
+            max-width: 540px;
             margin: 0 auto;
             line-height: 1.75;
         }
 
-        /* ─── CATEGORY FILTERS ─── */
-        .category-filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: clamp(10px, 2vw, 14px);
-            justify-content: center;
-            margin-bottom: clamp(48px, 8vw, 68px);
-            padding: 0 clamp(16px, 4vw, 32px);
-            animation: slideDown 0.6s cubic-bezier(.34, .67, .36, 1.56);
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .filter-btn {
-            padding: clamp(10px, 1.5vw, 12px) clamp(18px, 3vw, 24px);
-            border: 1.5px solid var(--border);
-            background: #fff;
-            color: var(--text);
-            border-radius: 100px;
-            font-size: clamp(0.82rem, 1.5vw, 0.9rem);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.35s cubic-bezier(.34, .67, .36, 1.56);
-            font-family: 'Outfit', sans-serif;
-            letter-spacing: 0.02em;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .filter-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(193, 39, 45, 0.08);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.35s cubic-bezier(.34, .67, .36, 1.56);
-            z-index: -1;
-        }
-
-        .filter-btn:hover::before,
-        .filter-btn.active::before {
-            transform: scaleX(1);
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            border-color: var(--ac);
-            color: var(--ac);
-            box-shadow: 0 4px 16px rgba(193, 39, 45, 0.12);
-        }
-
-        .filter-btn.active {
+        .accent-line {
+            display: block;
+            width: 48px;
+            height: 3px;
             background: var(--ac);
-            color: #fff;
-            border-color: var(--ac);
+            border-radius: 2px;
+            margin: 16px auto;
         }
 
-        /* ─── BRAND CARDS GRID (PREMIUM) ─── */
-        .brands-grid-full {
+        /* GRID */
+        .brands-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(clamp(260px, 22vw, 300px), 1fr));
-            gap: clamp(24px, 3vw, 32px);
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
 
-        .brand-card-full {
+        /* ── BRAND CARD — nuevo diseño horizontal dentro de caja vertical */
+        .brand-card {
             background: #fff;
-            border: 1.5px solid rgba(26, 26, 46, 0.08);
-            border-radius: clamp(18px, 3vw, 24px);
+            border: 1.5px solid var(--border);
+            border-radius: 20px;
             overflow: hidden;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(.34, .67, .36, 1.56);
-            position: relative;
             display: flex;
             flex-direction: column;
-            min-height: 380px;
-            box-shadow: 0 4px 16px rgba(26, 26, 46, 0.06);
-            opacity: 0;
-            animation: fadeInUp 0.6s cubic-bezier(.34, .67, .36, 1.56) forwards;
-            border-top: 3px solid var(--ac);
+            transition: var(--tr-spring);
+            position: relative;
+            cursor: pointer;
+            box-shadow: var(--shadow-xs);
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .brand-card-full.d1 {
-            animation-delay: 0.05s;
-        }
-
-        .brand-card-full.d2 {
-            animation-delay: 0.1s;
-        }
-
-        .brand-card-full.d3 {
-            animation-delay: 0.15s;
-        }
-
-        .brand-card-full.d4 {
-            animation-delay: 0.2s;
-        }
-
-        .brand-card-full.hidden {
+        .brand-card.hidden {
             display: none;
         }
 
-        .brand-card-header {
-            position: relative;
-            height: 160px;
-            background: linear-gradient(135deg, rgba(193, 39, 45, 0.08) 0%, rgba(193, 39, 45, 0.04) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .brand-card-header::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 30% 50%, rgba(193, 39, 45, 0.1) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .brand-card-full:hover .brand-card-header::before {
-            opacity: 1;
-        }
-
-        .brand-logo-img {
-            height: clamp(52px, 10vw, 80px);
-            max-width: 140px;
-            object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(26, 26, 46, 0.1));
-            transition: all 0.4s cubic-bezier(.34, .67, .36, 1.56);
-            position: relative;
-            z-index: 2;
-        }
-
-        .brand-card-full:hover .brand-logo-img {
-            transform: scale(1.12) translateY(-6px);
-            filter: drop-shadow(0 8px 16px rgba(193, 39, 45, 0.15));
-        }
-
-        .brand-card-content {
-            padding: clamp(24px, 4vw, 28px) clamp(18px, 3vw, 24px);
-            display: flex;
-            flex-direction: column;
-            gap: clamp(12px, 2vw, 16px);
-            flex: 1;
-            position: relative;
-        }
-
-        .brand-card-content::before {
+        /* Accent stripe top */
+        .brand-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--ac), transparent);
-            transition: width 0.4s cubic-bezier(.34, .67, .36, 1.56);
+            background: var(--ac);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .4s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .brand-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .brand-card:hover {
+            border-color: rgba(var(--ac-rgb), .28);
+            box-shadow: 0 18px 48px rgba(var(--ac-rgb), .12);
+            transform: translateY(-7px);
+        }
+
+        /* Logo area */
+        .bc-logo-area {
+            height: 150px;
+            background: linear-gradient(135deg, rgba(var(--ac-rgb), .05) 0%, rgba(var(--ac-rgb), .02) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: background .35s ease;
+        }
+
+        .bc-logo-area::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(var(--ac-rgb), .06);
+            transition: transform .5s ease;
+        }
+
+        .brand-card:hover .bc-logo-area {
+            background: linear-gradient(135deg, rgba(var(--ac-rgb), .09) 0%, rgba(var(--ac-rgb), .04) 100%);
+        }
+
+        .brand-card:hover .bc-logo-area::after {
+            transform: scale(2.8);
+        }
+
+        .bc-logo {
+            max-height: 64px;
+            max-width: 160px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .08));
+            transition: transform .4s cubic-bezier(.34, 1.56, .64, 1);
+            position: relative;
             z-index: 1;
         }
 
-        .brand-card-full:hover .brand-card-content::before {
-            background: var(--ac);
+        .brand-card:hover .bc-logo {
+            transform: scale(1.1) translateY(-4px);
         }
 
-        .brand-card-full h3 {
+        /* Body */
+        .bc-body {
+            padding: 20px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .bc-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .bc-name {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            font-size: 1rem;
             font-weight: 800;
             color: var(--text);
-            margin: 0;
-            letter-spacing: -0.02em;
             line-height: 1.3;
         }
 
-        .brand-card-full p {
-            font-size: clamp(0.82rem, 1.6vw, 0.92rem);
+        .bc-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: .65rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            background: var(--ac-light);
+            color: var(--ac);
+            border: 1px solid rgba(var(--ac-rgb), .2);
+            transition: var(--tr);
+        }
+
+        .brand-card:hover .bc-badge {
+            background: var(--ac);
+            color: #fff;
+        }
+
+        .bc-desc {
+            font-size: .86rem;
             color: var(--text-2);
-            margin: 0;
             line-height: 1.6;
             flex: 1;
         }
 
-        .brand-card-footer {
+        /* Features mini row */
+        .bc-features {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding-top: clamp(12px, 2vw, 16px);
-            border-top: 1px solid rgba(26, 26, 46, 0.06);
+            gap: 8px;
+            flex-wrap: wrap;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
         }
 
-        .brand-card-badge {
+        .bc-feat {
             display: inline-flex;
             align-items: center;
-            padding: clamp(5px, 1vw, 7px) clamp(11px, 2vw, 14px);
-            background: rgba(193, 39, 45, 0.1);
-            color: var(--ac);
-            font-size: clamp(0.65rem, 1.2vw, 0.72rem);
-            font-weight: 700;
-            letter-spacing: 0.08em;
+            gap: 5px;
+            font-size: .75rem;
+            font-weight: 600;
+            color: var(--text-3);
+            padding: 4px 10px;
             border-radius: 6px;
-            text-transform: uppercase;
-            border: 1px solid rgba(193, 39, 45, 0.2);
-            transition: all 0.3s ease;
-            white-space: nowrap;
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            transition: var(--tr);
         }
 
-        .brand-card-full:hover .brand-card-badge {
+        .brand-card:hover .bc-feat {
+            border-color: rgba(var(--ac-rgb), .2);
+            color: var(--ac);
+            background: var(--ac-light);
+        }
+
+        .bc-feat i {
+            font-size: .65rem;
+            color: var(--ac);
+        }
+
+        /* Arrow button */
+        .bc-action {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 12px 22px 18px;
+        }
+
+        .bc-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: .82rem;
+            font-weight: 700;
+            color: var(--ac);
+            background: var(--ac-light);
+            border: 1.5px solid rgba(var(--ac-rgb), .2);
+            padding: 8px 16px;
+            border-radius: 100px;
+            transition: var(--tr-spring);
+        }
+
+        .brand-card:hover .bc-btn {
             background: var(--ac);
             color: #fff;
             border-color: var(--ac);
-            transform: scale(1.05);
+            transform: translateX(2px);
         }
 
-        .btn-view-details {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: clamp(36px, 6vw, 44px);
-            height: clamp(36px, 6vw, 44px);
-            background: var(--ac);
-            color: #fff;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(.34, .67, .36, 1.56);
-            font-size: 1.1rem;
-            flex-shrink: 0;
+        .bc-btn i {
+            font-size: .75rem;
+            transition: transform .25s ease;
         }
 
-        .btn-view-details:hover {
-            background: var(--ac);
-            transform: translateY(-3px) scale(1.08);
-            box-shadow: 0 8px 20px rgba(193, 39, 45, 0.25);
+        .brand-card:hover .bc-btn i {
+            transform: translateX(3px);
         }
 
-        .brand-card-full:hover {
-            border-color: rgba(193, 39, 45, 0.3);
-            box-shadow: 0 16px 48px rgba(193, 39, 45, 0.15);
-            transform: translateY(-8px);
+        /* ── REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .65s ease, transform .65s cubic-bezier(.4, 0, .2, 1);
         }
 
-        /* ─── MODAL ELEGANTE ─── */
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .d1 {
+            transition-delay: .05s
+        }
+
+        .d2 {
+            transition-delay: .1s
+        }
+
+        .d3 {
+            transition-delay: .15s
+        }
+
+        .d4 {
+            transition-delay: .2s
+        }
+
+        /* ── MODAL */
         .modal {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(26, 26, 46, 0.7);
-            backdrop-filter: blur(8px);
+            background: rgba(10, 12, 20, .72);
+            backdrop-filter: blur(10px);
             z-index: 10000;
-            opacity: 0;
-            transition: opacity 0.4s ease;
             align-items: center;
             justify-content: center;
         }
 
         .modal.active {
             display: flex;
-            opacity: 1;
         }
 
         .modal-dialog {
             background: #fff;
-            border-radius: clamp(16px, 3vw, 28px);
+            border-radius: 28px;
             width: 90%;
-            max-width: 600px;
+            max-width: 580px;
             max-height: 90vh;
             overflow-y: auto;
             margin: auto;
             position: relative;
-            box-shadow: 0 25px 50px rgba(26, 26, 46, 0.3);
-            animation: slideUp 0.4s cubic-bezier(.34, .67, .36, 1.56);
+            box-shadow: 0 32px 80px rgba(0, 0, 0, .28);
+            animation: modalIn .4s cubic-bezier(.34, 1.56, .64, 1);
         }
 
-        /* Scrollbar Styling */
-        .modal-dialog::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .modal-dialog::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .modal-dialog::-webkit-scrollbar-thumb {
-            background: rgba(193, 39, 45, 0.3);
-            border-radius: 4px;
-            transition: background 0.3s ease;
-        }
-
-        .modal-dialog::-webkit-scrollbar-thumb:hover {
-            background: rgba(193, 39, 45, 0.6);
-        }
-
-        /* Firefox Scrollbar */
-        .modal-dialog {
-            scrollbar-width: thin;
-            scrollbar-color: rgba(193, 39, 45, 0.3) transparent;
-        }
-
-        @keyframes slideUp {
+        @keyframes modalIn {
             from {
-                transform: translateY(40px);
-                opacity: 0;
+                transform: scale(.9) translateY(20px);
+                opacity: 0
             }
 
             to {
-                transform: translateY(0);
-                opacity: 1;
+                transform: none;
+                opacity: 1
             }
         }
 
-        .modal-header {
-            position: relative;
-            height: 200px;
-            background: linear-gradient(135deg, rgba(193, 39, 45, 0.1) 0%, rgba(193, 39, 45, 0.05) 100%);
+        .modal-dialog::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-dialog::-webkit-scrollbar-thumb {
+            background: rgba(var(--ac-rgb), .3);
+            border-radius: 3px;
+        }
+
+        .modal-head {
+            height: 190px;
+            background: linear-gradient(135deg, rgba(var(--ac-rgb), .10), rgba(var(--ac-rgb), .04));
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: clamp(20px, 4vw, 32px);
-            border-bottom: 1px solid rgba(26, 26, 46, 0.08);
-            border-top: 3px solid var(--ac);
+            border-bottom: 1px solid var(--border);
+            border-top: 4px solid var(--ac);
+            position: relative;
         }
 
-        .modal-logo {
-            height: clamp(70px, 12vw, 100px);
-            max-width: 200px;
+        .modal-head-logo {
+            max-height: 90px;
+            max-width: 210px;
             object-fit: contain;
         }
 
-        .modal-close {
+        .modal-close-btn {
             position: absolute;
-            top: clamp(16px, 3vw, 24px);
-            right: clamp(16px, 3vw, 24px);
-            width: 40px;
-            height: 40px;
-            background: rgba(193, 39, 45, 0.1);
-            border: none;
+            top: 16px;
+            right: 16px;
+            width: 38px;
+            height: 38px;
             border-radius: 10px;
+            background: rgba(var(--ac-rgb), .1);
+            border: none;
             cursor: pointer;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: var(--text);
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: var(--tr-spring);
         }
 
-        .modal-close:hover {
+        .modal-close-btn:hover {
             background: var(--ac);
             color: #fff;
             transform: rotate(90deg);
         }
 
-        .modal-content {
-            padding: clamp(28px, 5vw, 40px);
+        .modal-body {
+            padding: 32px 36px 28px;
         }
 
-        .modal-title {
+        .modal-body h2 {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: clamp(1.4rem, 3vw, 1.8rem);
-            font-weight: 800;
+            font-size: 1.7rem;
+            font-weight: 900;
             color: var(--text);
-            margin: 0 0 clamp(14px, 2vw, 20px) 0;
-            letter-spacing: -0.02em;
+            letter-spacing: -.03em;
+            margin-bottom: 8px;
         }
 
-        .modal-badge {
+        .modal-cat {
             display: inline-block;
-            padding: clamp(6px, 1.2vw, 8px) clamp(12px, 2vw, 16px);
-            background: rgba(193, 39, 45, 0.1);
+            padding: 5px 14px;
+            background: var(--ac-light);
             color: var(--ac);
-            font-size: clamp(0.7rem, 1.3vw, 0.78rem);
-            font-weight: 700;
-            letter-spacing: 0.08em;
+            border: 1px solid rgba(var(--ac-rgb), .2);
             border-radius: 6px;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .08em;
             text-transform: uppercase;
-            border: 1px solid rgba(193, 39, 45, 0.2);
-            margin-bottom: clamp(16px, 2vw, 24px);
+            margin-bottom: 18px;
         }
 
-        .modal-description {
-            font-size: clamp(0.9rem, 1.8vw, 0.95rem);
+        .modal-desc {
+            font-size: .95rem;
             color: var(--text-2);
-            line-height: 1.75;
-            margin: 0 0 clamp(24px, 3vw, 32px) 0;
+            line-height: 1.78;
+            margin-bottom: 26px;
         }
 
-        .modal-features {
+        .modal-feats {
             display: flex;
             flex-direction: column;
-            gap: clamp(12px, 2vw, 16px);
-            margin-bottom: clamp(24px, 3vw, 32px);
+            gap: 14px;
+            margin-bottom: 28px;
         }
 
-        .modal-feature {
+        .mf {
             display: flex;
-            gap: clamp(12px, 2vw, 16px);
+            gap: 14px;
             align-items: flex-start;
         }
 
-        .modal-feature-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            background: rgba(193, 39, 45, 0.1);
+        .mf-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            background: var(--ac-light);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--ac);
+            font-size: .9rem;
             flex-shrink: 0;
-            font-size: 0.9rem;
         }
 
-        .modal-feature-text {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .modal-feature-text strong {
-            font-size: clamp(0.85rem, 1.6vw, 0.95rem);
+        .mf-text strong {
+            font-size: .9rem;
             color: var(--text);
             font-weight: 700;
+            display: block;
+            margin-bottom: 2px;
         }
 
-        .modal-feature-text p {
-            font-size: clamp(0.8rem, 1.5vw, 0.85rem);
-            color: var(--text-3);
+        .mf-text p {
+            font-size: .82rem;
+            color: var(--text-2);
             margin: 0;
         }
 
-        .modal-footer {
-            padding-top: clamp(20px, 3vw, 28px);
-            border-top: 1px solid rgba(26, 26, 46, 0.08);
+        .modal-foot {
             display: flex;
-            gap: clamp(12px, 2vw, 16px);
+            gap: 12px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
         }
 
-        .modal-btn {
+        .mbtn {
             flex: 1;
-            padding: clamp(11px, 2vw, 14px) clamp(16px, 2vw, 22px);
-            border-radius: 10px;
-            font-size: clamp(0.82rem, 1.5vw, 0.92rem);
-            font-weight: 600;
-            border: none;
+            padding: 13px 18px;
+            border-radius: 12px;
+            font-size: .88rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            border: none;
             font-family: 'Outfit', sans-serif;
+            transition: var(--tr-spring);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        .modal-btn-primary {
+        .mbtn-pri {
             background: var(--ac);
             color: #fff;
         }
 
-        .modal-btn-primary:hover {
-            background: var(--ac);
+        .mbtn-pri:hover {
+            background: var(--ac-dark);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(193, 39, 45, 0.3);
+            box-shadow: 0 8px 20px rgba(var(--ac-rgb), .3);
         }
 
-        .modal-btn-secondary {
-            background: rgba(193, 39, 45, 0.1);
+        .mbtn-sec {
+            background: var(--ac-light);
             color: var(--ac);
-            border: 1.5px solid rgba(193, 39, 45, 0.2);
+            border: 1.5px solid rgba(var(--ac-rgb), .2);
         }
 
-        .modal-btn-secondary:hover {
-            background: rgba(193, 39, 45, 0.15);
-            border-color: var(--ac);
+        .mbtn-sec:hover {
+            background: rgba(var(--ac-rgb), .15);
         }
 
-        /* ─── WHY CHOOSE US SECTION ─── */
-        .why-choose-section {
-            padding: clamp(80px, 12vw, 120px) 0;
-            background: linear-gradient(180deg, #fff 0%, #f9f8f6 100%);
-            position: relative;
-            overflow: hidden;
+        /* ── COUNT badge */
+        .results-count {
+            font-size: .85rem;
+            color: var(--text-3);
+            font-weight: 600;
+            margin-bottom: 24px;
         }
 
-        .why-choose-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(193, 39, 45, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .why-choose-section::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -5%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(193, 39, 45, 0.06) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .why-choose-header {
-            text-align: center;
-            margin-bottom: clamp(60px, 8vw, 80px);
-            position: relative;
-            z-index: 1;
-        }
-
-        .why-choose-label {
-            display: inline-block;
-            font-size: clamp(0.7rem, 1.5vw, 0.82rem);
-            font-weight: 700;
-            letter-spacing: 0.17em;
-            text-transform: uppercase;
+        .results-count span {
             color: var(--ac);
-            padding: clamp(6px, 1.5vw, 10px) clamp(12px, 2vw, 16px);
-            background: rgba(193, 39, 45, 0.1);
-            border-radius: 100px;
-            margin-bottom: clamp(16px, 2vw, 24px);
+            font-weight: 800;
         }
 
-        .why-choose-title {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 900;
-            color: var(--text);
-            margin-bottom: clamp(14px, 2vw, 20px);
-            letter-spacing: -0.035em;
+        /* ── WHY */
+        .why-section {
+            background: var(--bg-2);
+            padding: clamp(60px, 8vw, 100px) 0;
         }
 
-        .why-choose-title span {
-            color: var(--ac);
-        }
-
-        .why-divider {
-            width: clamp(40px, 8vw, 80px);
-            height: 3px;
-            background: linear-gradient(90deg, var(--ac), transparent);
-            margin: clamp(20px, 3vw, 28px) auto 0;
-            border-radius: 2px;
-        }
-
-        .why-choose-desc {
-            font-size: clamp(0.95rem, 2vw, 1.05rem);
-            color: var(--text-2);
-            max-width: 700px;
-            margin: clamp(20px, 3vw, 28px) auto 0;
-            line-height: 1.75;
-        }
-
-        .why-choose-grid {
+        .why-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(clamp(260px, 22vw, 320px), 1fr));
-            gap: clamp(24px, 3vw, 36px);
-            position: relative;
-            z-index: 1;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 52px;
         }
 
         .why-card {
             background: #fff;
-            border: 1.5px solid rgba(26, 26, 46, 0.08);
-            border-radius: clamp(16px, 3vw, 24px);
-            padding: clamp(28px, 4vw, 40px);
-            text-align: center;
-            transition: all 0.4s cubic-bezier(.34, .67, .36, 1.56);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 36px 28px;
+            transition: var(--tr-spring);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 16px rgba(26, 26, 46, 0.06);
-            opacity: 0;
-            animation: fadeInUp 0.6s cubic-bezier(.34, .67, .36, 1.56) forwards;
         }
 
-        .why-card.delay1 {
-            animation-delay: 0.1s;
-        }
-
-        .why-card.delay2 {
-            animation-delay: 0.2s;
-        }
-
-        .why-card.delay3 {
-            animation-delay: 0.3s;
-        }
-
-        .why-card::before {
+        .why-card::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--ac), transparent);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s cubic-bezier(.34, .67, .36, 1.56);
+            bottom: -40px;
+            right: -40px;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: rgba(var(--ac-rgb), .05);
+            transition: transform .5s ease;
         }
 
-        .why-card:hover::before {
-            transform: scaleX(1);
+        .why-card:hover::after {
+            transform: scale(2.5);
         }
 
         .why-card:hover {
-            border-color: rgba(193, 39, 45, 0.3);
-            box-shadow: 0 16px 48px rgba(193, 39, 45, 0.12);
             transform: translateY(-8px);
+            box-shadow: 0 24px 48px rgba(var(--ac-rgb), .10);
+            border-color: rgba(var(--ac-rgb), .2);
         }
 
-        .why-card-icon {
-            width: clamp(64px, 10vw, 80px);
-            height: clamp(64px, 10vw, 80px);
-            margin: 0 auto clamp(18px, 3vw, 24px);
-            border-radius: clamp(14px, 3vw, 18px);
-            background: linear-gradient(135deg, rgba(193, 39, 45, 0.1) 0%, rgba(193, 39, 45, 0.05) 100%);
+        .why-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: var(--ac-light);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1.8rem, 3vw, 2.4rem);
             color: var(--ac);
-            transition: all 0.4s cubic-bezier(.34, .67, .36, 1.56);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            transition: var(--tr-spring);
         }
 
-        .why-card:hover .why-card-icon {
-            background: linear-gradient(135deg, rgba(193, 39, 45, 0.2) 0%, rgba(193, 39, 45, 0.1) 100%);
-            transform: scale(1.1) rotate(-5deg);
+        .why-card:hover .why-icon {
+            background: var(--ac);
+            color: #fff;
+            transform: scale(1.08);
         }
 
         .why-card h3 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: clamp(1.05rem, 2vw, 1.2rem);
+            font-size: 1.1rem;
             font-weight: 800;
-            color: var(--text);
-            margin: 0 0 clamp(12px, 2vw, 16px) 0;
-            letter-spacing: -0.02em;
+            margin-bottom: 10px;
         }
 
         .why-card p {
-            font-size: clamp(0.85rem, 1.6vw, 0.95rem);
             color: var(--text-2);
-            margin: 0;
-            line-height: 1.7;
+            font-size: .92rem;
+            line-height: 1.78;
         }
 
-        /* ─── RESPONSIVE ─── */
-        @media (max-width: 1024px) {
-            .why-choose-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .why-choose-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .why-choose-section::before {
-                width: 400px;
-                height: 400px;
-                top: -30%;
-                right: -20%;
-            }
-
-            .why-choose-section::after {
-                width: 350px;
-                height: 350px;
-                bottom: -20%;
-                left: -15%;
-            }
-        }
-
-
-        /* FOOTER */
+        /* ── FOOTER */
         .site-footer {
-            background: var(--bg-dark);
-            color: rgba(255, 255, 255, .7);
-            padding: 80px 0 0;
+            background: #0d0f14;
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr;
-            gap: 48px;
-            padding: 0 32px 60px;
-            max-width: 1260px;
-            margin: 0 auto;
+            grid-template-columns: 1.6fr 1fr 1fr 1fr;
+            gap: clamp(28px, 4vw, 56px);
+            padding: clamp(48px, 6vw, 72px) clamp(20px, 6vw, 80px);
+            border-bottom: 1px solid rgba(255, 255, 255, .07);
         }
 
-        .footer-logo {
-            height: 36px;
-            margin-bottom: 8px;
-            filter: brightness(10);
+        .footer-logo-img {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+            margin-bottom: 14px;
         }
 
-        .footer-logo-text {
+        .footer-logo-wordmark {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1.6rem;
+            font-size: 2.2rem;
             font-weight: 900;
-            color: #fff;
-            margin-bottom: 12px;
-        }
-
-        .footer-logo-text span {
+            font-style: italic;
             color: var(--ac);
+            letter-spacing: -.04em;
+            line-height: 1;
+            margin-bottom: 14px;
+            display: block;
         }
 
         .footer-desc {
-            font-size: .88rem;
-            line-height: 1.75;
-            max-width: 240px;
+            color: rgba(255, 255, 255, .36);
+            font-size: .82rem;
+            line-height: 1.8;
         }
 
         .footer-col h4 {
-            font-size: .78rem;
-            font-weight: 700;
-            letter-spacing: .12em;
+            font-size: .67rem;
+            font-weight: 800;
+            letter-spacing: .2em;
             text-transform: uppercase;
             color: rgba(255, 255, 255, .4);
             margin-bottom: 18px;
@@ -1259,139 +1518,120 @@
             gap: 10px;
         }
 
-        .footer-col a {
-            font-size: .88rem;
-            color: rgba(255, 255, 255, .6);
-            transition: var(--tr);
+        .footer-col ul li a {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            color: rgba(255, 255, 255, .52);
+            font-size: .85rem;
+            font-weight: 500;
+            transition: var(--tr);
         }
 
-        .footer-col a:hover {
+        .footer-col ul li a:hover {
             color: #fff;
         }
 
-        .footer-col a i {
-            width: 16px;
-            color: rgba(var(--ac-rgb), .7);
+        .footer-col ul li a i {
+            color: var(--ac);
+            font-size: .78rem;
+            width: 14px;
+            flex-shrink: 0;
         }
 
         .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, .07);
-            padding: 24px 32px;
-            max-width: 1260px;
-            margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 16px;
+            padding: clamp(16px, 2vw, 22px) clamp(20px, 6vw, 80px);
         }
 
         .footer-copy {
-            font-size: .82rem;
-            color: rgba(255, 255, 255, .35);
+            font-size: .78rem;
+            color: rgba(255, 255, 255, .26);
         }
 
         .footer-copy a {
-            color: rgba(255, 255, 255, .5);
+            color: var(--ac);
         }
 
         .footer-copy a:hover {
-            color: #fff;
+            color: #ff8a87;
         }
 
         .footer-social {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .footer-social a {
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 8px;
-            background: rgba(255, 255, 255, .06);
-            border: 1px solid rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: .88rem;
-            color: rgba(255, 255, 255, .5);
+            color: rgba(255, 255, 255, .48);
+            font-size: .82rem;
             transition: var(--tr);
         }
 
         .footer-social a:hover {
-            background: var(--ac);
             border-color: var(--ac);
-            color: #fff;
-            transform: translateY(-3px);
+            color: var(--ac);
+            background: rgba(var(--ac-rgb), .1);
         }
 
-        /* Responsive */
+        /* ── RESPONSIVE */
         @media(max-width:1024px) {
+            .why-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
             .footer-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 36px;
             }
+
+            .hero-content-brands {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats-brands {
+                flex-direction: row;
+                flex-wrap: wrap;
+                min-width: unset;
+            }
+
+            .hstat {
+                flex: 1 1 140px;
+            }
         }
 
-        @media(max-width:540px) {
+        @media(max-width:768px) {
+            .brands-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-circle {
+                display: none;
+            }
+        }
+
+        @media(max-width:640px) {
             .footer-grid {
                 grid-template-columns: 1fr;
-                gap: 28px;
-                padding: 0 20px 40px;
-            }
-        }
-
-
-
-
-        @media (max-width: 1024px) {
-            .brands-grid-full {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .brands-main {
-                padding: clamp(48px, 8vw, 80px) 0;
             }
 
-            .section-header {
-                margin-bottom: clamp(36px, 6vw, 56px);
-            }
-
-            .brands-grid-full {
-                grid-template-columns: 1fr;
-            }
-
-            .category-filters {
-                margin-bottom: clamp(36px, 6vw, 48px);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .brands-hero {
-                height: clamp(240px, 45vh, 320px);
-            }
-
-            .brands-hero-overlay h1 {
-                font-size: clamp(1.5rem, 4vw, 2rem);
-            }
-
-            .category-filters {
-                gap: clamp(8px, 1.5vw, 10px);
-            }
-
-            .filter-btn {
-                padding: clamp(8px, 1vw, 10px) clamp(14px, 2vw, 18px);
-                font-size: 0.78rem;
-            }
-
-            .modal-dialog {
-                width: 95%;
-                border-radius: 16px;
+            .modal-body {
+                padding: 24px 20px;
             }
         }
     </style>
@@ -1399,7 +1639,7 @@
 
 <body>
 
-    <!-- PAGE LOADER -->
+    <!-- LOADER -->
     <div id="page-loader">
         <div class="loader-logo">Haf<span>ten</span></div>
         <div class="loader-bar-wrap">
@@ -1409,38 +1649,31 @@
     </div>
 
     <!-- NAVBAR -->
-    <nav id="navbar"
-        style="background: #fff; box-shadow: 0 2px 12px rgba(26,26,46,.08); border-bottom: 1px solid rgba(26,26,46,.06);">
+    <nav id="navbar">
         <div class="nav-inner">
             <a href="index.html" class="nav-logo">
                 <img src="Haften/Marcas/Logo Haften.png" alt="Haften"
                     onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
                 <span class="nav-logo-text" style="display:none">Haf<span>ten</span></span>
             </a>
-            <button id="menu-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+            <button id="menu-toggle" aria-label="Menú"
+                aria-expanded="false"><span></span><span></span><span></span></button>
             <ul class="nav-links" id="nav-links">
-                <li><a href="index.html" class="nav-link" data-page="index"><i class="fa fa-house"
-                            style="font-size:.8rem;color:var(--ac);margin-right:4px"></i>Inicio</a></li>
-                <li><a href="nosotros.html" class="nav-link" data-page="nosotros">Nosotros</a></li>
-                <li><a href="marcas.html" class="nav-link active" data-page="marcas">Marcas</a></li>
-                <li><a href="catalogos.html" class="nav-link" data-page="catalogos">Catálogos</a></li>
-                <li><a href="multimedia.html" class="nav-link" data-page="multimedia">Multimedia</a></li>
-                <li><a href="redes.html" class="nav-link" data-page="redes">Redes Sociales</a></li>
-                <li><a href="contacto.html" class="nav-cta"><span>Contacto</span> <i
-                            class="fa-solid fa-arrow-right"></i></a></li>
+                <li><a href="index.html" class="nav-link"><i class="fa fa-house"
+                            style="font-size:.8rem;color:var(--ac);margin-right:2px"></i> Inicio</a></li>
+                <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+                <li><a href="marcas.html" class="nav-link active">Marcas</a></li>
+                <li><a href="catalogos.html" class="nav-link">Catálogos</a></li>
+                <li><a href="multimedia.html" class="nav-link">Multimedia</a></li>
+                <li><a href="redes.html" class="nav-link">Redes Sociales</a></li>
+                <li><a href="contacto.html" class="nav-cta">Contacto <i class="fa-solid fa-arrow-right"></i></a></li>
             </ul>
             <div class="nav-settings">
-                <button class="theme-toggle-btn magnetic-wrap" aria-label="Cambiar Tema">
-                    <i class="fa-solid fa-palette"></i>
-                </button>
-                <div class="lang-pill magnetic-wrap" title="Cambiar Idioma">
-                    <div class="lang-highlight"></div>
-                    <span class="lang-opt opt-es">ES</span>
-                    <span class="lang-opt opt-en">EN</span>
-                </div>
-                <div id="accent-panel">
-                    <p class="panel-label">Color de acento</p>
-                    <div class="accent-options">
+                <button class="theme-btn" id="theme-btn" title="Color de acento"><i
+                        class="fa-solid fa-palette"></i></button>
+                <div class="accent-panel" id="accent-panel">
+                    <div class="accent-panel-label">Color de acento</div>
+                    <div class="accent-swatches">
                         <div class="ac-swatch active" data-accent="red"></div>
                         <div class="ac-swatch" data-accent="blue"></div>
                         <div class="ac-swatch" data-accent="emerald"></div>
@@ -1449,125 +1682,173 @@
                         <div class="ac-swatch" data-accent="rose"></div>
                     </div>
                 </div>
+                <div class="lang-pill" id="lang-pill">
+                    <span class="lang-opt active" data-lang="es">ES</span>
+                    <span class="lang-opt" data-lang="en">EN</span>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- HERO -->
-    <div class="brands-hero">
-        <img src="Haften/Marcas/1.jpg" alt="Marcas Haften" />
-        <div class="brands-hero-overlay">
-            <div class="brands-hero-label">
-                <i class="fa-solid fa-medal"></i>
-                Sección de Marcas
+    <!-- ══ HERO ══ -->
+    <section class="brands-hero">
+        <div class="hero-img-bg"></div>
+        <div class="hero-gradient"></div>
+        <div class="hero-dots"></div>
+        <div class="hero-circle"></div>
+
+        <!-- Logos flotantes decorativos -->
+        <div class="hero-floating-logos">
+            <div class="hfl" style="top:18%;left:4%;--d:7s;--delay:.2s;--r:-5deg"><img src="Haften/Marcas/belimo.fw.png"
+                    alt=""></div>
+            <div class="hfl" style="top:62%;left:5%;--d:6s;--delay:.8s;--r:3deg"><img
+                    src="Haften/Marcas/FlowCon-Logo.png" alt=""></div>
+            <div class="hfl" style="top:28%;left:14%;--d:8s;--delay:1.1s;--r:-2deg"><img
+                    src="Haften/Marcas/11-GPI-Inc-Logo-Registered.png" alt=""></div>
+            <div class="hfl" style="top:72%;left:18%;--d:5.5s;--delay:.5s;--r:4deg"><img
+                    src="Haften/Marcas/LOG_CT_RGB.png" alt=""></div>
+            <div class="hfl" style="top:12%;right:5%;--d:6.5s;--delay:.3s;--r:2deg"><img
+                    src="Haften/Marcas/Logos_ONICON Logo (2).png" alt=""></div>
+            <div class="hfl" style="top:55%;right:6%;--d:7.5s;--delay:.9s;--r:-3deg"><img
+                    src="Haften/Marcas/Greystone Logo - Pantone 3295 - Large.png" alt=""></div>
+            <div class="hfl" style="top:80%;right:14%;--d:6s;--delay:.6s;--r:5deg"><img
+                    src="Haften/Marcas/14-LOGO Loytec.png" alt=""></div>
+        </div>
+
+        <div class="hero-content-brands">
+            <div class="hero-left-brands">
+                <p class="hero-eyebrow-brands"><i class="fa-solid fa-medal"></i> Distribuidores Autorizados · Clase
+                    Mundial</p>
+                <h1 class="hero-heading-brands">
+                    Las mejores<br><span>marcas globales</span><br>en un solo lugar
+                </h1>
+                <p class="hero-sub-brands">Representamos más de 25 fabricantes líderes en HVAC/R, BMS, instrumentación y
+                    automatización para México.</p>
+                <div class="hero-cta-brands">
+                    <a href="catalogos.html" class="btn-hero-w"><i class="fa-solid fa-file-pdf"></i> Ver catálogos</a>
+                    <a href="contacto.html" class="btn-hero-o"><i class="fa-solid fa-envelope"></i> Contactar</a>
+                </div>
             </div>
-            <h1>Explora Nuestras Marcas</h1>
-            <div class="hero-accent-line"></div>
-            <p>Representamos marcas internacionales líderes en innovación, precisión y calidad para sistemas HVAC/R, BMS
-                e instrumentación</p>
+            <div class="hero-stats-brands">
+                <div class="hstat">
+                    <div class="hstat-icon"><i class="fa-solid fa-medal"></i></div>
+                    <div>
+                        <div class="hstat-num">25+</div>
+                        <div class="hstat-lbl">Marcas internacionales</div>
+                    </div>
+                </div>
+                <div class="hstat">
+                    <div class="hstat-icon"><i class="fa-solid fa-award"></i></div>
+                    <div>
+                        <div class="hstat-num">20+</div>
+                        <div class="hstat-lbl">Años de experiencia</div>
+                    </div>
+                </div>
+                <div class="hstat">
+                    <div class="hstat-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div>
+                        <div class="hstat-num">5</div>
+                        <div class="hstat-lbl">Oficinas en México</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-bottom-bar"></div>
+    </section>
+
+    <!-- ══ FILTER BAR ══ -->
+    <div class="filter-bar-wrap">
+        <div class="filter-bar" id="filterBar">
+            <span class="filter-label">Categoría</span>
+            <button class="fbtn active" data-filter="all"><i class="fa-solid fa-th"></i> Todas</button>
+            <button class="fbtn" data-filter="hvac"><i class="fa-solid fa-wind"></i> HVAC/R</button>
+            <button class="fbtn" data-filter="bms"><i class="fa-solid fa-building"></i> BMS</button>
+            <button class="fbtn" data-filter="automatizacion"><i class="fa-solid fa-gear"></i> Automatización</button>
+            <button class="fbtn" data-filter="instrumentacion"><i class="fa-solid fa-gauge-high"></i>
+                Instrumentación</button>
+            <button class="fbtn" data-filter="energia"><i class="fa-solid fa-plug"></i> Energía</button>
         </div>
     </div>
 
-    <!-- BRANDS GRID -->
-    <section class="brands-main section">
+    <!-- ══ BRANDS ══ -->
+    <section class="brands-section">
         <div class="container">
-            <div class="section-header">
-                <span class="section-label"><i class="fa-solid fa-medal" style="margin-right: 6px;"></i>Distribuidores
-                    autorizados</span>
-                <h2 class="section-title">Más de <span>25 Marcas</span> Internacionales</h2>
-                <div class="brand-divider"></div>
-                <p class="section-desc">Trabajamos con los mejores fabricantes del mundo para ofrecerte soluciones de
-                    alta calidad en HVAC/R, BMS e instrumentación.</p>
+            <div class="brands-intro reveal">
+                <div class="brands-eyebrow"><i class="fa-solid fa-star"></i> Nuestro portafolio</div>
+                <h2 class="brands-title">Marcas de <span>Clase Mundial</span></h2>
+                <span class="accent-line"></span>
+                <p class="brands-sub">Seleccionamos cuidadosamente cada fabricante para garantizarte tecnología de
+                    primera y soporte completo.</p>
             </div>
 
-            <!-- CATEGORY FILTERS -->
-            <div class="category-filters">
-                <button class="filter-btn active" data-filter="all">Todas las Marcas</button>
-                <button class="filter-btn" data-filter="hvac">HVAC/R</button>
-                <button class="filter-btn" data-filter="bms">BMS</button>
-                <button class="filter-btn" data-filter="automatizacion">Automatización</button>
-                <button class="filter-btn" data-filter="instrumentacion">Instrumentación</button>
-                <button class="filter-btn" data-filter="energia">Energía</button>
-            </div>
+            <div class="results-count reveal"><span id="countNum">20</span> marcas encontradas</div>
 
-            <div class="brands-grid-full" id="brandsGrid"></div>
+            <div class="brands-grid" id="brandsGrid"></div>
         </div>
     </section>
 
-    <!-- MODAL -->
+    <!-- ══ MODAL ══ -->
     <div class="modal" id="brandModal">
         <div class="modal-dialog">
-            <div class="modal-header">
-                <img class="modal-logo" id="modalLogoImg" src="" alt="Brand Logo">
-                <button class="modal-close" onclick="closeBrandModal()">×</button>
+            <div class="modal-head">
+                <img class="modal-head-logo" id="modalLogo" src="" alt="">
+                <button class="modal-close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="modal-content">
-                <h2 class="modal-title" id="modalTitle"></h2>
-                <span class="modal-badge" id="modalCategory"></span>
-                <p class="modal-description" id="modalDescription"></p>
-                <div class="modal-features" id="modalFeatures"></div>
-                <div class="modal-footer">
-                    <a href="catalogos.html" class="modal-btn modal-btn-primary"><i class="fa-solid fa-file-pdf"></i>
-                        Ver Catálogo</a>
-                    <button class="modal-btn modal-btn-secondary" onclick="closeBrandModal()">Cerrar</button>
+            <div class="modal-body">
+                <h2 id="mTitle"></h2>
+                <span class="modal-cat" id="mCat"></span>
+                <p class="modal-desc" id="mDesc"></p>
+                <div class="modal-feats" id="mFeats"></div>
+                <div class="modal-foot">
+                    <a href="catalogos.html" class="mbtn mbtn-pri"><i class="fa-solid fa-file-pdf"></i> Ver catálogo</a>
+                    <button class="mbtn mbtn-sec" onclick="closeModal()"><i class="fa-solid fa-xmark"></i>
+                        Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- WHY CHOOSE US SECTION -->
-    <section class="why-choose-section">
+    <!-- ══ WHY ══ -->
+    <section class="why-section">
         <div class="container">
-            <div class="why-choose-header">
-                <span class="why-choose-label"><i class="fa-solid fa-star" style="margin-right: 6px;"></i>Nuestras
-                    Ventajas</span>
-                <h2 class="why-choose-title">Por qué <span>elegirnos</span></h2>
-                <div class="why-divider"></div>
-                <p class="why-choose-desc">Somos el socio técnico ideal para tus proyectos HVAC/R, BMS e instrumentación
-                    con soluciones integrales y confiables.</p>
+            <div class="brands-intro reveal">
+                <div class="brands-eyebrow"><i class="fa-solid fa-shield-halved"></i> Nuestras ventajas</div>
+                <h2 class="brands-title">Por qué elegir <span>Haften</span></h2>
+                <span class="accent-line"></span>
             </div>
-
-            <div class="why-choose-grid">
-                <div class="why-card delay1">
-                    <div class="why-card-icon">
-                        <i class="fa-solid fa-handshake"></i>
-                    </div>
+            <div class="why-grid">
+                <div class="why-card reveal d1">
+                    <div class="why-icon"><i class="fa-solid fa-handshake"></i></div>
                     <h3>Distribuidores Autorizados</h3>
                     <p>Representamos más de 25 marcas internacionales líderes, garantizando productos originales y con
-                        soporte oficial.</p>
+                        soporte oficial de fábrica.</p>
                 </div>
-
-                <div class="why-card delay2">
-                    <div class="why-card-icon">
-                        <i class="fa-solid fa-bolt"></i>
-                    </div>
-                    <h3>Entrega Inmediata</h3>
-                    <p>Amplio inventario disponible en nuestras 5 sucursales en México para satisfacer tus necesidades
-                        al instante.</p>
+                <div class="why-card reveal d2">
+                    <div class="why-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+                    <h3>Inventario Inmediato</h3>
+                    <p>Amplio stock disponible en nuestras 5 sucursales en México para satisfacer tus proyectos sin
+                        tiempos de espera.</p>
                 </div>
-
-                <div class="why-card delay3">
-                    <div class="why-card-icon">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                    </div>
+                <div class="why-card reveal d3">
+                    <div class="why-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                     <h3>Asesoría Técnica Experta</h3>
-                    <p>Equipo especializado en HVAC, BMS, automatización y procesos industriales para soluciones
-                        personalizadas.</p>
+                    <p>Equipo de ingenieros especializados en HVAC, BMS, automatización e instrumentación para
+                        soluciones personalizadas sin costo.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- ══ FOOTER ══ -->
     <footer class="site-footer">
         <div class="footer-grid">
             <div>
-                <img src="Haften/Marcas/Logo Haften.png" alt="Haften" class="footer-logo"
-                    onerror="this.style.display='none'">
+                <img src="Haften/Marcas/Logo Haften.png" alt="Haften" class="footer-logo-img"
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                <span class="footer-logo-wordmark" style="display:none">Haften</span>
                 <p class="footer-desc">"Una solución completa en el mismo lugar."<br>Periféricos HVAC · BMS · Medición
                     de Energía</p>
             </div>
-
             <div class="footer-col">
                 <h4>Navegación</h4>
                 <ul>
@@ -1580,7 +1861,6 @@
                     <li><a href="contacto.html"><i class="fa-solid fa-envelope"></i>Contacto</a></li>
                 </ul>
             </div>
-
             <div class="footer-col">
                 <h4>Contacto</h4>
                 <ul>
@@ -1594,7 +1874,6 @@
                     <li><a href="#"><i class="fa-solid fa-map-pin"></i>León · Cancún</a></li>
                 </ul>
             </div>
-
             <div class="footer-col">
                 <h4>Síguenos</h4>
                 <ul>
@@ -1613,7 +1892,6 @@
                 </ul>
             </div>
         </div>
-
         <div class="footer-bottom">
             <span class="footer-copy">© 2025 Haften. Todos los derechos reservados · <a href="https://haften.com.mx"
                     target="_blank">haften.com.mx</a></span>
@@ -1632,360 +1910,214 @@
         </div>
     </footer>
 
-    <!-- SCRIPTS -->
-    <script src="haften-shared.js"></script>
     <script>
-        // BRAND DATA
-        const brandsData = [
+        // ── BRAND DATA
+        const brands = [
             {
-                name: "Air Monitor",
-                category: "hvac",
-                description: "Soluciones especializadas en medición de calidad y flujo de aire para sistemas HVAC de alta precisión.",
-                logo: "Haften/Marcas/Logos_Air Monitor Logo.png",
-                badge: "HVAC/R",
-                features: [
-                    { icon: "fa-solid fa-wind", title: "Medición de Aire", text: "Precisión en flujo de aire" },
-                    { icon: "fa-solid fa-gauge", title: "Calidad IAQ", text: "Monitoreo de calidad interior" },
-                    { icon: "fa-solid fa-microchip", title: "Tecnología IoT", text: "Integración inteligente" }
-                ]
+                name: "Air Monitor", cat: "hvac", badge: "HVAC/R", logo: "Haften/Marcas/Logos_Air Monitor Logo.png",
+                desc: "Soluciones de medición de calidad y flujo de aire para sistemas HVAC de alta precisión industrial y comercial.",
+                feats: [{ i: "fa-solid fa-wind", t: "Flujo de Aire", d: "Sensores de alta precisión" }, { i: "fa-solid fa-gauge", t: "Calidad IAQ", d: "Monitoreo de calidad interior" }, { i: "fa-solid fa-microchip", t: "Integración IoT", d: "Conectividad inteligente" }]
             },
             {
-                name: "Badger Meter",
-                category: "instrumentacion",
-                description: "Líderes en medición de flujo de agua y gas con soluciones confiables para aplicaciones industriales.",
-                logo: "Haften/Marcas/descarga.png",
-                badge: "Instrumentación",
-                features: [
-                    { icon: "fa-solid fa-droplet", title: "Flujo de Agua", text: "Medición precisa de caudal" },
-                    { icon: "fa-solid fa-gas-pump", title: "Flujo de Gas", text: "Lecturas exactas de gas" },
-                    { icon: "fa-solid fa-cloud-arrow-up", title: "Smart Metering", text: "Conectividad remota" }
-                ]
+                name: "Badger Meter", cat: "instrumentacion", badge: "Instrumentación", logo: "Haften/Marcas/descarga.png",
+                desc: "Líderes en medición de flujo de agua y gas con soluciones confiables para aplicaciones industriales y comerciales.",
+                feats: [{ i: "fa-solid fa-droplet", t: "Flujo de Agua", d: "Medición precisa de caudal" }, { i: "fa-solid fa-gas-pump", t: "Flujo de Gas", d: "Lecturas exactas" }, { i: "fa-solid fa-cloud-arrow-up", t: "Smart Metering", d: "Conectividad remota" }]
             },
             {
-                name: "Belimo",
-                category: "hvac",
-                description: "Expertos en actuadores, válvulas y sensores HVAC con tecnología de punta para automatización completa.",
-                logo: "Haften/Marcas/belimo.fw.png",
-                badge: "HVAC/R",
-                features: [
-                    { icon: "fa-solid fa-sliders", title: "Válvulas Control", text: "Regulación eficiente" },
-                    { icon: "fa-solid fa-gear", title: "Actuadores", text: "Control preciso de posición" },
-                    { icon: "fa-solid fa-thermometer", title: "Sensores", text: "Detección de ambiente" }
-                ]
+                name: "Belimo", cat: "hvac", badge: "HVAC/R", logo: "Haften/Marcas/belimo.fw.png",
+                desc: "Expertos en actuadores, válvulas y sensores HVAC con tecnología de punta para automatización completa de edificios.",
+                feats: [{ i: "fa-solid fa-sliders", t: "Válvulas Control", d: "Regulación eficiente" }, { i: "fa-solid fa-gear", t: "Actuadores", d: "Control preciso de posición" }, { i: "fa-solid fa-thermometer", t: "Sensores", d: "Detección de ambiente" }]
             },
             {
-                name: "Bry-Air",
-                category: "hvac",
-                description: "Deshumidificadores industriales de alta capacidad para control de humedad en ambientes críticos.",
-                logo: "Haften/Marcas/4 Bry-Air .png",
-                badge: "Clima",
-                features: [
-                    { icon: "fa-solid fa-droplets", title: "Deshumidificación", text: "Eficiencia máxima" },
-                    { icon: "fa-solid fa-industry", title: "Industrial", text: "Capacidades grandes" },
-                    { icon: "fa-solid fa-leaf", title: "Eco-Friendly", text: "Tecnología verde" }
-                ]
+                name: "Bry-Air", cat: "hvac", badge: "Clima", logo: "Haften/Marcas/4 Bry-Air .png",
+                desc: "Deshumidificadores industriales de alta capacidad para control de humedad en ambientes críticos y de proceso.",
+                feats: [{ i: "fa-solid fa-droplets", t: "Deshumidificación", d: "Eficiencia máxima" }, { i: "fa-solid fa-industry", t: "Industrial", d: "Grandes capacidades" }, { i: "fa-solid fa-leaf", t: "Eco-Friendly", d: "Tecnología eficiente" }]
             },
             {
-                name: "Contemporary Controls",
-                category: "bms",
-                description: "Especialistas en redes BACnet y automatización de edificios con soluciones inteligentes.",
-                logo: "Haften/Marcas/CCSI logo stacked 4 (00000003).png",
-                badge: "BMS",
-                features: [
-                    { icon: "fa-solid fa-network-wired", title: "BACnet", text: "Redes abiertas" },
-                    { icon: "fa-solid fa-building", title: "Automatización", text: "Control de edificios" },
-                    { icon: "fa-solid fa-server", title: "Supervisión", text: "Monitoreo integral" }
-                ]
+                name: "Contemporary Controls", cat: "bms", badge: "BMS", logo: "Haften/Marcas/CCSI logo stacked 4 (00000003).png",
+                desc: "Especialistas en redes BACnet y automatización de edificios con soluciones abiertas e inteligentes.",
+                feats: [{ i: "fa-solid fa-network-wired", t: "BACnet", d: "Redes abiertas" }, { i: "fa-solid fa-building", t: "Automatización", d: "Control de edificios" }, { i: "fa-solid fa-server", t: "Supervisión", d: "Monitoreo integral" }]
             },
             {
-                name: "Control Techniques",
-                category: "automatizacion",
-                description: "Variadores de frecuencia (VFDs) de clase mundial para control eficiente de motores.",
-                logo: "Haften/Marcas/LOG_CT_RGB.png",
-                badge: "Automatización",
-                features: [
-                    { icon: "fa-solid fa-bolt", title: "VFDs", text: "Variadores profesionales" },
-                    { icon: "fa-solid fa-zap", title: "Eficiencia Energética", text: "Ahorro en consumo" },
-                    { icon: "fa-solid fa-sliders", title: "Control Motorizado", text: "Precisión total" }
-                ]
+                name: "Control Techniques", cat: "automatizacion", badge: "Automatización", logo: "Haften/Marcas/LOG_CT_RGB.png",
+                desc: "Variadores de frecuencia (VFDs) de clase mundial para control eficiente y preciso de motores eléctricos.",
+                feats: [{ i: "fa-solid fa-bolt", t: "VFDs", d: "Variadores profesionales" }, { i: "fa-solid fa-plug", t: "Eficiencia Energética", d: "Ahorro en consumo" }, { i: "fa-solid fa-sliders", t: "Control Motorizado", d: "Precisión total" }]
             },
             {
-                name: "Cool Automation",
-                category: "bms",
-                description: "Integración HVAC/IoT y control inteligente para edificios conectados del futuro.",
-                logo: "Haften/Marcas/descarga.png",
-                badge: "IoT / BMS",
-                features: [
-                    { icon: "fa-solid fa-wifi", title: "IoT Integration", text: "Conectividad inteligente" },
-                    { icon: "fa-solid fa-mobile", title: "App Mobile", text: "Control remoto" },
-                    { icon: "fa-solid fa-chart-line", title: "Analytics", text: "Datos en tiempo real" }
-                ]
+                name: "Cool Automation", cat: "bms", badge: "IoT / BMS", logo: "Haften/Marcas/descarga.png",
+                desc: "Integración HVAC/IoT y control inteligente para edificios conectados del futuro.",
+                feats: [{ i: "fa-solid fa-wifi", t: "IoT Integration", d: "Conectividad inteligente" }, { i: "fa-solid fa-mobile", t: "App Mobile", d: "Control remoto" }, { i: "fa-solid fa-chart-line", t: "Analytics", d: "Datos en tiempo real" }]
             },
             {
-                name: "Delta Electronics",
-                category: "automatizacion",
-                description: "Drives industriales y automatización de procesos con tecnología confiable.",
-                logo: "Haften/Marcas/delta-500w-trim-vert.png",
-                badge: "Automatización",
-                features: [
-                    { icon: "fa-solid fa-gears", title: "Industrial Drives", text: "Motores potentes" },
-                    { icon: "fa-solid fa-cogs", title: "Automatización", text: "Procesos eficientes" },
-                    { icon: "fa-solid fa-wrench", title: "Soporte Técnico", text: "Asistencia completa" }
-                ]
+                name: "Delta Electronics", cat: "automatizacion", badge: "Automatización", logo: "Haften/Marcas/delta-500w-trim-vert.png",
+                desc: "Drives industriales y automatización de procesos con tecnología robusta y confiable a nivel mundial.",
+                feats: [{ i: "fa-solid fa-gears", t: "Industrial Drives", d: "Motores potentes" }, { i: "fa-solid fa-cogs", t: "Automatización", d: "Procesos eficientes" }, { i: "fa-solid fa-wrench", t: "Soporte Técnico", d: "Asistencia completa" }]
             },
             {
-                name: "Dwyer Omega",
-                category: "instrumentacion",
-                description: "Instrumentación industrial completa con soluciones confiables para múltiples aplicaciones.",
-                logo: "Haften/Marcas/9.1 -DO-logo-horiz-full-color-TM.png",
-                badge: "Instrumentación",
-                features: [
-                    { icon: "fa-solid fa-ruler", title: "Medición", text: "Variadas opciones" },
-                    { icon: "fa-solid fa-flask", title: "Testing", text: "Control de calidad" },
-                    { icon: "fa-solid fa-shield", title: "Fiabilidad", text: "Altamente confiable" }
-                ]
+                name: "Dwyer Omega", cat: "instrumentacion", badge: "Instrumentación", logo: "Haften/Marcas/9.1 -DO-logo-horiz-full-color-TM.png",
+                desc: "Instrumentación industrial completa: sensores, medidores y controladores para múltiples aplicaciones.",
+                feats: [{ i: "fa-solid fa-ruler", t: "Medición", d: "Variadas opciones" }, { i: "fa-solid fa-flask", t: "Testing", d: "Control de calidad" }, { i: "fa-solid fa-shield", t: "Fiabilidad", d: "Altamente confiable" }]
             },
             {
-                name: "FlowCon",
-                category: "hvac",
-                description: "Válvulas de balanceo y control de caudal para sistemas HVAC equilibrados.",
-                logo: "Haften/Marcas/FlowCon-Logo.png",
-                badge: "HVAC/R",
-                features: [
-                    { icon: "fa-solid fa-water", title: "Válvulas Balanceo", text: "Distribución uniforme" },
-                    { icon: "fa-solid fa-wave-square", title: "Control Caudal", text: "Regulación precisa" },
-                    { icon: "fa-solid fa-leaf", title: "Ahorro Energético", text: "Sistemas eficientes" }
-                ]
+                name: "FlowCon", cat: "hvac", badge: "HVAC/R", logo: "Haften/Marcas/FlowCon-Logo.png",
+                desc: "Válvulas de balanceo y control de caudal para sistemas HVAC equilibrados y de alto rendimiento.",
+                feats: [{ i: "fa-solid fa-water", t: "Válvulas Balanceo", d: "Distribución uniforme" }, { i: "fa-solid fa-wave-square", t: "Control Caudal", d: "Regulación precisa" }, { i: "fa-solid fa-leaf", t: "Ahorro Energético", d: "Sistemas eficientes" }]
             },
             {
-                name: "GPI",
-                category: "instrumentacion",
-                description: "Medidores de flujo de precisión para aplicaciones industriales y comerciales.",
-                logo: "Haften/Marcas/11-GPI-Inc-Logo-Registered.png",
-                badge: "Instrumentación",
-                features: [
-                    { icon: "fa-solid fa-gauge-high", title: "Precisión", text: "Medidas exactas" },
-                    { icon: "fa-solid fa-oil-can", title: "Aplicaciones", text: "Múltiples fluidos" },
-                    { icon: "fa-solid fa-industry", title: "Industrial", text: "Uso profesional" }
-                ]
+                name: "GPI", cat: "instrumentacion", badge: "Instrumentación", logo: "Haften/Marcas/11-GPI-Inc-Logo-Registered.png",
+                desc: "Medidores de flujo de precisión para aplicaciones industriales y comerciales con múltiples fluidos.",
+                feats: [{ i: "fa-solid fa-gauge-high", t: "Precisión", d: "Medidas exactas" }, { i: "fa-solid fa-oil-can", t: "Aplicaciones", d: "Múltiples fluidos" }, { i: "fa-solid fa-industry", t: "Industrial", d: "Uso profesional" }]
             },
             {
-                name: "Greystone Energy",
-                category: "bms",
-                description: "Sensores especializados para sistemas BMS y HVAC con alta confiabilidad.",
-                logo: "Haften/Marcas/Greystone Logo - Pantone 3295 - Large.png",
-                badge: "BMS",
-                features: [
-                    { icon: "fa-solid fa-satellite-dish", title: "Sensores BMS", text: "Detección ambiental" },
-                    { icon: "fa-solid fa-thermometer", title: "Temperatura", text: "Monitoreo continuo" },
-                    { icon: "fa-solid fa-droplet-slash", title: "Humedad", text: "Control de RH" }
-                ]
+                name: "Greystone Energy", cat: "bms", badge: "BMS", logo: "Haften/Marcas/Greystone Logo - Pantone 3295 - Large.png",
+                desc: "Sensores especializados para sistemas BMS y HVAC con alta confiabilidad y amplia gama de medición.",
+                feats: [{ i: "fa-solid fa-satellite-dish", t: "Sensores BMS", d: "Detección ambiental" }, { i: "fa-solid fa-thermometer", t: "Temperatura", d: "Monitoreo continuo" }, { i: "fa-solid fa-droplet-slash", t: "Humedad", d: "Control de RH" }]
             },
             {
-                name: "Johnson Controls",
-                category: "bms",
-                description: "Sistemas de automatización de edificios con soluciones integrales de clase mundial.",
-                logo: "Haften/Marcas/Johnson_Controls.svg.png",
-                badge: "BMS",
-                features: [
-                    { icon: "fa-solid fa-city", title: "Edificios Inteligentes", text: "Automatización total" },
-                    { icon: "fa-solid fa-leaf", title: "Sostenibilidad", text: "Eficiencia energética" },
-                    { icon: "fa-solid fa-chart-line", title: "Analytics", text: "Optimización de datos" }
-                ]
+                name: "Johnson Controls", cat: "bms", badge: "BMS", logo: "Haften/Marcas/Johnson_Controls.svg.png",
+                desc: "Sistemas de automatización de edificios con soluciones integrales de clase mundial y eficiencia energética.",
+                feats: [{ i: "fa-solid fa-city", t: "Edificios Inteligentes", d: "Automatización total" }, { i: "fa-solid fa-leaf", t: "Sostenibilidad", d: "Eficiencia energética" }, { i: "fa-solid fa-chart-line", t: "Analytics", d: "Optimización de datos" }]
             },
             {
-                name: "Loytec",
-                category: "bms",
-                description: "Automatización inteligente de edificios con plataformas abiertas y flexibles.",
-                logo: "Haften/Marcas/14-LOGO Loytec.png",
-                badge: "BMS",
-                features: [
-                    { icon: "fa-solid fa-brain", title: "Inteligencia", text: "Control adaptativo" },
-                    { icon: "fa-solid fa-lock-open", title: "Plataforma Abierta", text: "Compatible" },
-                    { icon: "fa-solid fa-plug", title: "Integración", text: "Múltiples sistemas" }
-                ]
+                name: "Loytec", cat: "bms", badge: "BMS", logo: "Haften/Marcas/14-LOGO Loytec.png",
+                desc: "Automatización inteligente de edificios con plataformas abiertas, flexibles y de fácil integración.",
+                feats: [{ i: "fa-solid fa-brain", t: "Inteligencia", d: "Control adaptativo" }, { i: "fa-solid fa-lock-open", t: "Plataforma Abierta", d: "Compatible" }, { i: "fa-solid fa-plug", t: "Integración", d: "Múltiples sistemas" }]
             },
             {
-                name: "Meitav-Tec",
-                category: "hvac",
-                description: "Calefactores eléctricos industriales para aplicaciones de alta demanda térmica.",
-                logo: "Haften/Marcas/15-meitav-tec.png",
-                badge: "Clima",
-                features: [
-                    { icon: "fa-solid fa-fire", title: "Calefacción", text: "Alto rendimiento" },
-                    { icon: "fa-solid fa-industry", title: "Industrial", text: "Alta potencia" },
-                    { icon: "fa-solid fa-shield", title: "Seguridad", text: "Protecciones múltiples" }
-                ]
+                name: "Meitav-Tec", cat: "hvac", badge: "Clima", logo: "Haften/Marcas/15-meitav-tec.png",
+                desc: "Calefactores eléctricos industriales de alta potencia para aplicaciones de alta demanda térmica.",
+                feats: [{ i: "fa-solid fa-fire", t: "Calefacción", d: "Alto rendimiento" }, { i: "fa-solid fa-industry", t: "Industrial", d: "Alta potencia" }, { i: "fa-solid fa-shield", t: "Seguridad", d: "Protecciones múltiples" }]
             },
             {
-                name: "Neptronic",
-                category: "hvac",
-                description: "Humidificadores de alta tecnología para control preciso de humedad en espacios críticos.",
-                logo: "Haften/Marcas/16- Neptronic-Haften - copia.png",
-                badge: "Humidificación",
-                features: [
-                    { icon: "fa-solid fa-water", title: "Humidificación", text: "Precisión profesional" },
-                    { icon: "fa-solid fa-droplets", title: "Tecnología Avanzada", text: "Sistemas modernos" },
-                    { icon: "fa-solid fa-leaf", title: "Eficiencia", text: "Bajo consumo energético" }
-                ]
+                name: "Neptronic", cat: "hvac", badge: "Humidificación", logo: "Haften/Marcas/16- Neptronic-Haften - copia.png",
+                desc: "Humidificadores de alta tecnología para control preciso de humedad en espacios críticos y comerciales.",
+                feats: [{ i: "fa-solid fa-water", t: "Humidificación", d: "Precisión profesional" }, { i: "fa-solid fa-droplets", t: "Tecnología Avanzada", d: "Sistemas modernos" }, { i: "fa-solid fa-leaf", t: "Eficiencia", d: "Bajo consumo energético" }]
             },
             {
-                name: "ONICON",
-                category: "energia",
-                description: "Medición de energía y caudal BTU para monitoreo energético completo.",
-                logo: "Haften/Marcas/Logos_ONICON Logo (2).png",
-                badge: "Energía",
-                features: [
-                    { icon: "fa-solid fa-plug", title: "Medición Energía", text: "Monitoreo eléctrico" },
-                    { icon: "fa-solid fa-fire", title: "BTU Térmica", text: "Cálculo de energía" },
-                    { icon: "fa-solid fa-chart-column", title: "Reportes", text: "Análisis detallados" }
-                ]
+                name: "ONICON", cat: "energia", badge: "Energía", logo: "Haften/Marcas/Logos_ONICON Logo (2).png",
+                desc: "Medición de energía y caudal BTU para monitoreo energético integral en edificios e industria.",
+                feats: [{ i: "fa-solid fa-plug", t: "Medición Energía", d: "Monitoreo eléctrico" }, { i: "fa-solid fa-fire", t: "BTU Térmica", d: "Cálculo de energía" }, { i: "fa-solid fa-chart-column", t: "Reportes", d: "Análisis detallados" }]
             },
             {
-                name: "Senva",
-                category: "bms",
-                description: "Sensores especializados para control de edificios con precisión garantizada.",
-                logo: "Haften/Marcas/Senva-Logo-BLK-2022 (002).png",
-                badge: "BMS",
-                features: [
-                    { icon: "fa-solid fa-eye", title: "Detección", text: "Sensores precisos" },
-                    { icon: "fa-solid fa-wifi", title: "Conectividad", text: "Redes inalámbricas" },
-                    { icon: "fa-solid fa-check-circle", title: "Confiabilidad", text: "Tecnología probada" }
-                ]
+                name: "Senva", cat: "bms", badge: "BMS", logo: "Haften/Marcas/Senva-Logo-BLK-2022 (002).png",
+                desc: "Sensores especializados para control de edificios con precisión garantizada y amplia compatibilidad.",
+                feats: [{ i: "fa-solid fa-eye", t: "Detección", d: "Sensores precisos" }, { i: "fa-solid fa-wifi", t: "Conectividad", d: "Redes inalámbricas" }, { i: "fa-solid fa-check-circle", t: "Confiabilidad", d: "Tecnología probada" }]
             },
             {
-                name: "Setra",
-                category: "instrumentacion",
-                description: "Sensores de presión de alta precisión para aplicaciones críticas.",
-                logo: "Haften/Marcas/1200px-Setra_Systems_Logo.png",
-                badge: "Instrumentación",
-                features: [
-                    { icon: "fa-solid fa-gauge", title: "Presión", text: "Medición exacta" },
-                    { icon: "fa-solid fa-microscope", title: "Precisión", text: "Valores muy fiables" },
-                    { icon: "fa-solid fa-cog", title: "Aplicaciones", text: "Uso especializado" }
-                ]
+                name: "Setra", cat: "instrumentacion", badge: "Instrumentación", logo: "Haften/Marcas/1200px-Setra_Systems_Logo.png",
+                desc: "Sensores de presión de alta precisión para aplicaciones críticas en cuartos limpios, hospitales y más.",
+                feats: [{ i: "fa-solid fa-gauge", t: "Presión", d: "Medición exacta" }, { i: "fa-solid fa-microscope", t: "Precisión", d: "Valores muy fiables" }, { i: "fa-solid fa-cog", t: "Aplicaciones", d: "Uso especializado" }]
             },
             {
-                name: "Vaisala",
-                category: "instrumentacion",
-                description: "Sensores ambientales de alta precisión para monitoreo profesional.",
-                logo: "Haften/Marcas/19 Vaisala-authorized-parter-logo-blue-cmyk.png",
-                badge: "Ambiental",
-                features: [
-                    { icon: "fa-solid fa-cloud", title: "Ambiente", text: "Condiciones climáticas" },
-                    { icon: "fa-solid fa-droplet", title: "Humedad", text: "Medición precisa RH" },
-                    { icon: "fa-solid fa-wind", title: "Gases", text: "Composición del aire" }
-                ]
+                name: "Vaisala", cat: "instrumentacion", badge: "Ambiental", logo: "Haften/Marcas/19 Vaisala-authorized-parter-logo-blue-cmyk.png",
+                desc: "Sensores ambientales de alta precisión para monitoreo profesional de temperatura, humedad y gases.",
+                feats: [{ i: "fa-solid fa-cloud", t: "Ambiente", d: "Condiciones climáticas" }, { i: "fa-solid fa-droplet", t: "Humedad", d: "Medición precisa RH" }, { i: "fa-solid fa-wind", t: "Gases", d: "Composición del aire" }]
             }
         ];
 
-        // RENDER BRANDS
-        function renderBrands(filter = 'all') {
+        // ── RENDER
+        function render(filter = 'all') {
             const grid = document.getElementById('brandsGrid');
             grid.innerHTML = '';
+            const list = filter === 'all' ? brands : brands.filter(b => b.cat === filter);
+            document.getElementById('countNum').textContent = list.length;
 
-            const filtered = filter === 'all' ? brandsData : brandsData.filter(b => b.category === filter);
-
-            filtered.forEach((brand, index) => {
-                const delayClass = ['d1', 'd2', 'd3', 'd4'][index % 4];
+            list.forEach((b, i) => {
+                const d = ['d1', 'd2', 'd3', 'd4'][i % 4];
                 const card = document.createElement('div');
-                card.className = `brand-card-full ${delayClass}`;
+                card.className = `brand-card reveal ${d}`;
                 card.innerHTML = `
-                    <div class="brand-card-header">
-                        <img class="brand-logo-img" src="${brand.logo}" alt="${brand.name}">
-                    </div>
-                    <div class="brand-card-content">
-                        <h3>${brand.name}</h3>
-                        <p>${brand.description}</p>
-                    </div>
-                    <div class="brand-card-footer">
-                        <span class="brand-card-badge">${brand.badge}</span>
-                        <button class="btn-view-details" onclick="openBrandModal('${brand.name.replace(/'/g, "\\'")}')">
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </div>
-                `;
+      <div class="bc-logo-area">
+        <img class="bc-logo" src="${b.logo}" alt="${b.name}" onerror="this.style.opacity='.3'">
+      </div>
+      <div class="bc-body">
+        <div class="bc-header">
+          <span class="bc-name">${b.name}</span>
+          <span class="bc-badge">${b.badge}</span>
+        </div>
+        <p class="bc-desc">${b.desc}</p>
+        <div class="bc-features">
+          ${b.feats.map(f => `<span class="bc-feat"><i class="${f.i}"></i>${f.t}</span>`).join('')}
+        </div>
+      </div>
+      <div class="bc-action">
+        <button class="bc-btn" onclick="openModal('${b.name.replace(/'/g, "\\'")}')">
+          Ver detalles <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>`;
                 grid.appendChild(card);
             });
+
+            // Re-observe reveals
+            document.querySelectorAll('.brand-card.reveal').forEach(el => io.observe(el));
         }
 
-        // MODAL FUNCTIONS
-        function openBrandModal(brandName) {
-            const brand = brandsData.find(b => b.name === brandName);
-            if (!brand) return;
-
-            document.getElementById('modalLogoImg').src = brand.logo;
-            document.getElementById('modalTitle').textContent = brand.name;
-            document.getElementById('modalCategory').textContent = brand.badge;
-            document.getElementById('modalDescription').textContent = brand.description;
-
-            const featuresHtml = brand.features.map(f => `
-                <div class="modal-feature">
-                    <div class="modal-feature-icon"><i class="${f.icon}"></i></div>
-                    <div class="modal-feature-text">
-                        <strong>${f.title}</strong>
-                        <p>${f.text}</p>
-                    </div>
-                </div>
-            `).join('');
-            document.getElementById('modalFeatures').innerHTML = featuresHtml;
-
+        // ── MODAL
+        function openModal(name) {
+            const b = brands.find(x => x.name === name); if (!b) return;
+            document.getElementById('modalLogo').src = b.logo;
+            document.getElementById('mTitle').textContent = b.name;
+            document.getElementById('mCat').textContent = b.badge;
+            document.getElementById('mDesc').textContent = b.desc;
+            document.getElementById('mFeats').innerHTML = b.feats.map(f => `
+    <div class="mf">
+      <div class="mf-icon"><i class="${f.i}"></i></div>
+      <div class="mf-text"><strong>${f.t}</strong><p>${f.d}</p></div>
+    </div>`).join('');
             document.getElementById('brandModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-
-        function closeBrandModal() {
+        function closeModal() {
             document.getElementById('brandModal').classList.remove('active');
             document.body.style.overflow = 'auto';
         }
+        document.getElementById('brandModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-        // FILTER BUTTONS
-        document.querySelectorAll('.filter-btn').forEach(btn => {
+        // ── FILTERS
+        document.querySelectorAll('.fbtn').forEach(btn => {
             btn.addEventListener('click', function () {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-                renderBrands(this.dataset.filter);
+                render(this.dataset.filter);
             });
         });
 
-        // CLOSE MODAL ON CLICK OUTSIDE
-        document.getElementById('brandModal').addEventListener('click', function (e) {
-            if (e.target === this) closeBrandModal();
-        });
+        // ── REVEAL IO
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+        }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-        // KEYBOARD CLOSE
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeBrandModal();
-        });
+        // ── LOADER
+        window.addEventListener('load', () => { setTimeout(() => document.getElementById('page-loader').classList.add('gone'), 1600); });
 
-        // INITIAL RENDER
-        renderBrands();
+        // ── NAVBAR
+        window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10); }, { passive: true });
 
-        // Mobile menu toggle
-        const menuBtn = document.getElementById('menu-toggle');
-        const navMenu = document.getElementById('nav-links');
-        if (menuBtn && navMenu) {
-            menuBtn.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                menuBtn.classList.toggle('active');
-            });
-            navMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navMenu.classList.remove('active');
-                    menuBtn.classList.remove('active');
-                });
-            });
-        }
+        // ── HAMBURGER
+        const mBtn = document.getElementById('menu-toggle');
+        const mNav = document.getElementById('nav-links');
+        mBtn.addEventListener('click', () => { const o = mNav.classList.toggle('open'); mBtn.classList.toggle('open', o); mBtn.setAttribute('aria-expanded', o); });
+        mNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { mNav.classList.remove('open'); mBtn.classList.remove('open'); }));
+        document.addEventListener('click', e => { if (!document.getElementById('navbar').contains(e.target)) { mNav.classList.remove('open'); mBtn.classList.remove('open'); } });
 
-        // Splash Screen Loader
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('page-loader');
-            if (loader) {
-                setTimeout(() => {
-                    loader.classList.add('fade-out');
-                }, 500);
-            }
-        });
+        // ── ACCENT
+        const tBtn = document.getElementById('theme-btn');
+        const aPanel = document.getElementById('accent-panel');
+        const swatches = document.querySelectorAll('.ac-swatch');
+        tBtn.addEventListener('click', e => { e.stopPropagation(); aPanel.classList.toggle('open'); });
+        document.addEventListener('click', e => { if (!aPanel.contains(e.target) && e.target !== tBtn) aPanel.classList.remove('open'); });
+        const saved = localStorage.getItem('haften-accent') || 'red';
+        applyAccent(saved);
+        swatches.forEach(sw => sw.addEventListener('click', () => { applyAccent(sw.dataset.accent); localStorage.setItem('haften-accent', sw.dataset.accent); aPanel.classList.remove('open'); }));
+        function applyAccent(a) { document.documentElement.setAttribute('data-accent', a); swatches.forEach(sw => sw.classList.toggle('active', sw.dataset.accent === a)); }
+
+        // ── LANG
+        document.querySelectorAll('.lang-opt').forEach(o => o.addEventListener('click', () => { document.querySelectorAll('.lang-opt').forEach(x => x.classList.remove('active')); o.classList.add('active'); }));
+
+        // ── INIT
+        render();
     </script>
 </body>
 
