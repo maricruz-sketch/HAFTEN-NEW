@@ -8,247 +8,1280 @@
     <meta name="description"
         content="Conoce a Haften: especialistas en comercialización de productos de control e instrumentación para sistemas HVAC/R-BMS en México." />
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" />
     <link rel="stylesheet" href="haften.css" />
     <style>
-        /* page-specific only */
-        .about-intro-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 72px;
-            align-items: center;
+        /* ─── NAVBAR RESPONSIVE MEJORADO ─── */
+        html,
+        body {
+            max-width: 100vw;
+            overflow-x: hidden;
         }
 
-        .about-img-wrap {
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: clamp(10px, 2vw, 18px) clamp(16px, 5vw, 52px);
             position: relative;
         }
 
-        .about-img-wrap img {
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: clamp(14px, 2.2vw, 36px);
+            margin: 0;
+            flex-wrap: nowrap !important;
+        }
+
+        #menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            margin-left: 0;
+            transition: transform 0.3s ease;
+        }
+
+        #menu-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        #menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            background-color: var(--ac, #C1272D);
+            margin: 5.5px 0;
+            border-radius: 2px;
+            transition: all 0.35s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        #menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(11px, 11px);
+        }
+
+        #menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-8px);
+        }
+
+        #menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        @media (max-width: 1220px) {
+            #menu-toggle {
+                display: block;
+            }
+
+            .nav-settings {
+                display: flex;
+                align-items: center;
+                margin-left: auto;
+                gap: clamp(10px, 2vw, 16px);
+                margin-right: 10px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: var(--nav-h, 70px);
+                left: 0;
+                width: 100%;
+                max-height: calc(100vh - 70px);
+                background: #ffffff;
+                flex-direction: column;
+                align-items: stretch;
+                padding: clamp(20px, 5vw, 32px);
+                box-shadow: 0 12px 48px rgba(0, 0, 0, .15);
+                z-index: 9998;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-20px);
+                transition: all 0.38s cubic-bezier(.34, .67, .36, 1.56);
+                overflow-y: auto;
+            }
+
+            .nav-links.active,
+            .nav-links.open,
+            .nav-links.show {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .nav-link {
+                padding: clamp(10px, 2vw, 16px) clamp(12px, 2vw, 18px);
+                border-radius: 10px;
+                font-size: clamp(0.9rem, 2.5vw, 1rem);
+                transition: all 0.26s cubic-bezier(.4, 0, .2, 1);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--text);
+            }
+
+            .nav-link:hover {
+                background: rgba(193, 39, 45, 0.08);
+                color: var(--ac);
+                transform: translateX(4px);
+            }
+
+            .nav-link.active {
+                color: var(--ac);
+            }
+
+            .nav-cta {
+                display: flex;
+                align-items: center;
+                margin-top: clamp(12px, 3vw, 20px);
+                padding: clamp(11px, 2vw, 14px) clamp(16px, 3vw, 22px);
+                width: 100%;
+                justify-content: center;
+                background: var(--ac);
+                color: #fff;
+                border-radius: 8px;
+                font-weight: 600;
+                gap: 8px;
+            }
+
+            .nav-logo img {
+                max-height: clamp(32px, 8vw, 48px);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .nav-inner {
+                padding: 10px clamp(12px, 4vw, 28px);
+            }
+
+            .nav-settings {
+                gap: 8px;
+                margin-right: 8px;
+            }
+
+            .nav-logo-text {
+                font-size: clamp(0.95rem, 3vw, 1.2rem) !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-inner {
+                padding: 8px clamp(10px, 3vw, 16px);
+            }
+
+            .nav-links {
+                padding: clamp(16px, 4vw, 24px);
+            }
+
+            .nav-link {
+                font-size: 0.92rem;
+                padding: 10px 12px;
+            }
+
+            .nav-settings {
+                gap: 6px;
+            }
+
+            .lang-pill {
+                transform: scale(0.85);
+                transform-origin: right center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-inner {
+                padding: 8px 10px;
+            }
+
+            .nav-logo-text {
+                font-size: 0.9rem !important;
+            }
+
+            .nav-settings {
+                transform: scale(0.9);
+                transform-origin: right center;
+            }
+        }
+
+        /* ─── HERO ─── */
+        .hero-nos {
+            position: relative;
+            overflow: hidden;
+            height: 100svh;
+            min-height: 600px;
+            margin-top: var(--nav-h, 70px);
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .hero-nos-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-nos-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .hero-nos-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(160deg, rgba(26, 10, 8, .42) 0%, rgba(26, 10, 8, .60) 50%, rgba(26, 10, 8, .82) 100%);
+        }
+
+        .hero-nos-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 clamp(24px, 6vw, 80px) clamp(60px, 12vw, 100px);
             width: 100%;
         }
 
-        .about-badge {
-            position: absolute;
-            bottom: -20px;
-            right: -20px;
-            background: var(--ac);
-            color: #fff;
-            border-radius: var(--radius);
-            padding: 20px 24px;
-            text-align: center;
-            box-shadow: var(--shadow-md);
-        }
-
-        .about-badge strong {
-            display: block;
-            font-size: 2.2rem;
-            font-weight: 900;
-        }
-
-        .about-badge span {
-            font-size: .82rem;
-            opacity: .9;
-            font-weight: 500;
-        }
-
-        .about-text {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .about-text h2 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: clamp(1.7rem, 3vw, 2.4rem);
-            font-weight: 800;
-            line-height: 1.2;
-            letter-spacing: -.03em;
-        }
-
-        .about-text h2 span {
-            color: var(--ac);
-        }
-
-        .about-text p {
-            color: var(--text-2);
-            font-size: 1rem;
-            line-height: 1.75;
-        }
-
-        .about-quote {
-            border-left: 4px solid var(--ac);
-            background: var(--ac-light);
-            padding: 16px 22px;
-            border-radius: 0 var(--radius) var(--radius) 0;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--ac-dark);
-            font-style: italic;
-        }
-
-        .brands-listed {
-            background: var(--bg-2);
-            padding: 70px 0;
-        }
-
-        .brands-tag-cloud {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 36px;
-        }
-
-        .brand-tag {
+        .hero-nos-eyebrow {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: #fff;
-            border: 1.5px solid var(--border);
+            gap: 10px;
+            padding: clamp(6px, 1.5vw, 10px) clamp(14px, 2vw, 24px);
+            background: rgba(255, 255, 255, .12);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, .22);
             border-radius: 100px;
-            font-size: .88rem;
-            font-weight: 600;
-            color: var(--text);
-            box-shadow: var(--shadow-sm);
-            transition: var(--tr);
+            font-size: clamp(.65rem, 1.8vw, .8rem);
+            font-weight: 700;
+            letter-spacing: .16em;
+            color: #fff;
+            text-transform: uppercase;
+            margin-bottom: clamp(16px, 3vw, 28px);
+            opacity: 0;
+            animation: heroIn .8s .3s cubic-bezier(.34, 1.56, .64, 1) forwards;
         }
 
-        .brand-tag:hover {
-            border-color: var(--ac);
-            color: var(--ac);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(var(--ac-rgb), .15);
+        .hero-nos-eyebrow i {
+            color: rgba(255, 255, 255, .7);
         }
 
-        .brand-tag img {
-            height: 22px;
-            width: auto;
-            object-fit: contain;
+        .hero-nos-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(2.2rem, 6vw, 4.4rem);
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.05;
+            letter-spacing: -.04em;
+            margin-bottom: clamp(16px, 2.5vw, 28px);
+            opacity: 0;
+            animation: heroIn .9s .45s cubic-bezier(.34, 1.56, .64, 1) forwards;
         }
 
-        .products-section {
-            padding: 80px 0;
+        .hero-nos-heading .ac-word {
+            color: #ffccc7;
         }
 
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 40px;
+        .hero-nos-sub {
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            color: rgba(255, 255, 255, .8);
+            max-width: 480px;
+            line-height: 1.7;
+            opacity: 0;
+            animation: heroIn .8s .6s ease forwards;
         }
 
-        .product-item {
+        .hero-nos-scroll {
+            position: absolute;
+            bottom: clamp(20px, 4vw, 40px);
+            right: clamp(24px, 5vw, 80px);
+            z-index: 3;
             display: flex;
-            align-items: flex-start;
-            gap: 14px;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: heroIn .7s 1.1s ease forwards;
+        }
+
+        .hero-nos-scroll span {
+            font-size: clamp(.6rem, 1.5vw, .75rem);
+            letter-spacing: .18em;
+            color: rgba(255, 255, 255, .4);
+            text-transform: uppercase;
+            writing-mode: vertical-rl;
+        }
+
+        .scroll-line-nos {
+            width: 1px;
+            height: 48px;
+            background: rgba(255, 255, 255, .2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-line-nos::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: #fff;
+            animation: scrollLine 1.6s ease infinite;
+        }
+
+        @keyframes scrollLine {
+            0% {
+                transform: translateY(-100%);
+                opacity: 1;
+            }
+
+            80% {
+                transform: translateY(200%);
+                opacity: .5;
+            }
+
+            100% {
+                transform: translateY(200%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes heroIn {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ─── LAYOUT ─── */
+        .container-nos {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 5vw, 52px);
+        }
+
+        .section-nos {
+            padding: clamp(60px, 12vw, 112px) 0;
+        }
+
+        .bg2 {
+            background: #f9f8f6;
+        }
+
+        .bg3 {
+            background: #f2f0ed;
+        }
+
+        /* ─── PILL ─── */
+        .pill-nos {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: clamp(.65rem, 1.5vw, .75rem);
+            font-weight: 700;
+            letter-spacing: .17em;
+            text-transform: uppercase;
+            color: var(--ac);
+            padding: clamp(5px, 1vw, 8px) clamp(12px, 2vw, 16px);
+            border-radius: 100px;
+            background: var(--ac-light);
+            border: 1px solid rgba(232, 37, 26, .2);
+            margin-bottom: clamp(14px, 2vw, 20px);
+        }
+
+        /* ─── SECTION HEADINGS ─── */
+        .sec-title-nos {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -.035em;
+            color: var(--text);
+            margin-bottom: clamp(12px, 2vw, 16px);
+        }
+
+        .sec-title-nos span {
+            color: var(--ac);
+        }
+
+        .sec-sub-nos {
+            font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+            color: var(--text-2);
+            line-height: 1.75;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        /* ─── INTRO SPLIT ─── */
+        .intro-grid-nos {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: clamp(40px, 8vw, 72px);
+            align-items: center;
+        }
+
+        .intro-visual-nos {
+            position: relative;
+        }
+
+        .intro-photo-nos {
+            width: 100%;
+            border-radius: clamp(20px, 4vw, 32px);
+            box-shadow: 0 24px 64px rgba(26, 26, 46, .14);
+            display: block;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+        }
+
+        .intro-bar-nos {
+            position: absolute;
+            top: 40px;
+            left: -14px;
+            width: 4px;
+            height: 110px;
+            background: linear-gradient(to bottom, var(--ac), transparent);
+            border-radius: 4px;
+        }
+
+        .intro-badge-nos {
+            position: absolute;
+            bottom: clamp(-16px, -2vw, -20px);
+            right: clamp(4px, 2vw, -18px);
+            background: var(--ac);
+            color: #fff;
+            border-radius: clamp(10px, 2vw, 14px);
+            padding: clamp(16px, 2vw, 22px) clamp(18px, 3vw, 26px);
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(26, 26, 46, .10);
+            min-width: 130px;
+        }
+
+        .intro-badge-num-nos {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(2rem, 4vw, 2.6rem);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -.05em;
+            display: block;
+        }
+
+        .intro-badge-lbl-nos {
+            font-size: clamp(.7rem, 1.5vw, .8rem);
+            font-weight: 600;
+            opacity: .88;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .intro-text-nos {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(16px, 2vw, 24px);
+        }
+
+        .intro-heading-nos {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -.035em;
+        }
+
+        .intro-heading-nos span {
+            color: var(--ac);
+        }
+
+        .intro-body-nos {
+            font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+            line-height: 1.8;
+            color: var(--text-2);
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        .intro-body-nos strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .intro-quote-nos {
+            border-left: 4px solid var(--ac);
+            background: var(--ac-light);
+            padding: clamp(12px, 2vw, 18px) clamp(16px, 2vw, 24px);
+            border-radius: 0 14px 14px 0;
+            font-style: italic;
+            font-weight: 700;
+            font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+            color: var(--ac-dark);
+        }
+
+        /* ─── STATS BAND ─── */
+        .stats-band-nos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            overflow: hidden;
+            margin-top: clamp(50px, 8vw, 80px);
+        }
+
+        .stat-cell-nos {
+            background: #fff;
+            padding: clamp(24px, 4vw, 40px) clamp(16px, 3vw, 28px);
+            text-align: center;
+            transition: all .26s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .stat-cell-nos:hover {
+            background: var(--ac-light);
+        }
+
+        .stat-num-nos {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(2rem, 4vw, 2.6rem);
+            font-weight: 900;
+            color: var(--ac);
+            letter-spacing: -.05em;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-lbl-nos {
+            font-size: clamp(.75rem, 1.5vw, .9rem);
+            font-weight: 600;
+            color: var(--text-2);
+        }
+
+        /* ─── PRODUCTOS ─── */
+        .prod-grid-nos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: clamp(16px, 2vw, 24px);
+            margin-top: clamp(36px, 5vw, 52px);
+        }
+
+        .prod-card-nos {
             background: #fff;
             border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px 18px;
-            transition: var(--tr);
+            border-radius: clamp(16px, 3vw, 22px);
+            padding: clamp(20px, 3vw, 32px) clamp(16px, 3vw, 24px) clamp(16px, 3vw, 28px);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: all .26s cubic-bezier(.4, 0, .2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: default;
         }
 
-        .product-item:hover {
+        .prod-card-nos::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0;
+            background: var(--ac);
+            border-radius: 0 0 3px 0;
+            transition: height .36s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .prod-card-nos:hover::before {
+            height: 100%;
+        }
+
+        .prod-card-nos:hover {
             border-color: var(--ac);
-            box-shadow: var(--shadow-sm);
-            transform: translateX(4px);
+            box-shadow: 0 16px 48px rgba(232, 37, 26, .10);
+            transform: translateY(-5px);
         }
 
-        .product-item-icon {
-            width: 38px;
-            height: 38px;
-            flex-shrink: 0;
+        .prod-icon-nos {
+            width: clamp(56px, 8vw, 64px);
+            height: clamp(56px, 8vw, 64px);
+            border-radius: clamp(12px, 2vw, 16px);
             background: var(--ac-light);
-            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all .26s cubic-bezier(.4, 0, .2, 1);
+            flex-shrink: 0;
+        }
+
+        .prod-icon-nos i {
+            font-size: clamp(1.3rem, 2vw, 1.55rem);
             color: var(--ac);
-            font-size: 1rem;
+            transition: all .26s cubic-bezier(.4, 0, .2, 1);
         }
 
-        .product-item p {
-            font-size: .9rem;
-            color: var(--text-2);
-            line-height: 1.5;
-        }
-
-        .offices-section {
+        .prod-card-nos:hover .prod-icon-nos {
             background: var(--ac);
-            padding: 70px 0;
         }
 
-        .offices-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-            margin-top: 40px;
+        .prod-card-nos:hover .prod-icon-nos i {
+            color: #fff;
+            transform: scale(1.12);
         }
 
-        .office-card {
-            background: rgba(255, 255, 255, .12);
-            border: 1px solid rgba(255, 255, 255, .2);
-            border-radius: var(--radius);
-            padding: 28px 20px;
+        .prod-card-nos h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(.9rem, 1.8vw, .95rem);
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.35;
+        }
+
+        .prod-card-nos p {
+            font-size: clamp(.8rem, 1.5vw, .85rem);
+            color: var(--text-3);
+            line-height: 1.55;
+            flex: 1;
+        }
+
+        .prod-tag-nos {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: clamp(.65rem, 1.2vw, .75rem);
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--ac);
+            opacity: .7;
+            transition: all .26s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .prod-card-nos:hover .prod-tag-nos {
+            opacity: 1;
+        }
+
+        .prod-tag-nos i {
+            font-size: .65rem;
+        }
+
+        /* ─── MARCAS ─── */
+        .marquee-nos {
+            position: relative;
+            overflow: hidden;
+            margin-top: clamp(36px, 5vw, 52px);
+        }
+
+        .marquee-nos::before,
+        .marquee-nos::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: clamp(60px, 10vw, 120px);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .marquee-nos::before {
+            left: 0;
+            background: linear-gradient(to right, #f2f0ed, transparent);
+        }
+
+        .marquee-nos::after {
+            right: 0;
+            background: linear-gradient(to left, #f2f0ed, transparent);
+        }
+
+        .marquee-track-nos {
+            display: flex;
+            width: max-content;
+            animation: marquee 30s linear infinite;
+            gap: clamp(10px, 2vw, 14px);
+            padding: 6px 0;
+        }
+
+        .marquee-track-nos:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0)
+            }
+
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        .m-pill-nos {
+            display: inline-flex;
+            align-items: center;
+            gap: clamp(8px, 1.5vw, 10px);
+            padding: clamp(9px, 1.5vw, 12px) clamp(16px, 2vw, 22px);
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: 100px;
+            font-size: clamp(.8rem, 1.5vw, .9rem);
+            font-weight: 700;
+            color: var(--text);
+            box-shadow: 0 2px 10px rgba(26, 26, 46, .06);
+            white-space: nowrap;
+            transition: all .26s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .m-pill-nos:hover {
+            border-color: var(--ac);
+            color: var(--ac);
+            transform: translateY(-2px);
+        }
+
+        .m-pill-nos img {
+            height: clamp(14px, 2vw, 18px);
+            width: clamp(40px, 8vw, 54px);
+            object-fit: contain;
+            object-position: left;
+            filter: grayscale(1) opacity(.5);
+            transition: all .26s;
+        }
+
+        .m-pill-nos:hover img {
+            filter: none;
+        }
+
+        .brand-chips-nos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(8px, 2vw, 12px);
+            margin-top: clamp(24px, 4vw, 36px);
+        }
+
+        .bc-nos {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: clamp(7px, 1.5vw, 10px) clamp(14px, 2vw, 18px);
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: 100px;
+            font-size: clamp(.75rem, 1.5vw, .85rem);
+            font-weight: 600;
+            color: var(--text-2);
+            transition: all .26s;
+            cursor: default;
+        }
+
+        .bc-nos:hover {
+            border-color: var(--ac);
+            color: var(--ac);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 10px rgba(26, 26, 46, .06);
+        }
+
+        .bc-dot-nos {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--ac);
+            opacity: .5;
+            flex-shrink: 0;
+        }
+
+        /* ─── OFICINAS ─── */
+        .offices-nos {
+            background: var(--ac);
+            padding: clamp(60px, 12vw, 96px) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offices-nos::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, .06) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
+
+        .offices-nos::after {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 480px;
+            height: 480px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, .10) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .off-heading-nos {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.8rem, 3.2vw, 2.7rem);
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -.04em;
+            margin-bottom: clamp(8px, 1.5vw, 14px);
+        }
+
+        .off-heading-nos span {
+            color: rgba(255, 255, 255, .5);
+            font-style: italic;
+        }
+
+        .off-sub-nos {
+            font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+            color: rgba(255, 255, 255, .72);
+        }
+
+        .offices-flex-nos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(12px, 2vw, 20px);
+            margin-top: clamp(36px, 6vw, 52px);
+            justify-content: center;
+        }
+
+        .off-card-nos {
+            flex: 1 1 clamp(150px, 20vw, 200px);
+            background: rgba(255, 255, 255, .13);
+            border: 1px solid rgba(255, 255, 255, .22);
+            border-radius: clamp(10px, 2vw, 16px);
+            padding: clamp(20px, 3vw, 32px) clamp(16px, 2vw, 24px);
             text-align: center;
-            transition: var(--tr);
+            transition: all .26s;
         }
 
-        .office-card:hover {
+        .off-card-nos:hover {
             background: rgba(255, 255, 255, .22);
-            transform: translateY(-4px);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, .12);
         }
 
-        .office-icon {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
+        .off-icon-nos {
+            width: clamp(40px, 6vw, 52px);
+            height: clamp(40px, 6vw, 52px);
+            border-radius: clamp(8px, 2vw, 14px);
+            background: rgba(255, 255, 255, .18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #fff;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin: 0 auto clamp(10px, 2vw, 16px);
+            transition: all .26s;
         }
 
-        .office-name {
-            color: #fff;
+        .off-card-nos:hover .off-icon-nos {
+            background: rgba(255, 255, 255, .32);
+        }
+
+        .off-city-nos {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
             font-weight: 800;
-            font-size: 1rem;
+            color: #fff;
+            letter-spacing: -.02em;
         }
 
-        .office-sub {
-            color: rgba(255, 255, 255, .75);
-            font-size: .8rem;
+        .off-type-nos {
+            font-size: clamp(.65rem, 1.3vw, .8rem);
+            font-weight: 600;
+            color: rgba(255, 255, 255, .55);
             margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: .1em;
         }
 
-        @media(max-width:900px) {
-            .about-intro-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
+        .off-type-nos.main {
+            color: rgba(255, 255, 255, .92);
+            font-weight: 700;
+        }
+
+        /* ─── REVEAL ─── */
+        .rv {
+            opacity: 0;
+            transform: translateY(26px);
+            transition: opacity .65s ease, transform .65s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .rvl {
+            opacity: 0;
+            transform: translateX(-28px);
+            transition: opacity .65s ease, transform .65s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .rvr {
+            opacity: 0;
+            transform: translateX(28px);
+            transition: opacity .65s ease, transform .65s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .rv.on,
+        .rvl.on,
+        .rvr.on {
+            opacity: 1;
+            transform: none;
+        }
+
+        .d1 {
+            transition-delay: .05s
+        }
+
+        .d2 {
+            transition-delay: .12s
+        }
+
+        .d3 {
+            transition-delay: .19s
+        }
+
+        .d4 {
+            transition-delay: .26s
+        }
+
+        .d5 {
+            transition-delay: .33s
+        }
+
+        .d6 {
+            transition-delay: .40s
+        }
+
+        /* ─── FOOTER MEJORADO ─── */
+        .site-footer {
+            background: #1a1a2e;
+            color: #f9f8f6;
+            padding: clamp(48px, 8vw, 80px) 0 clamp(24px, 4vw, 40px);
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-footer::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 20% 50%, rgba(193, 39, 45, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .footer-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 5vw, 52px);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(240px, 20vw, 280px), 1fr));
+            gap: clamp(36px, 5vw, 56px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-grid>div:first-child {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(220px, 25vw, 300px), 1fr));
+            gap: clamp(32px, 5vw, 48px);
+            padding-bottom: clamp(28px, 4vw, 40px);
+            border-bottom: 1px solid rgba(255, 255, 255, .12);
+        }
+
+        .footer-logo {
+            max-height: clamp(32px, 6vw, 48px);
+            width: auto;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .footer-logo-text {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -.02em;
+            margin-bottom: 14px;
+        }
+
+        .footer-logo-text span {
+            color: #ffccc7;
+        }
+
+        .footer-desc {
+            font-size: clamp(0.85rem, 1.6vw, 0.95rem);
+            line-height: 1.6;
+            color: rgba(255, 255, 255, .65);
+            margin: 0;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(14px, 2vw, 18px);
+        }
+
+        .footer-col h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -.02em;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            width: clamp(20px, 3vw, 28px);
+            height: 2px;
+            background: linear-gradient(90deg, var(--ac), transparent);
+            border-radius: 1px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(10px, 1.5vw, 14px);
+        }
+
+        .footer-col a {
+            color: rgba(255, 255, 255, .65);
+            text-decoration: none;
+            font-size: clamp(0.82rem, 1.5vw, 0.92rem);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.28s cubic-bezier(.4, 0, .2, 1);
+            padding: 4px 0;
+        }
+
+        .footer-col a:hover {
+            color: #ffccc7;
+            transform: translateX(4px);
+        }
+
+        .footer-col i {
+            color: rgba(193, 39, 45, 0.6);
+            font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+            transition: color 0.28s ease;
+        }
+
+        .footer-col a:hover i {
+            color: #ffccc7;
+            transform: scale(1.15);
+        }
+
+        .footer-bottom {
+            max-width: 1300px;
+            margin: clamp(28px, 4vw, 40px) auto 0;
+            padding: clamp(20px, 3vw, 28px) clamp(16px, 5vw, 52px) 0;
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: clamp(20px, 3vw, 32px);
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-copy {
+            font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+            color: rgba(255, 255, 255, .45);
+            display: block;
+        }
+
+        .footer-copy a {
+            color: #ffccc7;
+            text-decoration: none;
+            transition: color 0.28s ease;
+        }
+
+        .footer-copy a:hover {
+            color: #fff;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: clamp(12px, 2vw, 18px);
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .footer-social a {
+            width: clamp(32px, 5vw, 40px);
+            height: clamp(32px, 5vw, 40px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(193, 39, 45, 0.1);
+            color: #ffccc7;
+            text-decoration: none;
+            transition: all 0.28s cubic-bezier(.4, 0, .2, 1);
+            border: 1px solid rgba(193, 39, 45, 0.2);
+        }
+
+        .footer-social a:hover {
+            background: rgba(193, 39, 45, 0.25);
+            color: #fff;
+            border-color: rgba(193, 39, 45, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(193, 39, 45, 0.15);
+        }
+
+        .footer-social i {
+            font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+        }
+
+        /* Footer responsive */
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .products-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .offices-grid {
-                grid-template-columns: repeat(3, 1fr);
+            .footer-grid>div:first-child {
+                grid-column: 1 / -1;
             }
         }
 
-        @media(max-width:600px) {
-            .products-grid {
+        @media (max-width: 700px) {
+            .site-footer {
+                padding: clamp(40px, 6vw, 60px) 0 clamp(20px, 3vw, 32px);
+            }
+
+            .footer-grid {
                 grid-template-columns: 1fr;
             }
 
-            .offices-grid {
-                grid-template-columns: 1fr 1fr;
+            .footer-grid>div:first-child {
+                grid-template-columns: 1fr;
+                gap: clamp(24px, 4vw, 32px);
+            }
+
+            .footer-bottom {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-col h4::after {
+                width: 0;
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .site-footer {
+                padding: clamp(32px, 5vw, 48px) 0 clamp(16px, 2vw, 24px);
+            }
+
+            .footer-grid {
+                padding: 0 clamp(12px, 3vw, 16px);
+            }
+
+            .footer-logo-text {
+                font-size: 1rem;
+            }
+
+            .footer-col a {
+                gap: 6px;
+            }
+        }
+
+        /* ─── RESPONSIVE GENERAL ─── */
+        @media (max-width: 1024px) {
+            .prod-grid-nos {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .container-nos {
+                padding: 0 clamp(16px, 4vw, 28px);
+            }
+
+            .section-nos {
+                padding: clamp(48px, 8vw, 80px) 0;
+            }
+
+            .hero-nos-content {
+                padding: 0 clamp(16px, 4vw, 28px) clamp(48px, 8vw, 72px);
+            }
+
+            .intro-grid-nos {
+                grid-template-columns: 1fr;
+                gap: clamp(32px, 5vw, 48px);
+            }
+
+            .intro-photo-nos {
+                aspect-ratio: 16/9;
+            }
+
+            .intro-badge-nos {
+                bottom: -12px;
+                right: clamp(-12px, 2vw, 12px);
+            }
+
+            .stats-band-nos {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-nos-scroll {
+                right: clamp(16px, 4vw, 28px);
+            }
+        }
+
+        @media (max-width: 560px) {
+            .prod-grid-nos {
+                grid-template-columns: 1fr;
+            }
+
+            .offices-flex-nos {
+                gap: clamp(8px, 2vw, 14px);
+            }
+
+            .off-card-nos {
+                flex: 1 1 100px;
+            }
+
+            .stats-band-nos {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 380px) {
+            .hero-nos-heading {
+                font-size: 1.8rem;
+            }
+
+            .hero-nos-eyebrow {
+                padding: 5px 10px;
+                font-size: 0.6rem;
             }
         }
     </style>
 </head>
 
 <body>
+
+    <!-- ════ PAGE LOADER ════ -->
     <div id="page-loader">
         <div class="loader-logo">Haf<span>ten</span></div>
         <div class="loader-bar-wrap">
@@ -256,11 +1289,14 @@
         </div>
         <p class="loader-text">HVAC/R · BMS · Instrumentación</p>
     </div>
+
+    <!-- ════ CURSOR ════ -->
     <div id="cursor-dot"></div>
     <div id="cursor-ring"></div>
 
-    <!-- NAVBAR -->
-    <nav id="navbar">
+    <!-- ════ NAVBAR ════ -->
+    <nav id="navbar"
+        style="background: #fff; box-shadow: 0 2px 12px rgba(26,26,46,.08); border-bottom: 1px solid rgba(26,26,46,.06);">
         <div class="nav-inner">
             <a href="index.html" class="nav-logo">
                 <img src="Haften/Marcas/Logo Haften.png" alt="Haften"
@@ -269,239 +1305,340 @@
             </a>
             <button id="menu-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
             <ul class="nav-links" id="nav-links">
-                <li><a href="index.html" class="nav-link" data-page="index">Inicio</a></li>
+                <li><a href="index.html" class="nav-link" data-page="index"><i class="fa fa-house"
+                            style="font-size:.8rem;color:var(--ac);margin-right:4px"></i>Inicio</a></li>
                 <li><a href="nosotros.html" class="nav-link active" data-page="nosotros">Nosotros</a></li>
                 <li><a href="marcas.html" class="nav-link" data-page="marcas">Marcas</a></li>
                 <li><a href="catalogos.html" class="nav-link" data-page="catalogos">Catálogos</a></li>
                 <li><a href="multimedia.html" class="nav-link" data-page="multimedia">Multimedia</a></li>
                 <li><a href="redes.html" class="nav-link" data-page="redes">Redes Sociales</a></li>
-                <li><a href="contacto.html" class="nav-cta">Contacto <i class="fa-solid fa-arrow-right"></i></a></li>
+                <li><a href="contacto.html" class="nav-cta"><span>Contacto</span> <i
+                            class="fa-solid fa-arrow-right"></i></a></li>
             </ul>
+            <div class="nav-settings">
+                <button class="theme-toggle-btn magnetic-wrap" aria-label="Cambiar Tema">
+                    <i class="fa-solid fa-palette"></i>
+                </button>
+                <div class="lang-pill magnetic-wrap" title="Cambiar Idioma">
+                    <div class="lang-highlight"></div>
+                    <span class="lang-opt opt-es">ES</span>
+                    <span class="lang-opt opt-en">EN</span>
+                </div>
+                <div id="accent-panel">
+                    <p class="panel-label">Color de acento</p>
+                    <div class="accent-options">
+                        <div class="ac-swatch active" data-accent="red"></div>
+                        <div class="ac-swatch" data-accent="blue"></div>
+                        <div class="ac-swatch" data-accent="emerald"></div>
+                        <div class="ac-swatch" data-accent="violet"></div>
+                        <div class="ac-swatch" data-accent="orange"></div>
+                        <div class="ac-swatch" data-accent="rose"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <!-- PAGE HERO -->
-    <div class="page-hero">
-        <img class="page-hero-img" src="Haften/sección  nosotros/1.jpg" alt="Haften Nosotros" />
-        <div class="page-hero-overlay">
-            <div class="page-hero-content">
-                <span class="page-hero-eyebrow"><i class="fa-solid fa-building"></i> Nosotros</span>
-                <h1>Selección · Especificación<br>Asesoría · Distribución</h1>
-                <p class="hero-subtitle" data-i18n="ab_hero_sub">Expertos en HVAC/R-BMS – Tu socio técnico de confianza
-                </p>
-            </div>
+    <!-- ════ HERO ════ -->
+    <section class="hero-nos">
+        <div class="hero-nos-bg">
+            <img src="Haften/sección  nosotros/1.jpg" alt="Haften Nosotros" />
         </div>
-    </div>
+        <div class="hero-nos-content">
+            <p class="hero-nos-eyebrow"><i class="fa-solid fa-circle-check"></i> Nosotros · Haften</p>
+            <h1 class="hero-nos-heading">
+                Selección · Especificación<br>
+                Asesoría · <span class="ac-word">Distribución</span>
+            </h1>
+            <p class="hero-nos-sub">Expertos en HVAC/R-BMS — Tu socio técnico de confianza en México</p>
+        </div>
+        <div class="hero-nos-scroll">
+            <div class="scroll-line-nos"></div>
+            <span>Scroll</span>
+        </div>
+    </section>
 
-    <!-- INTRO -->
-    <section class="section" style="padding:90px 0">
-        <div class="container">
-            <div class="about-intro-grid">
-                <div class="about-img-wrap reveal-l">
-                    <img src="Haften/sección  nosotros/do-more.jpg" alt="Haften Do More" />
-                    <div class="about-badge">
-                        <strong>
-                            <h2 data-i18n="ab_yr">20+</h2>
-                        </strong>
-                        <span>
-                            <p data-i18n="ab_yr_sub">Años de experiencia</p>
-                        </span>
+    <!-- ════ INTRO ════ -->
+    <section class="section-nos">
+        <div class="container-nos">
+            <div class="intro-grid-nos">
+
+                <div class="intro-visual-nos rvl">
+                    <div class="intro-bar-nos"></div>
+                    <img class="intro-photo-nos" src="Haften/sección  nosotros/do-more.jpg" alt="Haften Do More"
+                        onerror="this.style.background='#f2f0ed';this.style.minHeight='420px'" />
+                    <div class="intro-badge-nos">
+                        <span class="intro-badge-num-nos">20+</span>
+                        <span class="intro-badge-lbl-nos">Años de<br>experiencia</span>
                     </div>
                 </div>
-                <div class="about-text reveal-r">
-                    <span class="eyebrow"><i class="fa-solid fa-building-columns"></i> Nosotros</span>
-                    <h2 class="section-title reveal-r" data-i18n="ab_exp">Expertos en <span>HVAC/R-BMS</span><br>a tu
-                        servicio</h2>
-                    <p>En <strong>Haften</strong>, nos especializamos en la comercialización de productos de
+
+                <div class="intro-text-nos rvr">
+                    <div class="pill-nos"><i class="fa-solid fa-building-columns"></i> Nosotros</div>
+                    <h2 class="intro-heading-nos">Expertos en <span>HVAC/R-BMS</span><br>a tu servicio</h2>
+                    <p class="intro-body-nos">
+                        En <strong>Haften</strong>, nos especializamos en la comercialización de productos de
                         <strong>control e instrumentación para sistemas HVAC</strong>, así como en humidificadores,
                         deshumidificadores y calefactores eléctricos. Nuestro objetivo es brindar soluciones técnicas
                         confiables, eficientes y adaptadas a las necesidades de cada proyecto.
                     </p>
-                    <p class="reveal-r" style="transition-delay: 0.2s;" data-i18n="ab_p2">Representamos marcas
-                        reconocidas internacionalmente: Air Monitor, Badger Meter, Belimo, Bry-Air, Contemporary
-                        Controls, Control Techniques, Cool Automation, Delta Electronics, Dwyer Omega, FlowCon, GPI,
-                        Greystone Energy, Johnson Controls, Loytec, ONICON, Meitav-Tec, Neptronic, Senva y Vaisala.</p>
-                    <p class="reveal-r" style="transition-delay: 0.3s;" data-i18n="ab_p3">Contamos con un <strong>amplio
-                            inventario disponible para entrega inmediata</strong> y un equipo de ingenieros
-                        especializados que brindan asesoría técnica en HVAC, automatización de edificios, laboratorios,
-                        hospitales, centros de datos y procesos industriales.</p>
-                    <blockquote class="about-quote">"Una solución completa en el mismo lugar."</blockquote>
+                    <p class="intro-body-nos d2">
+                        Representamos marcas reconocidas internacionalmente: Air Monitor, Badger Meter, Belimo,
+                        Bry-Air, Contemporary Controls, Control Techniques, Cool Automation, Delta Electronics,
+                        Dwyer Omega, FlowCon, GPI, Greystone Energy, Johnson Controls, Loytec, ONICON,
+                        Meitav-Tec, Neptronic, Senva y Vaisala.
+                    </p>
+                    <p class="intro-body-nos d3">
+                        Contamos con un <strong>amplio inventario disponible para entrega inmediata</strong> y un
+                        equipo de ingenieros especializados que brindan asesoría técnica en HVAC, automatización
+                        de edificios, laboratorios, hospitales, centros de datos y procesos industriales.
+                    </p>
+                    <blockquote class="intro-quote-nos">"Una solución completa en el mismo lugar."</blockquote>
                     <a href="contacto.html" class="btn btn-ac"><i class="fa-solid fa-envelope"></i> Contáctanos</a>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- PRODUCTOS -->
-    <section class="products-section section-alt section">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="eyebrow"><i class="fa-solid fa-boxes-stacked"></i> Portafolio</span>
-                <h2 class="section-title reveal-l" data-i18n="pf_title">Nuestros <span>Productos</span></h2>
-                <span class="accent-line"></span>
-                <p class="section-desc reveal-l" data-i18n="pf_sub">Soluciones técnicas para cada necesidad de tu
-                    proyecto HVAC/R</p>
-            </div>
-            <div class="products-grid">
-                <div class="product-item reveal d1">
-                    <div class="product-item-icon"><i class="fa-solid fa-wind"></i></div>
-                    <p>Medidores de flujo de aire, agua y gas</p>
+            <!-- Stats -->
+            <div class="stats-band-nos rv">
+                <div class="stat-cell-nos">
+                    <div class="stat-num-nos" data-target="20" data-suffix="+">20+</div>
+                    <div class="stat-lbl-nos">Años en el mercado</div>
                 </div>
-                <div class="product-item reveal d2">
-                    <div class="product-item-icon"><i class="fa-solid fa-sliders"></i></div>
-                    <p>Válvulas de control, balanceo y energy valves</p>
+                <div class="stat-cell-nos">
+                    <div class="stat-num-nos" data-target="18" data-suffix="">18</div>
+                    <div class="stat-lbl-nos">Marcas representadas</div>
                 </div>
-                <div class="product-item reveal d3">
-                    <div class="product-item-icon"><i class="fa-solid fa-gear"></i></div>
-                    <p>Actuadores para damper y válvulas</p>
+                <div class="stat-cell-nos">
+                    <div class="stat-num-nos" data-target="5" data-suffix="">5</div>
+                    <div class="stat-lbl-nos">Oficinas en México</div>
                 </div>
-                <div class="product-item reveal d4">
-                    <div class="product-item-icon"><i class="fa-solid fa-satellite-dish"></i></div>
-                    <p>Sensores de humedad, temperatura, CO/CO2, presión, VOC</p>
-                </div>
-                <div class="product-item reveal d5">
-                    <div class="product-item-icon"><i class="fa-solid fa-gauge-high"></i></div>
-                    <p>Manómetros y termómetros industriales</p>
-                </div>
-                <div class="product-item reveal d6">
-                    <div class="product-item-icon"><i class="fa-solid fa-bolt"></i></div>
-                    <p>Variadores de frecuencia (VFDs)</p>
-                </div>
-                <div class="product-item reveal d1">
-                    <div class="product-item-icon"><i class="fa-solid fa-network-wired"></i></div>
-                    <p>Gateways, routers y fuentes de alimentación</p>
-                </div>
-                <div class="product-item reveal d2">
-                    <div class="product-item-icon"><i class="fa-solid fa-desktop"></i></div>
-                    <p>Controladores, supervisores y HMIs</p>
-                </div>
-                <div class="product-item reveal d3">
-                    <div class="product-item-icon"><i class="fa-solid fa-temperature-half"></i></div>
-                    <p>Termostatos y humidostatos digitales</p>
-                </div>
-                <div class="product-item reveal d4">
-                    <div class="product-item-icon"><i class="fa-solid fa-plug"></i></div>
-                    <p>Power meters para 1 o múltiples circuitos</p>
-                </div>
-                <div class="product-item reveal d5">
-                    <div class="product-item-icon"><i class="fa-solid fa-microscope"></i></div>
-                    <p>Sensores para áreas críticas</p>
-                </div>
-                <div class="product-item reveal d6">
-                    <div class="product-item-icon"><i class="fa-solid fa-droplet"></i></div>
-                    <p>Humidificadores, deshumidificadores y calefactores eléctricos</p>
+                <div class="stat-cell-nos">
+                    <div class="stat-num-nos">∞</div>
+                    <div class="stat-lbl-nos">Soporte técnico</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- MARCAS REPRESENTADAS -->
-    <section class="brands-listed section">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="eyebrow reveal" data-i18n="br_lbl">Distribuidores autorizados</span>
-                <h2 class="section-title reveal" data-i18n="br_title">Marcas que <span>Representamos</span></h2>
-                <div class="brand-divider"></div>
-            </div>
-            <div class="brands-tag-cloud">
-                <span class="brand-tag reveal d1"><img src="Haften/Marcas/Logos_Air Monitor Logo.png" alt=""> Air
-                    Monitor</span>
-                <span class="brand-tag reveal d2"><img src="Haften/Marcas/belimo.fw.png" alt=""> Belimo</span>
-                <span class="brand-tag reveal d3"><img src="Haften/Marcas/4 Bry-Air .png" alt=""> Bry-Air</span>
-                <span class="brand-tag reveal d4"><img src="Haften/Marcas/CCSI logo stacked 4 (00000003).png" alt="">
-                    Contemporary Controls</span>
-                <span class="brand-tag reveal d5"><img src="Haften/Marcas/LOG_CT_RGB.png" alt=""> Control
-                    Techniques</span>
-                <span class="brand-tag reveal d6"><img src="Haften/Marcas/delta-500w-trim-vert.png" alt=""> Delta
-                    Electronics</span>
-                <span class="brand-tag reveal d1"><img src="Haften/Marcas/9.1 -DO-logo-horiz-full-color-TM.png" alt="">
-                    Dwyer Omega</span>
-                <span class="brand-tag reveal d2"><img src="Haften/Marcas/FlowCon-Logo.png" alt=""> FlowCon</span>
-                <span class="brand-tag reveal d3"><img src="Haften/Marcas/11-GPI-Inc-Logo-Registered.png" alt="">
-                    GPI</span>
-                <span class="brand-tag reveal d4"><img src="Haften/Marcas/Greystone Logo - Pantone 3295 - Large.png"
-                        alt=""> Greystone Energy</span>
-                <span class="brand-tag reveal d5"><img src="Haften/Marcas/Johnson_Controls.svg.png" alt=""> Johnson
-                    Controls</span>
-                <span class="brand-tag reveal d6"><img src="Haften/Marcas/14-LOGO Loytec.png" alt=""> Loytec</span>
-                <span class="brand-tag reveal d1"><img src="Haften/Marcas/15-meitav-tec.png" alt=""> Meitav-Tec</span>
-                <span class="brand-tag reveal d2"><img src="Haften/Marcas/16- Neptronic-Haften - copia.png" alt="">
-                    Neptronic</span>
-                <span class="brand-tag reveal d3"><img src="Haften/Marcas/Logos_ONICON Logo (2).png" alt="">
-                    ONICON</span>
-                <span class="brand-tag reveal d4"><img src="Haften/Marcas/Senva-Logo-BLK-2022 (002).png" alt="">
-                    Senva</span>
-                <span class="brand-tag reveal d5"><img src="Haften/Marcas/1200px-Setra_Systems_Logo.png" alt="">
-                    Setra</span>
-                <span class="brand-tag reveal d6"><img
-                        src="Haften/Marcas/19 Vaisala-authorized-parter-logo-blue-cmyk.png" alt=""> Vaisala</span>
-            </div>
-        </div>
-    </section>
+    <!-- ════ PRODUCTOS ════ -->
+    <section class="section-nos bg2">
+        <div class="container-nos">
+            <div class="pill-nos rv"><i class="fa-solid fa-boxes-stacked"></i> Portafolio</div>
+            <h2 class="sec-title-nos rv">Nuestros <span>Productos</span></h2>
+            <p class="sec-sub-nos rv" style="max-width:520px;">Soluciones técnicas de alta precisión para cada necesidad
+                de tu proyecto HVAC/R.</p>
 
-    <!-- OFICINAS -->
-    <section class="offices-section">
-        <div class="container">
-            <div class="section-header reveal">
-                <h2
-                    style="color:#fff;font-size:clamp(1.7rem,3vw,2.3rem);font-weight:900;margin-bottom:6px;font-family:'Plus Jakarta Sans',sans-serif;">
-                    Cobertura <span style="color:#ffccc7">Nacional</span></h2>
-                <p class="section-desc reveal" data-i18n="loc_sub">Oficina matriz en CDMX y presencia en todo México.
-                </p>
-            </div>
-            <div class="offices-grid">
-                <div class="office-card reveal d1">
-                    <div class="office-icon"><i class="fa-solid fa-city"></i></div>
-                    <div class="office-name">
-                        <h3 data-i18n="loc_cdmx">Ciudad de México</h3>
-                    </div>
-                    <div class="office-sub">
-                        <p data-i18n="loc_mat">Oficina Matriz</p>
-                    </div>
+            <div class="prod-grid-nos">
+                <div class="prod-card-nos rv d1">
+                    <div class="prod-icon-nos"><i class="fa-solid fa-wind"></i></div>
+                    <h4>Medidores de flujo</h4>
+                    <p>Medición precisa de flujo de aire, agua y gas para sistemas HVAC industriales y comerciales.</p>
+                    <span class="prod-tag-nos"><i class="fa-solid fa-arrow-right"></i> Medición</span>
                 </div>
-                <div class="office-card reveal d2">
-                    <div class="office-icon"><i class="fa-solid fa-industry"></i></div>
-                    <div class="office-name">
-                        <h3 data-i18n="loc_mty">Monterrey</h3>
-                    </div>
-                    <div class="office-sub">Oficina Regional</div>
+                <div class="prod-card-nos rv d2">
+                    <div class="prod-icon-nos"><i class="fa-solid fa-sliders"></i></div>
+                    <h4>Válvulas de control</h4>
+                    <p>Válvulas de control, balanceo y energy valves para la regulación eficiente de fluidos.</p>
+                    <span class="prod-tag-nos"><i class="fa-solid fa-arrow-right"></i> Control de flujo</span>
                 </div>
-                <div class="office-card reveal d3">
-                    <div class="office-icon"><i class="fa-solid fa-building"></i></div>
-                    <div class="office-name">
-                        <h3 data-i18n="loc_gdl">Guadalajara</h3>
-                    </div>
-                    <div class="office-sub">Oficina Regional</div>
+                <div class="prod-card-nos rv d3">
+                    <div class="prod-icon-nos"><i class="fa-solid fa-gear"></i></div>
+                    <h4>Actuadores</h4>
+                    <p>Actuadores eléctricos para dampers y válvulas, con control de posición y par preciso.</p>
+                    <span class="prod-tag-nos"><i class="fa-solid fa-arrow-right"></i> Actuación</span>
                 </div>
-                <div class="office-card reveal d4">
-                    <div class="office-icon"><i class="fa-solid fa-landmark"></i></div>
-                    <div class="office-name">
-                        <h3 data-i18n="loc_leon">León</h3>
-                    </div>
-                    <div class="office-sub">Oficina Regional</div>
+                <div class="prod-card-nos rv d4">
+                    <div class="prod-icon-nos"><i class="fa-solid fa-satellite-dish"></i></div>
+                    <h4>Sensores ambientales</h4>
+                    <p>Sensores de humedad, temperatura, CO/CO₂, presión diferencial y compuestos VOC.</p>
+                    <span class="prod-tag-nos"><i class="fa-solid fa-arrow-right"></i> Detección</span>
                 </div>
-                <div class="office-card reveal d5">
-                    <div class="office-icon"><i class="fa-solid fa-umbrella-beach"></i></div>
-                    <div class="office-name">
-                        <h3 data-i18n="loc_cun">Cancún</h3>
-                    </div>
-                    <div class="office-sub">Oficina Regional</div>
+                <div class="prod-card-nos rv d5">
+                    <div class="prod-icon-nos"><i class="fa-solid fa-gauge-high"></i></div>
+                    <h4>Instrumentación</h4>
+                    <p>Manómetros y termómetros industriales de alta fiabilidad para monitoreo continuo.</p>
+                    <span class="prod-tag-nos"><i class="fa-solid fa-arrow-right"></i> Instrumentación</span>
+                </div>
+                <div class="prod-card-nos rv d6">
+                    <div class="prod-icon-nos"><i class="fa-solid fa-bolt"></i></div>
+                    <h4>Variadores de frecuencia</h4>
+                    <p>VFDs para control de motores en sistemas de ventilación, bombeo y compresión.</p>
+                    <span class="prod-tag-nos"><i class="fa-solid fa-arrow-right"></i> Drives</span>
+                </div>
+                <div class="prod-card-nos rv d1">
+                    <div class="prod-icon-nos"><i class="fa-solid fa-network-wired"></i></div>
+                    <h4>Gateways y redes</h4>
+                    <p>Gateways, routers y fuentes de alimentación para integración de protocolos BMS.</p>
+                    <span class="prod-tag-nos"><i class="fa-solid fa-arrow-right"></i> Conectividad</span>
+                </div>
+                <div class="prod-card-nos rv d2">
+                    <div class="prod-icon-nos"><i class="fa-solid fa-desktop"></i></div>
+                    <h4>Controladores y HMIs</h4>
+                    <p>Controladores programables, supervisores SCADA e interfaces HMI para automatización.</p>
+                    <span class="prod-tag-nos"><i class="fa-solid fa-arrow-right"></i> Automatización</span>
+                </div>
+                <div class="prod-card-nos rv d3">
+                    <div class="prod-icon-nos"><i class="fa-solid fa-temperature-half"></i></div>
+                    <h4>Termostatos y humidostatos</h4>
+                    <p>Controles digitales de temperatura y humedad para ambientes comerciales e industriales.</p>
+                    <span class="prod-tag-nos"><i class="fa-solid fa-arrow-right"></i> Confort</span>
+                </div>
+                <div class="prod-card-nos rv d4">
+                    <div class="prod-icon-nos"><i class="fa-solid fa-plug"></i></div>
+                    <h4>Power meters</h4>
+                    <p>Medidores de energía eléctrica para 1 o múltiples circuitos, monitoreo en tiempo real.</p>
+                    <span class="prod-tag-nos"><i class="fa-solid fa-arrow-right"></i> Energía</span>
+                </div>
+                <div class="prod-card-nos rv d5">
+                    <div class="prod-icon-nos"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h4>Sensores para áreas críticas</h4>
+                    <p>Sensores certificados para laboratorios, salas blancas, hospitales y centros de datos.</p>
+                    <span class="prod-tag-nos"><i class="fa-solid fa-arrow-right"></i> Áreas críticas</span>
+                </div>
+                <div class="prod-card-nos rv d6">
+                    <div class="prod-icon-nos"><i class="fa-solid fa-droplet"></i></div>
+                    <h4>Humidificadores y calefactores</h4>
+                    <p>Humidificadores, deshumidificadores y calefactores eléctricos para control de clima.</p>
+                    <span class="prod-tag-nos"><i class="fa-solid fa-arrow-right"></i> Climatización</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- ════ MARCAS ════ -->
+    <section class="section-nos bg3">
+        <div class="container-nos">
+            <div class="pill-nos rv"><i class="fa-solid fa-medal"></i> Distribuidores autorizados</div>
+            <h2 class="sec-title-nos rv">Marcas que <span>Representamos</span></h2>
+        </div>
+
+        <div class="marquee-nos" style="margin-top:44px;">
+            <div class="marquee-track-nos">
+                <div class="m-pill-nos"><img src="Haften/Marcas/Logos_Air Monitor Logo.png" alt="">Air Monitor</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/belimo.fw.png" alt="">Belimo</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/4 Bry-Air .png" alt="">Bry-Air</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/CCSI logo stacked 4 (00000003).png" alt="">Contemporary
+                    Controls</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/LOG_CT_RGB.png" alt="">Control Techniques</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/delta-500w-trim-vert.png" alt="">Delta Electronics</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/9.1 -DO-logo-horiz-full-color-TM.png" alt="">Dwyer Omega
+                </div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/FlowCon-Logo.png" alt="">FlowCon</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/11-GPI-Inc-Logo-Registered.png" alt="">GPI</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/Greystone Logo - Pantone 3295 - Large.png"
+                        alt="">Greystone Energy</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/Johnson_Controls.svg.png" alt="">Johnson Controls</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/14-LOGO Loytec.png" alt="">Loytec</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/15-meitav-tec.png" alt="">Meitav-Tec</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/16- Neptronic-Haften - copia.png" alt="">Neptronic</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/Logos_ONICON Logo (2).png" alt="">ONICON</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/Senva-Logo-BLK-2022 (002).png" alt="">Senva</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/1200px-Setra_Systems_Logo.png" alt="">Setra</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/19 Vaisala-authorized-parter-logo-blue-cmyk.png"
+                        alt="">Vaisala</div>
+                <!-- Duplicate for seamless loop -->
+                <div class="m-pill-nos"><img src="Haften/Marcas/Logos_Air Monitor Logo.png" alt="">Air Monitor</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/belimo.fw.png" alt="">Belimo</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/4 Bry-Air .png" alt="">Bry-Air</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/CCSI logo stacked 4 (00000003).png" alt="">Contemporary
+                    Controls</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/LOG_CT_RGB.png" alt="">Control Techniques</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/delta-500w-trim-vert.png" alt="">Delta Electronics</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/9.1 -DO-logo-horiz-full-color-TM.png" alt="">Dwyer Omega
+                </div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/FlowCon-Logo.png" alt="">FlowCon</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/11-GPI-Inc-Logo-Registered.png" alt="">GPI</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/Greystone Logo - Pantone 3295 - Large.png"
+                        alt="">Greystone Energy</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/Johnson_Controls.svg.png" alt="">Johnson Controls</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/14-LOGO Loytec.png" alt="">Loytec</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/15-meitav-tec.png" alt="">Meitav-Tec</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/16- Neptronic-Haften - copia.png" alt="">Neptronic</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/Logos_ONICON Logo (2).png" alt="">ONICON</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/Senva-Logo-BLK-2022 (002).png" alt="">Senva</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/1200px-Setra_Systems_Logo.png" alt="">Setra</div>
+                <div class="m-pill-nos"><img src="Haften/Marcas/19 Vaisala-authorized-parter-logo-blue-cmyk.png"
+                        alt="">Vaisala</div>
+            </div>
+        </div>
+
+        <div class="container-nos">
+            <div class="brand-chips-nos rv" style="margin-top:32px;">
+                <span class="bc-nos d1"><span class="bc-dot-nos"></span>Air Monitor</span>
+                <span class="bc-nos d2"><span class="bc-dot-nos"></span>Badger Meter</span>
+                <span class="bc-nos d3"><span class="bc-dot-nos"></span>Belimo</span>
+                <span class="bc-nos d4"><span class="bc-dot-nos"></span>Bry-Air</span>
+                <span class="bc-nos d5"><span class="bc-dot-nos"></span>Contemporary Controls</span>
+                <span class="bc-nos d6"><span class="bc-dot-nos"></span>Control Techniques</span>
+                <span class="bc-nos d1"><span class="bc-dot-nos"></span>Cool Automation</span>
+                <span class="bc-nos d2"><span class="bc-dot-nos"></span>Delta Electronics</span>
+                <span class="bc-nos d3"><span class="bc-dot-nos"></span>Dwyer Omega</span>
+                <span class="bc-nos d4"><span class="bc-dot-nos"></span>FlowCon</span>
+                <span class="bc-nos d5"><span class="bc-dot-nos"></span>GPI</span>
+                <span class="bc-nos d6"><span class="bc-dot-nos"></span>Greystone Energy</span>
+                <span class="bc-nos d1"><span class="bc-dot-nos"></span>Johnson Controls</span>
+                <span class="bc-nos d2"><span class="bc-dot-nos"></span>Loytec</span>
+                <span class="bc-nos d3"><span class="bc-dot-nos"></span>Meitav-Tec</span>
+                <span class="bc-nos d4"><span class="bc-dot-nos"></span>Neptronic</span>
+                <span class="bc-nos d5"><span class="bc-dot-nos"></span>ONICON</span>
+                <span class="bc-nos d6"><span class="bc-dot-nos"></span>Senva</span>
+                <span class="bc-nos d1"><span class="bc-dot-nos"></span>Setra</span>
+                <span class="bc-nos d2"><span class="bc-dot-nos"></span>Vaisala</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════ OFICINAS ════ -->
+    <section class="offices-nos">
+        <div class="container-nos" style="position:relative;z-index:2;">
+            <div class="pill-nos rv"
+                style="background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.32);color:#fff;">
+                <i class="fa-solid fa-location-dot"></i> Cobertura
+            </div>
+            <h2 class="off-heading-nos rv">Presencia <span>Nacional</span></h2>
+            <p class="off-sub-nos rv">Oficina matriz en CDMX y presencia en todo México.</p>
+            <div class="offices-flex-nos">
+                <div class="off-card-nos rv d1">
+                    <div class="off-icon-nos"><i class="fa-solid fa-city"></i></div>
+                    <div class="off-city-nos">Ciudad de México</div>
+                    <div class="off-type-nos main">Oficina Matriz</div>
+                </div>
+                <div class="off-card-nos rv d2">
+                    <div class="off-icon-nos"><i class="fa-solid fa-industry"></i></div>
+                    <div class="off-city-nos">Monterrey</div>
+                    <div class="off-type-nos">Oficina Regional</div>
+                </div>
+                <div class="off-card-nos rv d3">
+                    <div class="off-icon-nos"><i class="fa-solid fa-building"></i></div>
+                    <div class="off-city-nos">Guadalajara</div>
+                    <div class="off-type-nos">Oficina Regional</div>
+                </div>
+                <div class="off-card-nos rv d4">
+                    <div class="off-icon-nos"><i class="fa-solid fa-landmark"></i></div>
+                    <div class="off-city-nos">León</div>
+                    <div class="off-type-nos">Oficina Regional</div>
+                </div>
+                <div class="off-card-nos rv d5">
+                    <div class="off-icon-nos"><i class="fa-solid fa-umbrella-beach"></i></div>
+                    <div class="off-city-nos">Cancún</div>
+                    <div class="off-type-nos">Oficina Regional</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════ FOOTER MEJORADO ════ -->
     <footer class="site-footer">
         <div class="footer-grid">
             <div>
                 <img src="Haften/Marcas/Logo Haften.png" alt="Haften" class="footer-logo"
                     onerror="this.style.display='none'">
                 <div class="footer-logo-text">Haf<span>ten</span></div>
-                <p class="footer-desc">"Una solución completa en el mismo lugar."</p>
+                <p class="footer-desc">"Una solución completa en el mismo lugar."<br>Periféricos HVAC · BMS · Medición
+                    de Energía</p>
             </div>
             <div class="footer-col">
-                <h4>Navegación</h4>
+                <h4><i class="fa-solid fa-sitemap" style="color: rgba(255,255,255,.4);"></i> Navegación</h4>
                 <ul>
                     <li><a href="index.html"><i class="fa-solid fa-house"></i>Inicio</a></li>
                     <li><a href="nosotros.html"><i class="fa-solid fa-building"></i>Nosotros</a></li>
@@ -513,16 +1650,20 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Contacto</h4>
+                <h4><i class="fa-solid fa-phone" style="color: rgba(255,255,255,.4);"></i> Contacto</h4>
                 <ul>
                     <li><a href="mailto:haften@haften.com.mx"><i
                                 class="fa-solid fa-envelope"></i>haften@haften.com.mx</a></li>
                     <li><a href="https://haften.com.mx" target="_blank"><i
                                 class="fa-solid fa-globe"></i>www.haften.com.mx</a></li>
+                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>Ciudad de México</a></li>
+                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>Monterrey</a></li>
+                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>Guadalajara</a></li>
+                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>León · Cancún</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Síguenos</h4>
+                <h4><i class="fa-solid fa-heart" style="color: rgba(255,255,255,.4);"></i> Síguenos</h4>
                 <ul>
                     <li><a href="https://www.facebook.com/HaftenOficial" target="_blank"><i
                                 class="fa-brands fa-facebook"></i>Facebook</a></li>
@@ -532,42 +1673,80 @@
                                 class="fa-brands fa-youtube"></i>YouTube</a></li>
                     <li><a href="https://www.linkedin.com/company/haften/" target="_blank"><i
                                 class="fa-brands fa-linkedin"></i>LinkedIn</a></li>
+                    <li><a href="https://x.com/haften1" target="_blank"><i class="fa-brands fa-x-twitter"></i>X
+                            (Twitter)</a></li>
+                    <li><a href="https://www.tiktok.com/@Haftenoficial/" target="_blank"><i
+                                class="fa-brands fa-tiktok"></i>TikTok</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <span class="footer-copy">© 2025 Haften. Todos los derechos reservados. · <a href="https://haften.com.mx"
+            <span class="footer-copy">© 2025 Haften. Todos los derechos reservados · <a href="https://haften.com.mx"
                     target="_blank">haften.com.mx</a></span>
             <div class="footer-social">
-                <a href="https://www.facebook.com/HaftenOficial" target="_blank"><i
+                <a href="https://www.facebook.com/HaftenOficial" target="_blank" title="Facebook"><i
                         class="fa-brands fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/Haftenoficial" target="_blank"><i
+                <a href="https://www.instagram.com/Haftenoficial" target="_blank" title="Instagram"><i
                         class="fa-brands fa-instagram"></i></a>
-                <a href="https://www.youtube.com/@Haftenoficial/videos" target="_blank"><i
+                <a href="https://www.youtube.com/@Haftenoficial/videos" target="_blank" title="YouTube"><i
                         class="fa-brands fa-youtube"></i></a>
-                <a href="https://www.linkedin.com/company/haften/" target="_blank"><i
+                <a href="https://www.linkedin.com/company/haften/" target="_blank" title="LinkedIn"><i
                         class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://x.com/haften1" target="_blank" title="X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://www.tiktok.com/@Haftenoficial/" target="_blank" title="TikTok"><i
+                        class="fa-brands fa-tiktok"></i></a>
             </div>
         </div>
     </footer>
 
-    <!-- COLOR SWITCHER -->
-    <div id="accent-switcher">
-        <button id="accent-btn" aria-label="Cambiar color"><i class="fa-solid fa-palette"></i></button>
-        <div id="accent-panel">
-            <p class="panel-label">Color de acento</p>
-            <div class="accent-options">
-                <div class="ac-swatch active" data-accent="red"></div>
-                <div class="ac-swatch" data-accent="blue"></div>
-                <div class="ac-swatch" data-accent="emerald"></div>
-                <div class="ac-swatch" data-accent="violet"></div>
-                <div class="ac-swatch" data-accent="orange"></div>
-                <div class="ac-swatch" data-accent="rose"></div>
-            </div>
-        </div>
-    </div>
-
+    <!-- ════ SCRIPTS ════ -->
     <script src="haften-shared.js"></script>
+    <script>
+        // Mobile menu toggle con animación
+        const menuBtn = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-links');
+        if (menuBtn && navMenu) {
+            menuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                menuBtn.classList.toggle('active');
+            });
+            // Cerrar menú al hacer clic en un link
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    menuBtn.classList.remove('active');
+                });
+            });
+        }
+
+        // Reveal on scroll
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+        }, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.rv,.rvl,.rvr').forEach(el => io.observe(el));
+
+        // Stats count-up
+        const sio = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                e.target.querySelectorAll('.stat-num-nos[data-target]').forEach(el => {
+                    const target = +el.dataset.target;
+                    const suffix = el.dataset.suffix || '';
+                    let s = null;
+                    const step = ts => {
+                        if (!s) s = ts;
+                        const p = Math.min((ts - s) / 1400, 1);
+                        el.textContent = Math.floor((1 - Math.pow(1 - p, 3)) * target) + suffix;
+                        if (p < 1) requestAnimationFrame(step);
+                    };
+                    requestAnimationFrame(step);
+                });
+                sio.unobserve(e.target);
+            });
+        }, { threshold: 0.5 });
+        const sb = document.querySelector('.stats-band-nos');
+        if (sb) sio.observe(sb);
+    </script>
 </body>
 
 </html>
