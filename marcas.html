@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-accent="red">
 
 <head>
     <meta charset="UTF-8" />
@@ -7,17 +7,214 @@
     <title>Marcas – Haften</title>
     <meta name="description"
         content="Haften representa más de 25 marcas internacionales líderes en innovación, precisión y calidad para sistemas HVAC/R y BMS." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" />
     <link rel="stylesheet" href="haften.css" />
     <style>
-        /* ─── PAGE LOADER (SPLASH SCREEN) ─────────────────────── */
+        /* ─── NAVBAR RESPONSIVE MEJORADO ─── */
+        html,
+        body {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: clamp(10px, 2vw, 18px) clamp(16px, 5vw, 52px);
+            position: relative;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: clamp(14px, 2.2vw, 36px);
+            margin: 0;
+            flex-wrap: nowrap !important;
+        }
+
+        #menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            margin-left: 0;
+            transition: transform 0.3s ease;
+        }
+
+        #menu-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        #menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            background-color: var(--ac, #C1272D);
+            margin: 5.5px 0;
+            border-radius: 2px;
+            transition: all 0.35s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        #menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(11px, 11px);
+        }
+
+        #menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-8px);
+        }
+
+        #menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        @media (max-width: 1220px) {
+            #menu-toggle {
+                display: block;
+            }
+
+            .nav-settings {
+                display: flex;
+                align-items: center;
+                margin-left: auto;
+                gap: clamp(10px, 2vw, 16px);
+                margin-right: 10px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: var(--nav-h, 70px);
+                left: 0;
+                width: 100%;
+                max-height: calc(100vh - 70px);
+                background: #ffffff;
+                flex-direction: column;
+                align-items: stretch;
+                padding: clamp(20px, 5vw, 32px);
+                box-shadow: 0 12px 48px rgba(0, 0, 0, .15);
+                z-index: 9998;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-20px);
+                transition: all 0.38s cubic-bezier(.34, .67, .36, 1.56);
+                overflow-y: auto;
+            }
+
+            .nav-links.active,
+            .nav-links.open,
+            .nav-links.show {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .nav-link {
+                padding: clamp(10px, 2vw, 16px) clamp(12px, 2vw, 18px);
+                border-radius: 10px;
+                font-size: clamp(0.9rem, 2.5vw, 1rem);
+                transition: all 0.26s cubic-bezier(.4, 0, .2, 1);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--text);
+            }
+
+            .nav-link:hover {
+                background: rgba(193, 39, 45, 0.08);
+                color: var(--ac);
+                transform: translateX(4px);
+            }
+
+            .nav-link.active {
+                color: var(--ac);
+            }
+
+            .nav-cta {
+                display: flex;
+                align-items: center;
+                margin-top: clamp(12px, 3vw, 20px);
+                padding: clamp(11px, 2vw, 14px) clamp(16px, 3vw, 22px);
+                width: 100%;
+                justify-content: center;
+                background: var(--ac);
+                color: #fff;
+                border-radius: 8px;
+                font-weight: 600;
+                gap: 8px;
+            }
+
+            .nav-logo img {
+                max-height: clamp(32px, 8vw, 48px);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .nav-inner {
+                padding: 10px clamp(12px, 4vw, 28px);
+            }
+
+            .nav-settings {
+                gap: 8px;
+                margin-right: 8px;
+            }
+
+            .nav-logo-text {
+                font-size: clamp(0.95rem, 3vw, 1.2rem) !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-inner {
+                padding: 8px clamp(10px, 3vw, 16px);
+            }
+
+            .nav-links {
+                padding: clamp(16px, 4vw, 24px);
+            }
+
+            .nav-link {
+                font-size: 0.92rem;
+                padding: 10px 12px;
+            }
+
+            .nav-settings {
+                gap: 6px;
+            }
+
+            .lang-pill {
+                transform: scale(0.85);
+                transform-origin: right center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-inner {
+                padding: 8px 10px;
+            }
+
+            .nav-logo-text {
+                font-size: 0.9rem !important;
+            }
+
+            .nav-settings {
+                transform: scale(0.9);
+                transform-origin: right center;
+            }
+        }
+
+        /* ─── PAGE LOADER ─── */
         #page-loader {
             position: fixed;
             inset: 0;
-            /* Cubre toda la pantalla */
             background: #0a0c14;
-            /* Fondo oscuro elegante */
             z-index: 99999;
-            /* Asegura que esté por encima de ABSOLUTAMENTE todo */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -25,7 +222,6 @@
             transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
-        /* Clase que usará JS para ocultarlo suavemente */
         #page-loader.fade-out {
             opacity: 0;
             visibility: hidden;
@@ -33,7 +229,7 @@
 
         .loader-logo {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
             font-weight: 900;
             color: #ffffff;
             margin-bottom: 24px;
@@ -42,11 +238,10 @@
 
         .loader-logo span {
             color: var(--ac, #C1272D);
-            /* Color rojo Haften */
         }
 
         .loader-bar-wrap {
-            width: 220px;
+            width: clamp(160px, 50vw, 220px);
             height: 4px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 4px;
@@ -59,13 +254,12 @@
             height: 100%;
             background: var(--ac, #C1272D);
             border-radius: 4px;
-            /* Animación simulada de carga de 1.5 segundos */
             animation: loadingBar 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         .loader-text {
             font-family: 'Outfit', sans-serif;
-            font-size: 0.75rem;
+            font-size: clamp(0.7rem, 1.8vw, 0.8rem);
             color: rgba(255, 255, 255, 0.5);
             letter-spacing: 0.15em;
             text-transform: uppercase;
@@ -86,11 +280,35 @@
             }
         }
 
+        /* ─── HERO MEJORADO ─── */
         .brands-hero {
-            margin-top: var(--nav-h);
+            margin-top: var(--nav-h, 70px);
             position: relative;
-            height: 340px;
+            height: clamp(320px, 55vh, 480px);
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brands-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M 80 0 L 0 0 0 80" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="1200" height="600" fill="url(%23grid)"/></svg>');
+            background-size: 100% 100%;
+            z-index: 1;
+        }
+
+        .brands-hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(193, 39, 45, 0.45) 0%, rgba(193, 39, 45, 0.5) 50%, rgba(193, 39, 45, 0.55) 100%),
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 30%, rgba(0, 0, 0, 0.08) 0%, transparent 50%);
+            z-index: 2;
         }
 
         .brands-hero img {
@@ -98,122 +316,1183 @@
             height: 100%;
             object-fit: cover;
             object-position: center;
+            position: absolute;
+            inset: 0;
+            opacity: 0.7;
+            z-index: 0;
         }
 
         .brands-hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(199, 52, 34, 0.82), rgba(26, 26, 46, 0.55));
+            position: relative;
+            z-index: 3;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             text-align: center;
-            padding: 24px;
+            padding: clamp(32px, 6vw, 64px);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .brands-hero-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: clamp(56px, 10vw, 80px);
+            height: clamp(56px, 10vw, 80px);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: #fff;
+            margin-bottom: clamp(16px, 3vw, 28px);
+            backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .brands-hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.95);
+            padding: clamp(8px, 1.5vw, 12px) clamp(16px, 2.5vw, 22px);
+            background: rgba(255, 255, 255, 0.18);
+            border-radius: 100px;
+            backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: clamp(18px, 3vw, 26px);
+            animation: slideDown 0.8s cubic-bezier(.34, .67, .36, 1.56);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .brands-hero-overlay h1 {
-            font-size: clamp(2rem, 4vw, 3rem);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(2.4rem, 6.5vw, 4rem);
             font-weight: 900;
             color: #fff;
-            margin-bottom: 10px;
+            margin-bottom: clamp(14px, 2vw, 22px);
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            animation: scaleIn 0.8s 0.2s cubic-bezier(.34, .67, .36, 1.56) backwards;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .brands-hero-overlay p {
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.92);
+            font-size: clamp(0.95rem, 2vw, 1.15rem);
+            max-width: 700px;
+            line-height: 1.7;
+            animation: slideDown 0.8s 0.4s cubic-bezier(.34, .67, .36, 1.56) backwards;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
         }
 
-        /* GRID */
+        .hero-accent-line {
+            width: clamp(60px, 15vw, 120px);
+            height: 4px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(255, 255, 255, 0) 100%);
+            margin: clamp(20px, 3vw, 30px) auto;
+            border-radius: 2px;
+            animation: expandWidth 0.8s 0.6s cubic-bezier(.34, .67, .36, 1.56) backwards;
+            box-shadow: 0 2px 12px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes expandWidth {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+
+            to {
+                width: 100%;
+                opacity: 1;
+            }
+        }
+
+        /* ─── BRANDS SECTION ─── */
         .brands-main {
-            padding: 80px 0;
+            padding: clamp(60px, 12vw, 100px) 0;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 5vw, 52px);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: clamp(48px, 8vw, 72px);
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: clamp(0.7rem, 1.5vw, 0.82rem);
+            font-weight: 700;
+            letter-spacing: 0.17em;
+            text-transform: uppercase;
+            color: var(--ac);
+            padding: clamp(6px, 1.5vw, 10px) clamp(12px, 2vw, 16px);
+            background: rgba(193, 39, 45, 0.1);
+            border-radius: 100px;
+            margin-bottom: clamp(16px, 2vw, 24px);
+        }
+
+        .section-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: clamp(14px, 2vw, 20px);
+            letter-spacing: -0.035em;
+        }
+
+        .section-title span {
+            color: var(--ac);
+        }
+
+        .brand-divider {
+            width: clamp(40px, 8vw, 80px);
+            height: 3px;
+            background: linear-gradient(90deg, var(--ac), transparent);
+            margin: clamp(20px, 3vw, 28px) auto;
+            border-radius: 2px;
+        }
+
+        .section-desc {
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+            color: var(--text-2);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.75;
+        }
+
+        /* ─── CATEGORY FILTERS ─── */
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(10px, 2vw, 14px);
+            justify-content: center;
+            margin-bottom: clamp(48px, 8vw, 68px);
+            padding: 0 clamp(16px, 4vw, 32px);
+            animation: slideDown 0.6s cubic-bezier(.34, .67, .36, 1.56);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .filter-btn {
+            padding: clamp(10px, 1.5vw, 12px) clamp(18px, 3vw, 24px);
+            border: 1.5px solid var(--border);
+            background: #fff;
+            color: var(--text);
+            border-radius: 100px;
+            font-size: clamp(0.82rem, 1.5vw, 0.9rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(.34, .67, .36, 1.56);
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: 0.02em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(193, 39, 45, 0.08);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.35s cubic-bezier(.34, .67, .36, 1.56);
+            z-index: -1;
+        }
+
+        .filter-btn:hover::before,
+        .filter-btn.active::before {
+            transform: scaleX(1);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: var(--ac);
+            color: var(--ac);
+            box-shadow: 0 4px 16px rgba(193, 39, 45, 0.12);
+        }
+
+        .filter-btn.active {
+            background: var(--ac);
+            color: #fff;
+            border-color: var(--ac);
+        }
+
+        /* ─── BRAND CARDS GRID (PREMIUM) ─── */
+        .brands-grid-full {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(260px, 22vw, 300px), 1fr));
+            gap: clamp(24px, 3vw, 32px);
         }
 
         .brand-card-full {
             background: #fff;
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 32px 28px;
+            border: 1.5px solid rgba(26, 26, 46, 0.08);
+            border-radius: clamp(18px, 3vw, 24px);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(.34, .67, .36, 1.56);
+            position: relative;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 16px;
-            text-align: center;
-            transition: var(--tr);
-            cursor: default;
+            min-height: 380px;
+            box-shadow: 0 4px 16px rgba(26, 26, 46, 0.06);
+            opacity: 0;
+            animation: fadeInUp 0.6s cubic-bezier(.34, .67, .36, 1.56) forwards;
+            border-top: 3px solid var(--ac);
         }
 
-        .brand-card-full:hover {
-            border-color: var(--brand);
-            box-shadow: 0 12px 36px rgba(199, 52, 34, 0.12);
-            transform: translateY(-6px);
-        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
 
-        .brand-logo-img {
-            height: 64px;
-            max-width: 160px;
-            object-fit: contain;
-        }
-
-        .brand-card-full h3 {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .brand-card-full p {
-            font-size: 0.8rem;
-            color: var(--text-2);
-        }
-
-        .brand-card-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            background: var(--brand-light);
-            color: var(--brand);
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            border-radius: 100px;
-        }
-
-        .brands-grid-full {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 22px;
-        }
-
-        .btn-marcas {
-            display: inline-block;
-            padding: 9px 20px;
-            background: var(--brand);
-            color: #fff;
-            border-radius: 8px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            margin-top: 8px;
-            transition: var(--tr);
-        }
-
-        .btn-marcas:hover {
-            background: var(--brand-dark);
-        }
-
-        @media(max-width:1100px) {
-            .brands-grid-full {
-                grid-template-columns: repeat(3, 1fr);
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        @media(max-width:768px) {
+        .brand-card-full.d1 {
+            animation-delay: 0.05s;
+        }
+
+        .brand-card-full.d2 {
+            animation-delay: 0.1s;
+        }
+
+        .brand-card-full.d3 {
+            animation-delay: 0.15s;
+        }
+
+        .brand-card-full.d4 {
+            animation-delay: 0.2s;
+        }
+
+        .brand-card-full.hidden {
+            display: none;
+        }
+
+        .brand-card-header {
+            position: relative;
+            height: 160px;
+            background: linear-gradient(135deg, rgba(193, 39, 45, 0.08) 0%, rgba(193, 39, 45, 0.04) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .brand-card-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(193, 39, 45, 0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .brand-card-full:hover .brand-card-header::before {
+            opacity: 1;
+        }
+
+        .brand-logo-img {
+            height: clamp(52px, 10vw, 80px);
+            max-width: 140px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(26, 26, 46, 0.1));
+            transition: all 0.4s cubic-bezier(.34, .67, .36, 1.56);
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand-card-full:hover .brand-logo-img {
+            transform: scale(1.12) translateY(-6px);
+            filter: drop-shadow(0 8px 16px rgba(193, 39, 45, 0.15));
+        }
+
+        .brand-card-content {
+            padding: clamp(24px, 4vw, 28px) clamp(18px, 3vw, 24px);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(12px, 2vw, 16px);
+            flex: 1;
+            position: relative;
+        }
+
+        .brand-card-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--ac), transparent);
+            transition: width 0.4s cubic-bezier(.34, .67, .36, 1.56);
+            z-index: 1;
+        }
+
+        .brand-card-full:hover .brand-card-content::before {
+            background: var(--ac);
+        }
+
+        .brand-card-full h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            font-weight: 800;
+            color: var(--text);
+            margin: 0;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+        }
+
+        .brand-card-full p {
+            font-size: clamp(0.82rem, 1.6vw, 0.92rem);
+            color: var(--text-2);
+            margin: 0;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .brand-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-top: clamp(12px, 2vw, 16px);
+            border-top: 1px solid rgba(26, 26, 46, 0.06);
+        }
+
+        .brand-card-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: clamp(5px, 1vw, 7px) clamp(11px, 2vw, 14px);
+            background: rgba(193, 39, 45, 0.1);
+            color: var(--ac);
+            font-size: clamp(0.65rem, 1.2vw, 0.72rem);
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            border-radius: 6px;
+            text-transform: uppercase;
+            border: 1px solid rgba(193, 39, 45, 0.2);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .brand-card-full:hover .brand-card-badge {
+            background: var(--ac);
+            color: #fff;
+            border-color: var(--ac);
+            transform: scale(1.05);
+        }
+
+        .btn-view-details {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: clamp(36px, 6vw, 44px);
+            height: clamp(36px, 6vw, 44px);
+            background: var(--ac);
+            color: #fff;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(.34, .67, .36, 1.56);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .btn-view-details:hover {
+            background: var(--ac);
+            transform: translateY(-3px) scale(1.08);
+            box-shadow: 0 8px 20px rgba(193, 39, 45, 0.25);
+        }
+
+        .brand-card-full:hover {
+            border-color: rgba(193, 39, 45, 0.3);
+            box-shadow: 0 16px 48px rgba(193, 39, 45, 0.15);
+            transform: translateY(-8px);
+        }
+
+        /* ─── MODAL ELEGANTE ─── */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 26, 46, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-dialog {
+            background: #fff;
+            border-radius: clamp(16px, 3vw, 28px);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            margin: auto;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(26, 26, 46, 0.3);
+            animation: slideUp 0.4s cubic-bezier(.34, .67, .36, 1.56);
+        }
+
+        /* Scrollbar Styling */
+        .modal-dialog::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-dialog::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .modal-dialog::-webkit-scrollbar-thumb {
+            background: rgba(193, 39, 45, 0.3);
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .modal-dialog::-webkit-scrollbar-thumb:hover {
+            background: rgba(193, 39, 45, 0.6);
+        }
+
+        /* Firefox Scrollbar */
+        .modal-dialog {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(193, 39, 45, 0.3) transparent;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            position: relative;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(193, 39, 45, 0.1) 0%, rgba(193, 39, 45, 0.05) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(20px, 4vw, 32px);
+            border-bottom: 1px solid rgba(26, 26, 46, 0.08);
+            border-top: 3px solid var(--ac);
+        }
+
+        .modal-logo {
+            height: clamp(70px, 12vw, 100px);
+            max-width: 200px;
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: clamp(16px, 3vw, 24px);
+            right: clamp(16px, 3vw, 24px);
+            width: 40px;
+            height: 40px;
+            background: rgba(193, 39, 45, 0.1);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: var(--text);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--ac);
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        .modal-content {
+            padding: clamp(28px, 5vw, 40px);
+        }
+
+        .modal-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
+            font-weight: 800;
+            color: var(--text);
+            margin: 0 0 clamp(14px, 2vw, 20px) 0;
+            letter-spacing: -0.02em;
+        }
+
+        .modal-badge {
+            display: inline-block;
+            padding: clamp(6px, 1.2vw, 8px) clamp(12px, 2vw, 16px);
+            background: rgba(193, 39, 45, 0.1);
+            color: var(--ac);
+            font-size: clamp(0.7rem, 1.3vw, 0.78rem);
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            border-radius: 6px;
+            text-transform: uppercase;
+            border: 1px solid rgba(193, 39, 45, 0.2);
+            margin-bottom: clamp(16px, 2vw, 24px);
+        }
+
+        .modal-description {
+            font-size: clamp(0.9rem, 1.8vw, 0.95rem);
+            color: var(--text-2);
+            line-height: 1.75;
+            margin: 0 0 clamp(24px, 3vw, 32px) 0;
+        }
+
+        .modal-features {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(12px, 2vw, 16px);
+            margin-bottom: clamp(24px, 3vw, 32px);
+        }
+
+        .modal-feature {
+            display: flex;
+            gap: clamp(12px, 2vw, 16px);
+            align-items: flex-start;
+        }
+
+        .modal-feature-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(193, 39, 45, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ac);
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        .modal-feature-text {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .modal-feature-text strong {
+            font-size: clamp(0.85rem, 1.6vw, 0.95rem);
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .modal-feature-text p {
+            font-size: clamp(0.8rem, 1.5vw, 0.85rem);
+            color: var(--text-3);
+            margin: 0;
+        }
+
+        .modal-footer {
+            padding-top: clamp(20px, 3vw, 28px);
+            border-top: 1px solid rgba(26, 26, 46, 0.08);
+            display: flex;
+            gap: clamp(12px, 2vw, 16px);
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: clamp(11px, 2vw, 14px) clamp(16px, 2vw, 22px);
+            border-radius: 10px;
+            font-size: clamp(0.82rem, 1.5vw, 0.92rem);
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .modal-btn-primary {
+            background: var(--ac);
+            color: #fff;
+        }
+
+        .modal-btn-primary:hover {
+            background: var(--ac);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(193, 39, 45, 0.3);
+        }
+
+        .modal-btn-secondary {
+            background: rgba(193, 39, 45, 0.1);
+            color: var(--ac);
+            border: 1.5px solid rgba(193, 39, 45, 0.2);
+        }
+
+        .modal-btn-secondary:hover {
+            background: rgba(193, 39, 45, 0.15);
+            border-color: var(--ac);
+        }
+
+        /* ─── WHY CHOOSE US SECTION ─── */
+        .why-choose-section {
+            padding: clamp(80px, 12vw, 120px) 0;
+            background: linear-gradient(180deg, #fff 0%, #f9f8f6 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-choose-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(193, 39, 45, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .why-choose-section::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(193, 39, 45, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .why-choose-header {
+            text-align: center;
+            margin-bottom: clamp(60px, 8vw, 80px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .why-choose-label {
+            display: inline-block;
+            font-size: clamp(0.7rem, 1.5vw, 0.82rem);
+            font-weight: 700;
+            letter-spacing: 0.17em;
+            text-transform: uppercase;
+            color: var(--ac);
+            padding: clamp(6px, 1.5vw, 10px) clamp(12px, 2vw, 16px);
+            background: rgba(193, 39, 45, 0.1);
+            border-radius: 100px;
+            margin-bottom: clamp(16px, 2vw, 24px);
+        }
+
+        .why-choose-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: clamp(14px, 2vw, 20px);
+            letter-spacing: -0.035em;
+        }
+
+        .why-choose-title span {
+            color: var(--ac);
+        }
+
+        .why-divider {
+            width: clamp(40px, 8vw, 80px);
+            height: 3px;
+            background: linear-gradient(90deg, var(--ac), transparent);
+            margin: clamp(20px, 3vw, 28px) auto 0;
+            border-radius: 2px;
+        }
+
+        .why-choose-desc {
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+            color: var(--text-2);
+            max-width: 700px;
+            margin: clamp(20px, 3vw, 28px) auto 0;
+            line-height: 1.75;
+        }
+
+        .why-choose-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(260px, 22vw, 320px), 1fr));
+            gap: clamp(24px, 3vw, 36px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .why-card {
+            background: #fff;
+            border: 1.5px solid rgba(26, 26, 46, 0.08);
+            border-radius: clamp(16px, 3vw, 24px);
+            padding: clamp(28px, 4vw, 40px);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(.34, .67, .36, 1.56);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(26, 26, 46, 0.06);
+            opacity: 0;
+            animation: fadeInUp 0.6s cubic-bezier(.34, .67, .36, 1.56) forwards;
+        }
+
+        .why-card.delay1 {
+            animation-delay: 0.1s;
+        }
+
+        .why-card.delay2 {
+            animation-delay: 0.2s;
+        }
+
+        .why-card.delay3 {
+            animation-delay: 0.3s;
+        }
+
+        .why-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--ac), transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(.34, .67, .36, 1.56);
+        }
+
+        .why-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .why-card:hover {
+            border-color: rgba(193, 39, 45, 0.3);
+            box-shadow: 0 16px 48px rgba(193, 39, 45, 0.12);
+            transform: translateY(-8px);
+        }
+
+        .why-card-icon {
+            width: clamp(64px, 10vw, 80px);
+            height: clamp(64px, 10vw, 80px);
+            margin: 0 auto clamp(18px, 3vw, 24px);
+            border-radius: clamp(14px, 3vw, 18px);
+            background: linear-gradient(135deg, rgba(193, 39, 45, 0.1) 0%, rgba(193, 39, 45, 0.05) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            color: var(--ac);
+            transition: all 0.4s cubic-bezier(.34, .67, .36, 1.56);
+        }
+
+        .why-card:hover .why-card-icon {
+            background: linear-gradient(135deg, rgba(193, 39, 45, 0.2) 0%, rgba(193, 39, 45, 0.1) 100%);
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .why-card h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.05rem, 2vw, 1.2rem);
+            font-weight: 800;
+            color: var(--text);
+            margin: 0 0 clamp(12px, 2vw, 16px) 0;
+            letter-spacing: -0.02em;
+        }
+
+        .why-card p {
+            font-size: clamp(0.85rem, 1.6vw, 0.95rem);
+            color: var(--text-2);
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1024px) {
+            .why-choose-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .why-choose-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .why-choose-section::before {
+                width: 400px;
+                height: 400px;
+                top: -30%;
+                right: -20%;
+            }
+
+            .why-choose-section::after {
+                width: 350px;
+                height: 350px;
+                bottom: -20%;
+                left: -15%;
+            }
+        }
+
+        .site-footer {
+            background: #1a1a2e;
+            color: #f9f8f6;
+            padding: clamp(48px, 8vw, 80px) 0 clamp(24px, 4vw, 40px);
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-footer::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 20% 50%, rgba(193, 39, 45, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .footer-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 5vw, 52px);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(240px, 20vw, 280px), 1fr));
+            gap: clamp(36px, 5vw, 56px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-grid>div:first-child {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(220px, 25vw, 300px), 1fr));
+            gap: clamp(32px, 5vw, 48px);
+            padding-bottom: clamp(28px, 4vw, 40px);
+            border-bottom: 1px solid rgba(255, 255, 255, .12);
+        }
+
+        .footer-logo {
+            max-height: clamp(32px, 6vw, 48px);
+            width: auto;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .footer-logo-text {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -.02em;
+            margin-bottom: 14px;
+        }
+
+        .footer-logo-text span {
+            color: #ffccc7;
+        }
+
+        .footer-desc {
+            font-size: clamp(0.85rem, 1.6vw, 0.95rem);
+            line-height: 1.6;
+            color: rgba(255, 255, 255, .65);
+            margin: 0;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(14px, 2vw, 18px);
+        }
+
+        .footer-col h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -.02em;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            width: clamp(20px, 3vw, 28px);
+            height: 2px;
+            background: linear-gradient(90deg, var(--ac), transparent);
+            border-radius: 1px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(10px, 1.5vw, 14px);
+        }
+
+        .footer-col a {
+            color: rgba(255, 255, 255, .65);
+            text-decoration: none;
+            font-size: clamp(0.82rem, 1.5vw, 0.92rem);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.28s cubic-bezier(.4, 0, .2, 1);
+            padding: 4px 0;
+        }
+
+        .footer-col a:hover {
+            color: #ffccc7;
+            transform: translateX(4px);
+        }
+
+        .footer-col i {
+            color: rgba(193, 39, 45, 0.6);
+            font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+            transition: color 0.28s ease;
+        }
+
+        .footer-col a:hover i {
+            color: #ffccc7;
+            transform: scale(1.15);
+        }
+
+        .footer-bottom {
+            max-width: 1300px;
+            margin: clamp(28px, 4vw, 40px) auto 0;
+            padding: clamp(20px, 3vw, 28px) clamp(16px, 5vw, 52px) 0;
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: clamp(20px, 3vw, 32px);
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-copy {
+            font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+            color: rgba(255, 255, 255, .45);
+            display: block;
+        }
+
+        .footer-copy a {
+            color: #ffccc7;
+            text-decoration: none;
+            transition: color 0.28s ease;
+        }
+
+        .footer-copy a:hover {
+            color: #fff;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: clamp(12px, 2vw, 18px);
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .footer-social a {
+            width: clamp(32px, 5vw, 40px);
+            height: clamp(32px, 5vw, 40px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(193, 39, 45, 0.1);
+            color: #ffccc7;
+            text-decoration: none;
+            transition: all 0.28s cubic-bezier(.4, 0, .2, 1);
+            border: 1px solid rgba(193, 39, 45, 0.2);
+        }
+
+        .footer-social a:hover {
+            background: rgba(193, 39, 45, 0.25);
+            color: #fff;
+            border-color: rgba(193, 39, 45, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(193, 39, 45, 0.15);
+        }
+
+        .footer-social i {
+            font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+        }
+
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid>div:first-child {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .site-footer {
+                padding: clamp(40px, 6vw, 60px) 0 clamp(20px, 3vw, 32px);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid>div:first-child {
+                grid-template-columns: 1fr;
+                gap: clamp(24px, 4vw, 32px);
+            }
+
+            .footer-bottom {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-col h4::after {
+                width: 0;
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .site-footer {
+                padding: clamp(32px, 5vw, 48px) 0 clamp(16px, 2vw, 24px);
+            }
+
+            .footer-grid {
+                padding: 0 clamp(12px, 3vw, 16px);
+            }
+
+            .footer-logo-text {
+                font-size: 1rem;
+            }
+
+            .footer-col a {
+                gap: 6px;
+            }
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1024px) {
             .brands-grid-full {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media(max-width:480px) {
+        @media (max-width: 768px) {
+            .brands-main {
+                padding: clamp(48px, 8vw, 80px) 0;
+            }
+
+            .section-header {
+                margin-bottom: clamp(36px, 6vw, 56px);
+            }
+
             .brands-grid-full {
                 grid-template-columns: 1fr;
+            }
+
+            .category-filters {
+                margin-bottom: clamp(36px, 6vw, 48px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brands-hero {
+                height: clamp(240px, 45vh, 320px);
+            }
+
+            .brands-hero-overlay h1 {
+                font-size: clamp(1.5rem, 4vw, 2rem);
+            }
+
+            .category-filters {
+                gap: clamp(8px, 1.5vw, 10px);
+            }
+
+            .filter-btn {
+                padding: clamp(8px, 1vw, 10px) clamp(14px, 2vw, 18px);
+                font-size: 0.78rem;
+            }
+
+            .modal-dialog {
+                width: 95%;
+                border-radius: 16px;
             }
         }
     </style>
@@ -221,30 +1500,7 @@
 
 <body>
 
-    <!-- NAVBAR -->
-    <nav id="navbar">
-        <div class="nav-inner">
-            <a href="index.html" class="nav-logo">
-                <img src="Haften/Marcas/Logo Haften.png" alt="Haften"
-                    onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-                <span class="nav-logo-text" style="display:none">Haften</span>
-            </a>
-            <button id="menu-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="index.html" class="nav-link">Inicio</a></li>
-                <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
-                <li><a href="marcas.html" class="nav-link active">Marcas</a></li>
-                <li><a href="catalogos.html" class="nav-link">Catálogos</a></li>
-                <li><a href="multimedia.html" class="nav-link">Multimedia</a></li>
-                <li><a href="redes.html" class="nav-link">Redes Sociales</a></li>
-                <li><a href="contacto.html" class="nav-link btn btn-brand"
-                        style="margin-left:8px;padding:9px 20px;">Contacto</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- HERO -->
-
+    <!-- PAGE LOADER -->
     <div id="page-loader">
         <div class="loader-logo">Haf<span>ten</span></div>
         <div class="loader-bar-wrap">
@@ -253,178 +1509,151 @@
         <p class="loader-text">HVAC/R · BMS · Instrumentación</p>
     </div>
 
+    <!-- NAVBAR -->
+    <nav id="navbar"
+        style="background: #fff; box-shadow: 0 2px 12px rgba(26,26,46,.08); border-bottom: 1px solid rgba(26,26,46,.06);">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <img src="Haften/Marcas/Logo Haften.png" alt="Haften"
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                <span class="nav-logo-text" style="display:none">Haf<span>ten</span></span>
+            </a>
+            <button id="menu-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" class="nav-link" data-page="index"><i class="fa fa-house"
+                            style="font-size:.8rem;color:var(--ac);margin-right:4px"></i>Inicio</a></li>
+                <li><a href="nosotros.html" class="nav-link" data-page="nosotros">Nosotros</a></li>
+                <li><a href="marcas.html" class="nav-link active" data-page="marcas">Marcas</a></li>
+                <li><a href="catalogos.html" class="nav-link" data-page="catalogos">Catálogos</a></li>
+                <li><a href="multimedia.html" class="nav-link" data-page="multimedia">Multimedia</a></li>
+                <li><a href="redes.html" class="nav-link" data-page="redes">Redes Sociales</a></li>
+                <li><a href="contacto.html" class="nav-cta"><span>Contacto</span> <i
+                            class="fa-solid fa-arrow-right"></i></a></li>
+            </ul>
+            <div class="nav-settings">
+                <button class="theme-toggle-btn magnetic-wrap" aria-label="Cambiar Tema">
+                    <i class="fa-solid fa-palette"></i>
+                </button>
+                <div class="lang-pill magnetic-wrap" title="Cambiar Idioma">
+                    <div class="lang-highlight"></div>
+                    <span class="lang-opt opt-es">ES</span>
+                    <span class="lang-opt opt-en">EN</span>
+                </div>
+                <div id="accent-panel">
+                    <p class="panel-label">Color de acento</p>
+                    <div class="accent-options">
+                        <div class="ac-swatch active" data-accent="red"></div>
+                        <div class="ac-swatch" data-accent="blue"></div>
+                        <div class="ac-swatch" data-accent="emerald"></div>
+                        <div class="ac-swatch" data-accent="violet"></div>
+                        <div class="ac-swatch" data-accent="orange"></div>
+                        <div class="ac-swatch" data-accent="rose"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
+    <!-- HERO -->
     <div class="brands-hero">
         <img src="Haften/Marcas/1.jpg" alt="Marcas Haften" />
         <div class="brands-hero-overlay">
-            <h1 class="hero-title reveal" data-i18n="br_hero_h1">Explora Nuestras Marcas</h1>
-            <p>Representamos marcas internacionales líderes en innovación, precisión y calidad</p>
+            <div class="brands-hero-label">
+                <i class="fa-solid fa-medal"></i>
+                Sección de Marcas
+            </div>
+            <h1>Explora Nuestras Marcas</h1>
+            <div class="hero-accent-line"></div>
+            <p>Representamos marcas internacionales líderes en innovación, precisión y calidad para sistemas HVAC/R, BMS
+                e instrumentación</p>
         </div>
     </div>
 
     <!-- BRANDS GRID -->
     <section class="brands-main section">
         <div class="container">
-            <div class="section-header reveal">
-                <span class="section-label">Distribuidores autorizados</span>
-                <h2 class="section-title reveal" data-i18n="br_title2">Más de <span>25 Marcas</span> Internacionales
-                </h2>
+            <div class="section-header">
+                <span class="section-label"><i class="fa-solid fa-medal" style="margin-right: 6px;"></i>Distribuidores
+                    autorizados</span>
+                <h2 class="section-title">Más de <span>25 Marcas</span> Internacionales</h2>
                 <div class="brand-divider"></div>
-                <p class="section-desc reveal" data-i18n="br_sub2">Trabajamos con los mejores fabricantes del mundo para
-                    ofrecerte soluciones de alta calidad.</p>
+                <p class="section-desc">Trabajamos con los mejores fabricantes del mundo para ofrecerte soluciones de
+                    alta calidad en HVAC/R, BMS e instrumentación.</p>
             </div>
 
-            <div class="brands-grid-full">
-                <div class="brand-card-full reveal d1">
-                    <img class="brand-logo-img" src="Haften/Marcas/Logos_Air Monitor Logo.png" alt="Air Monitor">
-                    <h3>Air Monitor</h3>
-                    <p>Medición de calidad y flujo de aire</p>
-                    <span class="brand-card-badge">HVAC/R</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
+            <!-- CATEGORY FILTERS -->
+            <div class="category-filters">
+                <button class="filter-btn active" data-filter="all">Todas las Marcas</button>
+                <button class="filter-btn" data-filter="hvac">HVAC/R</button>
+                <button class="filter-btn" data-filter="bms">BMS</button>
+                <button class="filter-btn" data-filter="automatizacion">Automatización</button>
+                <button class="filter-btn" data-filter="instrumentacion">Instrumentación</button>
+                <button class="filter-btn" data-filter="energia">Energía</button>
+            </div>
+
+            <div class="brands-grid-full" id="brandsGrid"></div>
+        </div>
+    </section>
+
+    <!-- MODAL -->
+    <div class="modal" id="brandModal">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <img class="modal-logo" id="modalLogoImg" src="" alt="Brand Logo">
+                <button class="modal-close" onclick="closeBrandModal()">×</button>
+            </div>
+            <div class="modal-content">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <span class="modal-badge" id="modalCategory"></span>
+                <p class="modal-description" id="modalDescription"></p>
+                <div class="modal-features" id="modalFeatures"></div>
+                <div class="modal-footer">
+                    <a href="catalogos.html" class="modal-btn modal-btn-primary"><i class="fa-solid fa-file-pdf"></i>
+                        Ver Catálogo</a>
+                    <button class="modal-btn modal-btn-secondary" onclick="closeBrandModal()">Cerrar</button>
                 </div>
-                <div class="brand-card-full reveal d2">
-                    <img class="brand-logo-img" src="Haften/Marcas/descarga.png" alt="Badger Meter">
-                    <h3>Badger Meter</h3>
-                    <p>Medición de flujo de agua y gas</p>
-                    <span class="brand-card-badge">Instrumentación</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHY CHOOSE US SECTION -->
+    <section class="why-choose-section">
+        <div class="container">
+            <div class="why-choose-header">
+                <span class="why-choose-label"><i class="fa-solid fa-star" style="margin-right: 6px;"></i>Nuestras
+                    Ventajas</span>
+                <h2 class="why-choose-title">Por qué <span>elegirnos</span></h2>
+                <div class="why-divider"></div>
+                <p class="why-choose-desc">Somos el socio técnico ideal para tus proyectos HVAC/R, BMS e instrumentación
+                    con soluciones integrales y confiables.</p>
+            </div>
+
+            <div class="why-choose-grid">
+                <div class="why-card delay1">
+                    <div class="why-card-icon">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <h3>Distribuidores Autorizados</h3>
+                    <p>Representamos más de 25 marcas internacionales líderes, garantizando productos originales y con
+                        soporte oficial.</p>
                 </div>
-                <div class="brand-card-full reveal d3">
-                    <img class="brand-logo-img" src="Haften/Marcas/belimo.fw.png" alt="Belimo">
-                    <h3>Belimo</h3>
-                    <p>Actuadores, válvulas y sensores HVAC</p>
-                    <span class="brand-card-badge">HVAC/R</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
+
+                <div class="why-card delay2">
+                    <div class="why-card-icon">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3>Entrega Inmediata</h3>
+                    <p>Amplio inventario disponible en nuestras 5 sucursales en México para satisfacer tus necesidades
+                        al instante.</p>
                 </div>
-                <div class="brand-card-full reveal d4">
-                    <img class="brand-logo-img" src="Haften/Marcas/4 Bry-Air .png" alt="Bry-Air">
-                    <h3>Bry-Air</h3>
-                    <p>Deshumidificadores industriales</p>
-                    <span class="brand-card-badge">Clima</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d1">
-                    <img class="brand-logo-img" src="Haften/Marcas/CCSI logo stacked 4 (00000003).png"
-                        alt="Contemporary Controls">
-                    <h3>Contemporary Controls</h3>
-                    <p>Redes BACnet y automatización de edificios</p>
-                    <span class="brand-card-badge">BMS</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d2">
-                    <img class="brand-logo-img" src="Haften/Marcas/LOG_CT_RGB.png" alt="Control Techniques">
-                    <h3>Control Techniques</h3>
-                    <p>Variadores de frecuencia (VFDs)</p>
-                    <span class="brand-card-badge">Automatización</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d3">
-                    <img class="brand-logo-img" src="Haften/Marcas/descarga.png" alt="Cool Automation">
-                    <h3>Cool Automation</h3>
-                    <p>Integración HVAC/IoT y control inteligente</p>
-                    <span class="brand-card-badge">IoT / BMS</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d4">
-                    <img class="brand-logo-img" src="Haften/Marcas/delta-500w-trim-vert.png" alt="Delta Electronics">
-                    <h3>Delta Electronics</h3>
-                    <p>Drives industriales y automatización</p>
-                    <span class="brand-card-badge">Automatización</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d1">
-                    <img class="brand-logo-img" src="Haften/Marcas/9.1 -DO-logo-horiz-full-color-TM.png"
-                        alt="Dwyer Omega">
-                    <h3>Dwyer Omega</h3>
-                    <p>Instrumentación industrial completa</p>
-                    <span class="brand-card-badge">Instrumentación</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d2">
-                    <img class="brand-logo-img" src="Haften/Marcas/FlowCon-Logo.png" alt="FlowCon">
-                    <h3>FlowCon</h3>
-                    <p>Válvulas de balanceo y control de caudal</p>
-                    <span class="brand-card-badge">HVAC/R</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d3">
-                    <img class="brand-logo-img" src="Haften/Marcas/11-GPI-Inc-Logo-Registered.png" alt="GPI">
-                    <h3>GPI</h3>
-                    <p>Medidores de flujo de precisión</p>
-                    <span class="brand-card-badge">Instrumentación</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d4">
-                    <img class="brand-logo-img" src="Haften/Marcas/Greystone Logo - Pantone 3295 - Large.png"
-                        alt="Greystone Energy">
-                    <h3>Greystone Energy</h3>
-                    <p>Sensores para sistemas BMS y HVAC</p>
-                    <span class="brand-card-badge">BMS</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d1">
-                    <img class="brand-logo-img" src="Haften/Marcas/Johnson_Controls.svg.png" alt="Johnson Controls">
-                    <h3>Johnson Controls</h3>
-                    <p>Sistemas de automatización de edificios</p>
-                    <span class="brand-card-badge">BMS</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d2">
-                    <img class="brand-logo-img" src="Haften/Marcas/14-LOGO Loytec.png" alt="Loytec">
-                    <h3>Loytec</h3>
-                    <p>Automatización inteligente de edificios</p>
-                    <span class="brand-card-badge">BMS</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d3">
-                    <img class="brand-logo-img" src="Haften/Marcas/15-meitav-tec.png" alt="Meitav-Tec">
-                    <h3>Meitav-Tec</h3>
-                    <p>Calefactores eléctricos industriales</p>
-                    <span class="brand-card-badge">Clima</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d4">
-                    <img class="brand-logo-img" src="Haften/Marcas/16- Neptronic-Haften - copia.png" alt="Neptronic">
-                    <h3>Neptronic</h3>
-                    <p>Humidificadores de alta tecnología</p>
-                    <span class="brand-card-badge">Humidificación</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d1">
-                    <img class="brand-logo-img" src="Haften/Marcas/Logos_ONICON Logo (2).png" alt="ONICON">
-                    <h3>ONICON</h3>
-                    <p>Medición de energía y caudal BTU</p>
-                    <span class="brand-card-badge">Energía</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d2">
-                    <img class="brand-logo-img" src="Haften/Marcas/Senva-Logo-BLK-2022 (002).png" alt="Senva">
-                    <h3>Senva</h3>
-                    <p>Sensores para control de edificios</p>
-                    <span class="brand-card-badge">BMS</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d3">
-                    <img class="brand-logo-img" src="Haften/Marcas/1200px-Setra_Systems_Logo.png" alt="Setra">
-                    <h3>Setra</h3>
-                    <p>Sensores de presión de alta precisión</p>
-                    <span class="brand-card-badge">Instrumentación</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d4">
-                    <img class="brand-logo-img" src="Haften/Marcas/19 Vaisala-authorized-parter-logo-blue-cmyk.png"
-                        alt="Vaisala">
-                    <h3>Vaisala</h3>
-                    <p>Sensores ambientales de alta precisión</p>
-                    <span class="brand-card-badge">Ambiental</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
-                </div>
-                <div class="brand-card-full reveal d1">
-                    <img class="brand-logo-img" src="Haften/Marcas/Logo Haften.png" alt="Haften">
-                    <h3>Haften</h3>
-                    <p>Catálogo corporativo Haften 2025</p>
-                    <span class="brand-card-badge">Corporativo</span>
-                    <a href="catalogos.html" class="btn-marcas">Ver catálogo</a>
+
+                <div class="why-card delay3">
+                    <div class="why-card-icon">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3>Asesoría Técnica Experta</h3>
+                    <p>Equipo especializado en HVAC, BMS, automatización y procesos industriales para soluciones
+                        personalizadas.</p>
                 </div>
             </div>
         </div>
@@ -433,60 +1662,429 @@
     <!-- FOOTER -->
     <footer class="site-footer">
         <div class="footer-grid">
-            <div class="footer-brand">
-                <img src="Haften/Marcas/Logo Haften.png" alt="Haften" onerror="this.style.display='none'">
-                <span class="footer-brand-text">Haften</span>
-                <p class="footer-tagline">"Una solución completa en el mismo lugar."</p>
+            <div>
+                <img src="Haften/Marcas/Logo Haften.png" alt="Haften" class="footer-logo"
+                    onerror="this.style.display='none'">
+                <div class="footer-logo-text">Haf<span>ten</span></div>
+                <p class="footer-desc">"Una solución completa en el mismo lugar."<br>Periféricos HVAC · BMS · Medición
+                    de Energía</p>
             </div>
             <div class="footer-col">
-                <h4>Navegación</h4>
+                <h4><i class="fa-solid fa-sitemap" style="color: rgba(255,255,255,.4);"></i> Navegación</h4>
                 <ul>
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="nosotros.html">Nosotros</a></li>
-                    <li><a href="marcas.html">Marcas</a></li>
-                    <li><a href="catalogos.html">Catálogos</a></li>
-                    <li><a href="multimedia.html">Multimedia</a></li>
-                    <li><a href="redes.html">Redes Sociales</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="index.html"><i class="fa-solid fa-house"></i>Inicio</a></li>
+                    <li><a href="nosotros.html"><i class="fa-solid fa-building"></i>Nosotros</a></li>
+                    <li><a href="marcas.html"><i class="fa-solid fa-tag"></i>Marcas</a></li>
+                    <li><a href="catalogos.html"><i class="fa-solid fa-file-pdf"></i>Catálogos</a></li>
+                    <li><a href="multimedia.html"><i class="fa-solid fa-play-circle"></i>Multimedia</a></li>
+                    <li><a href="redes.html"><i class="fa-solid fa-share-nodes"></i>Redes Sociales</a></li>
+                    <li><a href="contacto.html"><i class="fa-solid fa-envelope"></i>Contacto</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Contacto</h4>
+                <h4><i class="fa-solid fa-phone" style="color: rgba(255,255,255,.4);"></i> Contacto</h4>
                 <ul>
-                    <li><a href="mailto:haften@haften.com.mx">haften@haften.com.mx</a></li>
-                    <li><a href="https://haften.com.mx" target="_blank">www.haften.com.mx</a></li>
+                    <li><a href="mailto:haften@haften.com.mx"><i
+                                class="fa-solid fa-envelope"></i>haften@haften.com.mx</a></li>
+                    <li><a href="https://haften.com.mx" target="_blank"><i
+                                class="fa-solid fa-globe"></i>www.haften.com.mx</a></li>
+                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>Ciudad de México</a></li>
+                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>Monterrey</a></li>
+                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>Guadalajara</a></li>
+                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>León · Cancún</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Síguenos</h4>
+                <h4><i class="fa-solid fa-heart" style="color: rgba(255,255,255,.4);"></i> Síguenos</h4>
                 <ul>
-                    <li><a href="https://www.facebook.com/HaftenOficial" target="_blank">Facebook</a></li>
-                    <li><a href="https://www.instagram.com/Haftenoficial" target="_blank">Instagram</a></li>
-                    <li><a href="https://www.youtube.com/@Haftenoficial/videos" target="_blank">YouTube</a></li>
-                    <li><a href="https://www.linkedin.com/company/haften/" target="_blank">LinkedIn</a></li>
+                    <li><a href="https://www.facebook.com/HaftenOficial" target="_blank"><i
+                                class="fa-brands fa-facebook"></i>Facebook</a></li>
+                    <li><a href="https://www.instagram.com/Haftenoficial" target="_blank"><i
+                                class="fa-brands fa-instagram"></i>Instagram</a></li>
+                    <li><a href="https://www.youtube.com/@Haftenoficial/videos" target="_blank"><i
+                                class="fa-brands fa-youtube"></i>YouTube</a></li>
+                    <li><a href="https://www.linkedin.com/company/haften/" target="_blank"><i
+                                class="fa-brands fa-linkedin"></i>LinkedIn</a></li>
+                    <li><a href="https://x.com/haften1" target="_blank"><i class="fa-brands fa-x-twitter"></i>X
+                            (Twitter)</a></li>
+                    <li><a href="https://www.tiktok.com/@Haftenoficial/" target="_blank"><i
+                                class="fa-brands fa-tiktok"></i>TikTok</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <span class="footer-copy">© 2025 Haften. Todos los derechos reservados. · <a href="https://haften.com.mx"
+            <span class="footer-copy">© 2025 Haften. Todos los derechos reservados · <a href="https://haften.com.mx"
                     target="_blank">haften.com.mx</a></span>
+            <div class="footer-social">
+                <a href="https://www.facebook.com/HaftenOficial" target="_blank" title="Facebook"><i
+                        class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/Haftenoficial" target="_blank" title="Instagram"><i
+                        class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@Haftenoficial/videos" target="_blank" title="YouTube"><i
+                        class="fa-brands fa-youtube"></i></a>
+                <a href="https://www.linkedin.com/company/haften/" target="_blank" title="LinkedIn"><i
+                        class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://x.com/haften1" target="_blank" title="X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://www.tiktok.com/@Haftenoficial/" target="_blank" title="TikTok"><i
+                        class="fa-brands fa-tiktok"></i></a>
+            </div>
         </div>
     </footer>
 
-    <script src="haften-shared.js">
+    <!-- SCRIPTS -->
+    <script src="haften-shared.js"></script>
+    <script>
+        // BRAND DATA
+        const brandsData = [
+            {
+                name: "Air Monitor",
+                category: "hvac",
+                description: "Soluciones especializadas en medición de calidad y flujo de aire para sistemas HVAC de alta precisión.",
+                logo: "Haften/Marcas/Logos_Air Monitor Logo.png",
+                badge: "HVAC/R",
+                features: [
+                    { icon: "fa-solid fa-wind", title: "Medición de Aire", text: "Precisión en flujo de aire" },
+                    { icon: "fa-solid fa-gauge", title: "Calidad IAQ", text: "Monitoreo de calidad interior" },
+                    { icon: "fa-solid fa-microchip", title: "Tecnología IoT", text: "Integración inteligente" }
+                ]
+            },
+            {
+                name: "Badger Meter",
+                category: "instrumentacion",
+                description: "Líderes en medición de flujo de agua y gas con soluciones confiables para aplicaciones industriales.",
+                logo: "Haften/Marcas/descarga.png",
+                badge: "Instrumentación",
+                features: [
+                    { icon: "fa-solid fa-droplet", title: "Flujo de Agua", text: "Medición precisa de caudal" },
+                    { icon: "fa-solid fa-gas-pump", title: "Flujo de Gas", text: "Lecturas exactas de gas" },
+                    { icon: "fa-solid fa-cloud-arrow-up", title: "Smart Metering", text: "Conectividad remota" }
+                ]
+            },
+            {
+                name: "Belimo",
+                category: "hvac",
+                description: "Expertos en actuadores, válvulas y sensores HVAC con tecnología de punta para automatización completa.",
+                logo: "Haften/Marcas/belimo.fw.png",
+                badge: "HVAC/R",
+                features: [
+                    { icon: "fa-solid fa-sliders", title: "Válvulas Control", text: "Regulación eficiente" },
+                    { icon: "fa-solid fa-gear", title: "Actuadores", text: "Control preciso de posición" },
+                    { icon: "fa-solid fa-thermometer", title: "Sensores", text: "Detección de ambiente" }
+                ]
+            },
+            {
+                name: "Bry-Air",
+                category: "hvac",
+                description: "Deshumidificadores industriales de alta capacidad para control de humedad en ambientes críticos.",
+                logo: "Haften/Marcas/4 Bry-Air .png",
+                badge: "Clima",
+                features: [
+                    { icon: "fa-solid fa-droplets", title: "Deshumidificación", text: "Eficiencia máxima" },
+                    { icon: "fa-solid fa-industry", title: "Industrial", text: "Capacidades grandes" },
+                    { icon: "fa-solid fa-leaf", title: "Eco-Friendly", text: "Tecnología verde" }
+                ]
+            },
+            {
+                name: "Contemporary Controls",
+                category: "bms",
+                description: "Especialistas en redes BACnet y automatización de edificios con soluciones inteligentes.",
+                logo: "Haften/Marcas/CCSI logo stacked 4 (00000003).png",
+                badge: "BMS",
+                features: [
+                    { icon: "fa-solid fa-network-wired", title: "BACnet", text: "Redes abiertas" },
+                    { icon: "fa-solid fa-building", title: "Automatización", text: "Control de edificios" },
+                    { icon: "fa-solid fa-server", title: "Supervisión", text: "Monitoreo integral" }
+                ]
+            },
+            {
+                name: "Control Techniques",
+                category: "automatizacion",
+                description: "Variadores de frecuencia (VFDs) de clase mundial para control eficiente de motores.",
+                logo: "Haften/Marcas/LOG_CT_RGB.png",
+                badge: "Automatización",
+                features: [
+                    { icon: "fa-solid fa-bolt", title: "VFDs", text: "Variadores profesionales" },
+                    { icon: "fa-solid fa-zap", title: "Eficiencia Energética", text: "Ahorro en consumo" },
+                    { icon: "fa-solid fa-sliders", title: "Control Motorizado", text: "Precisión total" }
+                ]
+            },
+            {
+                name: "Cool Automation",
+                category: "bms",
+                description: "Integración HVAC/IoT y control inteligente para edificios conectados del futuro.",
+                logo: "Haften/Marcas/descarga.png",
+                badge: "IoT / BMS",
+                features: [
+                    { icon: "fa-solid fa-wifi", title: "IoT Integration", text: "Conectividad inteligente" },
+                    { icon: "fa-solid fa-mobile", title: "App Mobile", text: "Control remoto" },
+                    { icon: "fa-solid fa-chart-line", title: "Analytics", text: "Datos en tiempo real" }
+                ]
+            },
+            {
+                name: "Delta Electronics",
+                category: "automatizacion",
+                description: "Drives industriales y automatización de procesos con tecnología confiable.",
+                logo: "Haften/Marcas/delta-500w-trim-vert.png",
+                badge: "Automatización",
+                features: [
+                    { icon: "fa-solid fa-gears", title: "Industrial Drives", text: "Motores potentes" },
+                    { icon: "fa-solid fa-cogs", title: "Automatización", text: "Procesos eficientes" },
+                    { icon: "fa-solid fa-wrench", title: "Soporte Técnico", text: "Asistencia completa" }
+                ]
+            },
+            {
+                name: "Dwyer Omega",
+                category: "instrumentacion",
+                description: "Instrumentación industrial completa con soluciones confiables para múltiples aplicaciones.",
+                logo: "Haften/Marcas/9.1 -DO-logo-horiz-full-color-TM.png",
+                badge: "Instrumentación",
+                features: [
+                    { icon: "fa-solid fa-ruler", title: "Medición", text: "Variadas opciones" },
+                    { icon: "fa-solid fa-flask", title: "Testing", text: "Control de calidad" },
+                    { icon: "fa-solid fa-shield", title: "Fiabilidad", text: "Altamente confiable" }
+                ]
+            },
+            {
+                name: "FlowCon",
+                category: "hvac",
+                description: "Válvulas de balanceo y control de caudal para sistemas HVAC equilibrados.",
+                logo: "Haften/Marcas/FlowCon-Logo.png",
+                badge: "HVAC/R",
+                features: [
+                    { icon: "fa-solid fa-water", title: "Válvulas Balanceo", text: "Distribución uniforme" },
+                    { icon: "fa-solid fa-wave-square", title: "Control Caudal", text: "Regulación precisa" },
+                    { icon: "fa-solid fa-leaf", title: "Ahorro Energético", text: "Sistemas eficientes" }
+                ]
+            },
+            {
+                name: "GPI",
+                category: "instrumentacion",
+                description: "Medidores de flujo de precisión para aplicaciones industriales y comerciales.",
+                logo: "Haften/Marcas/11-GPI-Inc-Logo-Registered.png",
+                badge: "Instrumentación",
+                features: [
+                    { icon: "fa-solid fa-gauge-high", title: "Precisión", text: "Medidas exactas" },
+                    { icon: "fa-solid fa-oil-can", title: "Aplicaciones", text: "Múltiples fluidos" },
+                    { icon: "fa-solid fa-industry", title: "Industrial", text: "Uso profesional" }
+                ]
+            },
+            {
+                name: "Greystone Energy",
+                category: "bms",
+                description: "Sensores especializados para sistemas BMS y HVAC con alta confiabilidad.",
+                logo: "Haften/Marcas/Greystone Logo - Pantone 3295 - Large.png",
+                badge: "BMS",
+                features: [
+                    { icon: "fa-solid fa-satellite-dish", title: "Sensores BMS", text: "Detección ambiental" },
+                    { icon: "fa-solid fa-thermometer", title: "Temperatura", text: "Monitoreo continuo" },
+                    { icon: "fa-solid fa-droplet-slash", title: "Humedad", text: "Control de RH" }
+                ]
+            },
+            {
+                name: "Johnson Controls",
+                category: "bms",
+                description: "Sistemas de automatización de edificios con soluciones integrales de clase mundial.",
+                logo: "Haften/Marcas/Johnson_Controls.svg.png",
+                badge: "BMS",
+                features: [
+                    { icon: "fa-solid fa-city", title: "Edificios Inteligentes", text: "Automatización total" },
+                    { icon: "fa-solid fa-leaf", title: "Sostenibilidad", text: "Eficiencia energética" },
+                    { icon: "fa-solid fa-chart-line", title: "Analytics", text: "Optimización de datos" }
+                ]
+            },
+            {
+                name: "Loytec",
+                category: "bms",
+                description: "Automatización inteligente de edificios con plataformas abiertas y flexibles.",
+                logo: "Haften/Marcas/14-LOGO Loytec.png",
+                badge: "BMS",
+                features: [
+                    { icon: "fa-solid fa-brain", title: "Inteligencia", text: "Control adaptativo" },
+                    { icon: "fa-solid fa-lock-open", title: "Plataforma Abierta", text: "Compatible" },
+                    { icon: "fa-solid fa-plug", title: "Integración", text: "Múltiples sistemas" }
+                ]
+            },
+            {
+                name: "Meitav-Tec",
+                category: "hvac",
+                description: "Calefactores eléctricos industriales para aplicaciones de alta demanda térmica.",
+                logo: "Haften/Marcas/15-meitav-tec.png",
+                badge: "Clima",
+                features: [
+                    { icon: "fa-solid fa-fire", title: "Calefacción", text: "Alto rendimiento" },
+                    { icon: "fa-solid fa-industry", title: "Industrial", text: "Alta potencia" },
+                    { icon: "fa-solid fa-shield", title: "Seguridad", text: "Protecciones múltiples" }
+                ]
+            },
+            {
+                name: "Neptronic",
+                category: "hvac",
+                description: "Humidificadores de alta tecnología para control preciso de humedad en espacios críticos.",
+                logo: "Haften/Marcas/16- Neptronic-Haften - copia.png",
+                badge: "Humidificación",
+                features: [
+                    { icon: "fa-solid fa-water", title: "Humidificación", text: "Precisión profesional" },
+                    { icon: "fa-solid fa-droplets", title: "Tecnología Avanzada", text: "Sistemas modernos" },
+                    { icon: "fa-solid fa-leaf", title: "Eficiencia", text: "Bajo consumo energético" }
+                ]
+            },
+            {
+                name: "ONICON",
+                category: "energia",
+                description: "Medición de energía y caudal BTU para monitoreo energético completo.",
+                logo: "Haften/Marcas/Logos_ONICON Logo (2).png",
+                badge: "Energía",
+                features: [
+                    { icon: "fa-solid fa-plug", title: "Medición Energía", text: "Monitoreo eléctrico" },
+                    { icon: "fa-solid fa-fire", title: "BTU Térmica", text: "Cálculo de energía" },
+                    { icon: "fa-solid fa-chart-column", title: "Reportes", text: "Análisis detallados" }
+                ]
+            },
+            {
+                name: "Senva",
+                category: "bms",
+                description: "Sensores especializados para control de edificios con precisión garantizada.",
+                logo: "Haften/Marcas/Senva-Logo-BLK-2022 (002).png",
+                badge: "BMS",
+                features: [
+                    { icon: "fa-solid fa-eye", title: "Detección", text: "Sensores precisos" },
+                    { icon: "fa-solid fa-wifi", title: "Conectividad", text: "Redes inalámbricas" },
+                    { icon: "fa-solid fa-check-circle", title: "Confiabilidad", text: "Tecnología probada" }
+                ]
+            },
+            {
+                name: "Setra",
+                category: "instrumentacion",
+                description: "Sensores de presión de alta precisión para aplicaciones críticas.",
+                logo: "Haften/Marcas/1200px-Setra_Systems_Logo.png",
+                badge: "Instrumentación",
+                features: [
+                    { icon: "fa-solid fa-gauge", title: "Presión", text: "Medición exacta" },
+                    { icon: "fa-solid fa-microscope", title: "Precisión", text: "Valores muy fiables" },
+                    { icon: "fa-solid fa-cog", title: "Aplicaciones", text: "Uso especializado" }
+                ]
+            },
+            {
+                name: "Vaisala",
+                category: "instrumentacion",
+                description: "Sensores ambientales de alta precisión para monitoreo profesional.",
+                logo: "Haften/Marcas/19 Vaisala-authorized-parter-logo-blue-cmyk.png",
+                badge: "Ambiental",
+                features: [
+                    { icon: "fa-solid fa-cloud", title: "Ambiente", text: "Condiciones climáticas" },
+                    { icon: "fa-solid fa-droplet", title: "Humedad", text: "Medición precisa RH" },
+                    { icon: "fa-solid fa-wind", title: "Gases", text: "Composición del aire" }
+                ]
+            }
+        ];
 
-        /* ── Splash Screen Loader ───────────────────────── */
+        // RENDER BRANDS
+        function renderBrands(filter = 'all') {
+            const grid = document.getElementById('brandsGrid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' ? brandsData : brandsData.filter(b => b.category === filter);
+
+            filtered.forEach((brand, index) => {
+                const delayClass = ['d1', 'd2', 'd3', 'd4'][index % 4];
+                const card = document.createElement('div');
+                card.className = `brand-card-full ${delayClass}`;
+                card.innerHTML = `
+                    <div class="brand-card-header">
+                        <img class="brand-logo-img" src="${brand.logo}" alt="${brand.name}">
+                    </div>
+                    <div class="brand-card-content">
+                        <h3>${brand.name}</h3>
+                        <p>${brand.description}</p>
+                    </div>
+                    <div class="brand-card-footer">
+                        <span class="brand-card-badge">${brand.badge}</span>
+                        <button class="btn-view-details" onclick="openBrandModal('${brand.name.replace(/'/g, "\\'")}')">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // MODAL FUNCTIONS
+        function openBrandModal(brandName) {
+            const brand = brandsData.find(b => b.name === brandName);
+            if (!brand) return;
+
+            document.getElementById('modalLogoImg').src = brand.logo;
+            document.getElementById('modalTitle').textContent = brand.name;
+            document.getElementById('modalCategory').textContent = brand.badge;
+            document.getElementById('modalDescription').textContent = brand.description;
+
+            const featuresHtml = brand.features.map(f => `
+                <div class="modal-feature">
+                    <div class="modal-feature-icon"><i class="${f.icon}"></i></div>
+                    <div class="modal-feature-text">
+                        <strong>${f.title}</strong>
+                        <p>${f.text}</p>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('modalFeatures').innerHTML = featuresHtml;
+
+            document.getElementById('brandModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBrandModal() {
+            document.getElementById('brandModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // FILTER BUTTONS
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderBrands(this.dataset.filter);
+            });
+        });
+
+        // CLOSE MODAL ON CLICK OUTSIDE
+        document.getElementById('brandModal').addEventListener('click', function (e) {
+            if (e.target === this) closeBrandModal();
+        });
+
+        // KEYBOARD CLOSE
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeBrandModal();
+        });
+
+        // INITIAL RENDER
+        renderBrands();
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-links');
+        if (menuBtn && navMenu) {
+            menuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                menuBtn.classList.toggle('active');
+            });
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    menuBtn.classList.remove('active');
+                });
+            });
+        }
+
+        // Splash Screen Loader
         window.addEventListener('load', () => {
             const loader = document.getElementById('page-loader');
             if (loader) {
-                // Agregamos un pequeño retraso de medio segundo para asegurar 
-                // que la animación de la barrita se vea fluida antes de desaparecer
                 setTimeout(() => {
                     loader.classList.add('fade-out');
                 }, 500);
             }
         });
-
     </script>
 </body>
 
