@@ -4,197 +4,525 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Haften – Soluciones HVAC/R · BMS · Instrumentación</title>
+  <title>Haften - Soluciones HVAC/R BMS Instrumentacion</title>
   <meta name="description"
-    content="Haften: distribución y asesoría especializada en instrumentación HVAC/R-BMS, humidificadores, deshumidificadores y calefactores eléctricos en México." />
+    content="Haften: distribucion y asesoria especializada en instrumentacion HVAC/R-BMS en Mexico." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" />
-  <link rel="stylesheet" href="haften.css" />
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" />
   <style>
-    /* ─── HERO ─────────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
 
-    /* ─── FIX RESPONSIVO AVANZADO PARA NAVBAR ─────────────────────── */
+    :root {
+      --ac: #C1272D;
+      --ac-dark: #8B1A1F;
+      --ac-rgb: 193, 39, 45;
+      --ac-light: #FFF0F0;
+      --bg: #FFFFFF;
+      --bg-2: #F7F7F8;
+      --bg-dark: #0D0F18;
+      --text: #0D0F18;
+      --text-2: #64748B;
+      --border: #E8E8EC;
+      --nav-h: 72px;
+      --radius: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --shadow-xs: 0 1px 3px rgba(0, 0, 0, .06);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, .10);
+      --shadow-xl: 0 24px 64px rgba(0, 0, 0, .14);
+      --tr: all .22s ease;
+      --tr-spring: all .4s cubic-bezier(.34, 1.56, .64, 1);
+    }
 
-    /* 1. Prevenir desbordamientos en pantalla */
+    html {
+      scroll-behavior: smooth
+    }
+
     html,
     body {
       max-width: 100vw;
       overflow-x: hidden;
+      font-family: 'Outfit', sans-serif;
+      color: var(--text);
+      background: var(--bg)
+    }
+
+    img {
+      display: block;
+      max-width: 100%
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit
+    }
+
+    ul {
+      list-style: none
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    @media(max-width:768px) {
+      .container {
+        padding: 0 20px
+      }
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 13px 26px;
+      border-radius: 100px;
+      font-size: .92rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: var(--tr);
+      white-space: nowrap
+    }
+
+    .btn-ac {
+      background: var(--ac);
+      color: #fff;
+      border-color: var(--ac)
+    }
+
+    .btn-ac:hover {
+      background: var(--ac-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(var(--ac-rgb), .35)
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--text);
+      border-color: #fff
+    }
+
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .18)
+    }
+
+    .btn-dark {
+      background: rgba(255, 255, 255, .12);
+      color: #fff;
+      border-color: rgba(255, 255, 255, .22);
+      backdrop-filter: blur(8px)
+    }
+
+    .btn-dark:hover {
+      background: rgba(255, 255, 255, .22);
+      transform: translateY(-2px)
+    }
+
+    /* TYPOGRAPHY */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ac);
+      margin-bottom: 14px
+    }
+
+    .section-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -.03em
+    }
+
+    .section-title span {
+      color: var(--ac)
+    }
+
+    .section-sub {
+      color: var(--text-2);
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-top: 12px;
+      max-width: 560px
+    }
+
+    .accent-line {
+      display: block;
+      width: 48px;
+      height: 4px;
+      background: var(--ac);
+      border-radius: 2px;
+      margin: 16px 0 0
+    }
+
+    .section-header {
+      margin-bottom: 52px
+    }
+
+    /* NAVBAR */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: var(--nav-h);
+      background: rgba(255, 255, 255, .96);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .3s
+    }
+
+    #navbar.scrolled {
+      box-shadow: 0 4px 24px rgba(0, 0, 0, .08)
     }
 
     .nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 100%;
-      padding: 10px 24px;
-      position: relative;
-      /* Necesario para que el submenú se alinee bien */
+      height: 100%;
+      padding: 0 32px;
+      position: relative
     }
 
-    /* 2. Mantener 1 sola línea en PC (evita que brinque abajo) */
+    .nav-logo img {
+      height: 38px
+    }
+
+    .nav-logo-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900
+    }
+
+    .nav-logo-text span {
+      color: var(--ac)
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
-      gap: clamp(10px, 1.5vw, 24px);
-      margin: 0;
-      flex-wrap: nowrap !important;
+      gap: 4px;
+      flex-wrap: nowrap
     }
 
-    /* 3. Botón de Menú (Hamburguesa) - Oculto en PC */
+    .nav-link {
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--text-2);
+      transition: var(--tr);
+      white-space: nowrap
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--ac);
+      background: var(--ac-light)
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 22px;
+      background: var(--ac);
+      color: #fff;
+      border-radius: 100px;
+      font-size: .88rem;
+      font-weight: 700;
+      transition: var(--tr);
+      margin-left: 8px
+    }
+
+    .nav-cta:hover {
+      background: var(--ac-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(var(--ac-rgb), .3)
+    }
+
+    .nav-settings {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .theme-toggle-btn,
+    .lang-pill {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: .8rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--bg-2);
+      cursor: pointer;
+      color: var(--text-2);
+      transition: var(--tr)
+    }
+
+    .theme-toggle-btn:hover,
+    .lang-pill:hover {
+      border-color: var(--ac);
+      color: var(--ac)
+    }
+
+    .lang-pill {
+      position: relative;
+      overflow: hidden
+    }
+
+    .lang-highlight {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      background: var(--ac);
+      border-radius: 6px;
+      transition: .3s
+    }
+
+    .lang-opt {
+      position: relative;
+      z-index: 1;
+      font-size: .75rem;
+      font-weight: 700;
+      padding: 0 4px;
+      transition: .3s
+    }
+
+    .lang-pill .opt-es {
+      color: #fff
+    }
+
+    .lang-pill .opt-en {
+      color: var(--text-2)
+    }
+
+    #accent-panel {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 32px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      box-shadow: var(--shadow-lg);
+      min-width: 200px;
+      display: none;
+      z-index: 100
+    }
+
+    #accent-panel.open {
+      display: block
+    }
+
+    .panel-label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      margin-bottom: 12px
+    }
+
+    .accent-options {
+      display: flex;
+      gap: 8px
+    }
+
+    .ac-swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: var(--tr)
+    }
+
+    .ac-swatch.active {
+      border-color: var(--text)
+    }
+
+    .ac-swatch[data-accent="red"] {
+      background: #C1272D
+    }
+
+    .ac-swatch[data-accent="blue"] {
+      background: #2563EB
+    }
+
+    .ac-swatch[data-accent="emerald"] {
+      background: #059669
+    }
+
+    .ac-swatch[data-accent="violet"] {
+      background: #7C3AED
+    }
+
+    .ac-swatch[data-accent="orange"] {
+      background: #EA580C
+    }
+
+    .ac-swatch[data-accent="rose"] {
+      background: #E11D48
+    }
+
     #menu-toggle {
       display: none;
       background: transparent;
-      border: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
       cursor: pointer;
-      padding: 5px;
-      margin-left: 15px;
+      padding: 8px 10px;
+      gap: 5px;
+      flex-direction: column;
+      align-items: center
     }
 
     #menu-toggle span {
       display: block;
-      width: 28px;
-      height: 3px;
-      background-color: var(--ac, #C1272D);
-      /* Usa tu color rojo */
-      margin: 5px 0;
-      border-radius: 3px;
-      transition: 0.3s;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: .3s
     }
 
-    /* 4. 📱 MAGIA RESPONSIVA: Pantallas menores a 1100px (Tablets y Móviles) */
-    @media (max-width: 1100px) {
+    #menu-toggle.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
 
-      /* Aparece el botón de hamburguesa */
+    #menu-toggle.open span:nth-child(2) {
+      opacity: 0
+    }
+
+    #menu-toggle.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    @media(max-width:1100px) {
       #menu-toggle {
-        display: block;
+        display: flex
       }
 
-      /* Movemos los ajustes a la derecha junto al botón */
-      .nav-settings {
-        display: flex;
-        align-items: center;
-        margin-left: auto;
-        gap: 10px;
-      }
-
-      /* Transformamos el menú horizontal en un panel vertical */
       .nav-links {
         position: absolute;
         top: 100%;
-        /* Justo debajo de la barra blanca */
         left: 0;
-        width: 100%;
-        background: #ffffff;
+        right: 0;
+        background: #fff;
+        border-top: 1px solid var(--border);
         flex-direction: column;
         align-items: flex-start;
-        padding: 20px 24px;
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-
-        /* ¡NUEVO: Esto fuerza al menú a estar por encima de todo! */
-        z-index: 9999;
-
-        /* Oculto por defecto en móvil */
+        padding: 16px 24px 24px;
+        gap: 4px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, .1);
+        z-index: 999;
         opacity: 0;
         visibility: hidden;
-        transform: translateY(-15px);
-        transition: all 0.3s ease;
+        transform: translateY(-8px);
+        transition: all .3s
       }
 
-      /* Clase que mostrará el menú (cubrimos las opciones más comunes) */
-      .nav-links.active,
-      .nav-links.open,
-      .nav-links.show {
+      .nav-links.active {
         opacity: 1;
         visibility: visible;
-        transform: translateY(0);
+        transform: translateY(0)
       }
 
-      /* Acomodamos el botón rojo de contacto */
+      .nav-link {
+        width: 100%
+      }
+
       .nav-cta {
-        display: inline-block;
-        margin-top: 10px;
+        width: 100%;
+        justify-content: center;
+        margin: 8px 0 0
       }
     }
 
+    /* ============ HERO FULLSCREEN SLIDER ============ */
     .hero {
       position: relative;
-      overflow: hidden;
       height: 100svh;
-      min-height: 600px;
+      min-height: 620px;
       margin-top: var(--nav-h);
       display: flex;
       align-items: center;
+      overflow: hidden
     }
 
-    .hero-bg {
+    .hero-slides {
       position: absolute;
-      inset: 0;
+      inset: 0
     }
 
-    .hero-slides-bg {
+    .hero-slide {
       position: absolute;
       inset: 0;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      overflow: hidden
     }
 
-    .hero-slide-img {
-      position: absolute;
-      inset: 0;
+    .hero-slide.active {
+      opacity: 1;
+      z-index: 1
+    }
+
+    .hero-slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0;
-      transition: opacity 1.4s ease;
+      transform: scale(1.07);
+      transition: transform 7s ease
     }
 
-    .hero-slide-img.active {
-      opacity: 1;
-      z-index: 1;
+    .hero-slide.active img {
+      transform: scale(1)
     }
 
-    /* Noise texture overlay */
-    .hero-noise {
+    .hero-slide::after {
+      content: '';
       position: absolute;
       inset: 0;
-      z-index: 2;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
-      background-size: 200px;
-      opacity: .5;
-      pointer-events: none;
+      background: linear-gradient(135deg, rgba(var(--ac-rgb), .76) 0%, rgba(10, 12, 20, .52) 50%, rgba(10, 12, 20, .70) 100%)
     }
 
-    /* Gradient */
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      background:
-        linear-gradient(135deg, rgba(var(--ac-rgb), .78) 0%, rgba(10, 12, 20, .58) 50%, rgba(10, 12, 20, .75) 100%);
-    }
-
-    /* Grid lines decoration */
     .hero-grid {
       position: absolute;
       inset: 0;
       z-index: 3;
-      overflow: hidden;
       pointer-events: none;
+      background-image: linear-gradient(rgba(255, 255, 255, .024) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .024) 1px, transparent 1px);
+      background-size: 64px 64px
     }
 
-    .hero-grid::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-
-    /* ─── HERO CONTENT ──────────────────────────────── */
     .hero-content {
       position: relative;
       z-index: 5;
@@ -203,11 +531,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 48px;
+      gap: 48px
     }
 
     .hero-left {
-      max-width: 700px;
+      max-width: 680px
     }
 
     .hero-eyebrow {
@@ -226,43 +554,39 @@
       text-transform: uppercase;
       margin-bottom: 24px;
       opacity: 0;
-      animation: heroIn .8s .3s cubic-bezier(.34, 1.56, .64, 1) forwards;
-    }
-
-    .hero-eyebrow i {
-      color: rgba(255, 255, 255, .7);
-      font-size: .75rem;
+      animation: heroIn .8s .3s cubic-bezier(.34, 1.56, .64, 1) forwards
     }
 
     .hero-heading {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+      font-size: clamp(2.4rem, 5vw, 4rem);
       font-weight: 900;
       color: #fff;
-      line-height: 1.05;
+      line-height: 1.06;
       letter-spacing: -.04em;
       margin-bottom: 22px;
       opacity: 0;
-      animation: heroIn .9s .45s cubic-bezier(.34, 1.56, .64, 1) forwards;
+      animation: heroIn .9s .45s cubic-bezier(.34, 1.56, .64, 1) forwards
     }
 
     .hero-heading .outlined {
-      -webkit-text-stroke: 2px rgba(255, 255, 255, 0.6);
-      color: transparent;
+      -webkit-text-stroke: 2px rgba(255, 255, 255, .55);
+      color: transparent
     }
 
     .hero-heading .ac-word {
-      color: #ffccc7;
+      color: #ffccc7
     }
 
     .hero-sub {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: rgba(255, 255, 255, .82);
-      line-height: 1.75;
+      line-height: 1.8;
       margin-bottom: 36px;
-      max-width: 560px;
+      max-width: 540px;
+      text-align: justify;
       opacity: 0;
-      animation: heroIn .8s .6s ease forwards;
+      animation: heroIn .8s .6s ease forwards
     }
 
     .hero-btns {
@@ -270,29 +594,28 @@
       gap: 14px;
       flex-wrap: wrap;
       opacity: 0;
-      animation: heroIn .8s .75s ease forwards;
+      animation: heroIn .8s .75s ease forwards
     }
 
-    /* Floating card right side */
     .hero-card {
       background: rgba(255, 255, 255, .1);
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(22px);
       border: 1px solid rgba(255, 255, 255, .18);
       border-radius: var(--radius-xl);
-      padding: 28px;
-      min-width: 260px;
+      padding: 28px 26px;
+      min-width: 268px;
       max-width: 300px;
       opacity: 0;
-      animation: heroIn .9s .9s cubic-bezier(.34, 1.56, .64, 1) forwards;
+      animation: heroIn .9s .9s cubic-bezier(.34, 1.56, .64, 1) forwards
     }
 
     .hero-card-title {
-      font-size: .72rem;
+      font-size: .7rem;
       font-weight: 700;
       letter-spacing: .14em;
       color: rgba(255, 255, 255, .6);
       text-transform: uppercase;
-      margin-bottom: 16px;
+      margin-bottom: 18px
     }
 
     .hero-metric {
@@ -300,12 +623,12 @@
       align-items: center;
       gap: 12px;
       padding: 12px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, .1);
+      border-bottom: 1px solid rgba(255, 255, 255, .1)
     }
 
     .hero-metric:last-child {
       border-bottom: none;
-      padding-bottom: 0;
+      padding-bottom: 0
     }
 
     .hero-metric-icon {
@@ -319,25 +642,22 @@
       justify-content: center;
       color: #fff;
       font-size: .95rem;
-    }
-
-    .hero-metric-text {
-      flex: 1;
+      flex-shrink: 0
     }
 
     .hero-metric-num {
-      font-size: 1.3rem;
-      font-weight: 800;
+      font-size: 1.35rem;
+      font-weight: 900;
       color: #fff;
-      line-height: 1;
+      line-height: 1
     }
 
     .hero-metric-lbl {
-      font-size: .72rem;
+      font-size: .7rem;
       color: rgba(255, 255, 255, .6);
+      margin-top: 2px
     }
 
-    /* Slide controls */
     .slide-nav {
       position: absolute;
       bottom: 36px;
@@ -347,37 +667,24 @@
       align-items: center;
       gap: 10px;
       opacity: 0;
-      animation: heroIn .7s 1.1s ease forwards;
+      animation: heroIn .7s 1.1s ease forwards
     }
 
     .slide-dot-btn {
-      width: 32px;
+      width: 30px;
       height: 3px;
       background: rgba(255, 255, 255, .25);
       border-radius: 2px;
       cursor: pointer;
       border: none;
-      transition: background var(--tr), width var(--tr);
+      transition: var(--tr)
     }
 
     .slide-dot-btn.active {
       background: #fff;
-      width: 52px;
+      width: 50px
     }
 
-    @keyframes heroIn {
-      from {
-        opacity: 0;
-        transform: translateY(28px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* ─── SCROLL INDICATOR ───────────────────────── */
     .scroll-indicator {
       position: absolute;
       bottom: 32px;
@@ -388,15 +695,15 @@
       align-items: center;
       gap: 8px;
       opacity: 0;
-      animation: heroIn .7s 1.2s ease forwards;
+      animation: heroIn .7s 1.2s ease forwards
     }
 
     .scroll-indicator span {
-      font-size: .68rem;
+      font-size: .65rem;
       letter-spacing: .18em;
       color: rgba(255, 255, 255, .5);
       text-transform: uppercase;
-      writing-mode: vertical-rl;
+      writing-mode: vertical-rl
     }
 
     .scroll-line {
@@ -404,7 +711,7 @@
       height: 48px;
       background: rgba(255, 255, 255, .2);
       position: relative;
-      overflow: hidden;
+      overflow: hidden
     }
 
     .scroll-line::after {
@@ -415,32 +722,44 @@
       right: 0;
       height: 60%;
       background: #fff;
-      animation: scrollLine 1.6s ease infinite;
+      animation: scrollLine 1.6s ease infinite
+    }
+
+    @keyframes heroIn {
+      from {
+        opacity: 0;
+        transform: translateY(28px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
     }
 
     @keyframes scrollLine {
       0% {
         transform: translateY(-100%);
-        opacity: 1;
+        opacity: 1
       }
 
       80% {
         transform: translateY(200%);
-        opacity: .5;
+        opacity: .5
       }
 
       100% {
         transform: translateY(200%);
-        opacity: 0;
+        opacity: 0
       }
     }
 
-    /* ─── MARQUEE / TICKER alt ───────────────────── */
+    /* TICKER */
     .ticker-wrapper {
       position: relative;
       overflow: hidden;
       background: var(--ac);
-      padding: 14px 0;
+      padding: 13px 0
     }
 
     .ticker-wrapper::before,
@@ -449,77 +768,127 @@
       position: absolute;
       top: 0;
       bottom: 0;
-      width: 100px;
+      width: 80px;
       z-index: 1;
-      pointer-events: none;
+      pointer-events: none
     }
 
     .ticker-wrapper::before {
       left: 0;
-      background: linear-gradient(to right, var(--ac), transparent);
+      background: linear-gradient(to right, var(--ac), transparent)
     }
 
     .ticker-wrapper::after {
       right: 0;
-      background: linear-gradient(to left, var(--ac), transparent);
+      background: linear-gradient(to left, var(--ac), transparent)
     }
 
-    /* ─── ABOUT STRIP ─────────────────────────────── */
-    .about-strip {
-      padding: 100px 0;
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: tickerScroll 35s linear infinite
     }
 
-    .about-strip-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: 80px;
+    @keyframes tickerScroll {
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    .ticker-item {
+      display: flex;
       align-items: center;
+      gap: 10px;
+      padding: 0 28px;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: rgba(255, 255, 255, .9);
+      text-transform: uppercase;
+      white-space: nowrap
+    }
+
+    .ticker-item i {
+      font-size: .35rem;
+      opacity: .7
+    }
+
+    /* STATS */
+    .stats-band {
+      padding: 60px 0;
+      background: #fff;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .stats-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr)
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 28px 20px;
+      text-align: center;
+      position: relative
+    }
+
+    .stat-item+.stat-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 20%;
+      bottom: 20%;
+      width: 1px;
+      background: var(--border)
+    }
+
+    .stat-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      font-weight: 900;
+      color: var(--ac);
+      line-height: 1;
+      margin-bottom: 8px
+    }
+
+    .stat-suffix {
+      font-size: .65em
+    }
+
+    .stat-lbl {
+      font-size: .82rem;
+      color: var(--text-2);
+      font-weight: 600
+    }
+
+    /* ABOUT */
+    .about-strip {
+      padding: 110px 0
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 80px;
+      align-items: center
     }
 
     .about-img-stack {
-      position: relative;
-    }
-
-    .about-img-main {
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      box-shadow: var(--shadow-xl);
-      aspect-ratio: 4/5;
-      max-height: 480px;
-    }
-
-    .about-img-main img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .about-img-float {
-      position: absolute;
-      bottom: -24px;
-      right: -24px;
-      width: 190px;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: var(--shadow-xl);
-      border: 4px solid #fff;
-    }
-
-    .about-img-float img {
-      width: 100%;
-      display: block;
+      position: relative
     }
 
     .about-accent-dot {
       position: absolute;
-      top: -16px;
-      left: -16px;
-      width: 100px;
-      height: 100px;
+      top: -20px;
+      left: -20px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       background: var(--ac);
-      opacity: .08;
-      animation: pulse 3s ease infinite;
+      opacity: .07;
+      animation: pulse 3s ease infinite
     }
 
     @keyframes pulse {
@@ -534,36 +903,84 @@
       }
     }
 
+    .about-img-main {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      max-height: 500px;
+      box-shadow: var(--shadow-xl)
+    }
+
+    .about-img-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .about-img-float {
+      position: absolute;
+      bottom: -28px;
+      right: -28px;
+      width: 200px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+      border: 5px solid #fff
+    }
+
+    .about-img-float img {
+      width: 100%;
+      display: block
+    }
+
     .about-chip {
       position: absolute;
-      right: 16px;
-      top: 32px;
+      right: 20px;
+      top: 36px;
       background: #fff;
       border-radius: var(--radius);
-      padding: 14px 18px;
+      padding: 16px 20px;
       box-shadow: var(--shadow-lg);
-      min-width: 150px;
+      min-width: 155px
     }
 
     .about-chip-num {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 1.7rem;
+      font-size: 1.8rem;
       font-weight: 900;
       color: var(--ac);
-      line-height: 1;
+      line-height: 1
     }
 
     .about-chip-lbl {
       font-size: .75rem;
       color: var(--text-2);
       font-weight: 600;
-      margin-top: 4px;
+      margin-top: 4px
     }
 
     .about-text {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 22px
+    }
+
+    .about-text h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -.03em
+    }
+
+    .about-text h2 span {
+      color: var(--ac)
+    }
+
+    .about-text p {
+      color: var(--text-2);
+      line-height: 1.85;
+      text-align: justify
     }
 
     .about-quote {
@@ -574,30 +991,13 @@
       font-size: 1rem;
       font-weight: 700;
       color: var(--ac-dark);
-      font-style: italic;
-    }
-
-    .about-text h2 {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(2rem, 3.2vw, 2.8rem);
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -.03em;
-    }
-
-    .about-text h2 span {
-      color: var(--ac);
-    }
-
-    .about-text p {
-      color: var(--text-2);
-      line-height: 1.8;
+      font-style: italic
     }
 
     .about-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 10px
     }
 
     .pill {
@@ -611,73 +1011,68 @@
       font-size: .83rem;
       font-weight: 600;
       color: var(--text-2);
-      transition: var(--tr);
+      transition: var(--tr)
     }
 
     .pill:hover {
       border-color: var(--ac);
       color: var(--ac);
-      background: var(--ac-light);
+      background: var(--ac-light)
     }
 
     .pill i {
       color: var(--ac);
-      font-size: .75rem;
+      font-size: .75rem
     }
 
-    /* ─── CATEGORIES ──────────────────────────────── */
+    /* CATEGORIES */
     .categories-section {
       background: var(--bg-2);
-      padding: 100px 0;
+      padding: 110px 0
     }
 
     .cat-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      gap: 24px
     }
 
     .cat-card {
       position: relative;
       border-radius: var(--radius-xl);
       overflow: hidden;
-      height: 320px;
-      cursor: pointer;
-      group: true;
+      height: 340px;
+      cursor: pointer
     }
 
     .cat-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform .8s cubic-bezier(.4, 0, .2, 1);
+      transition: transform .8s cubic-bezier(.4, 0, .2, 1)
     }
 
     .cat-card:hover img {
-      transform: scale(1.08);
+      transform: scale(1.08)
     }
 
     .cat-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(var(--ac-rgb), .9) 0%, rgba(0, 0, 0, .06) 60%);
+      background: linear-gradient(to top, rgba(var(--ac-rgb), .92) 0%, rgba(0, 0, 0, .04) 65%);
       display: flex;
       align-items: flex-end;
-      padding: 28px;
-      transition: var(--tr);
+      padding: 30px;
+      transition: var(--tr)
     }
 
     .cat-card:hover .cat-overlay {
-      background: linear-gradient(to top, rgba(var(--ac-rgb), .95) 0%, rgba(0, 0, 0, .2) 60%);
-    }
-
-    .cat-body {
-      width: 100%;
+      background: linear-gradient(to top, rgba(var(--ac-rgb), .97) 0%, rgba(0, 0, 0, .2) 65%)
     }
 
     .cat-icon {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: 10px;
       background: rgba(255, 255, 255, .2);
       backdrop-filter: blur(8px);
@@ -685,52 +1080,51 @@
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-size: 1.1rem;
-      margin-bottom: 10px;
+      font-size: 1.15rem;
+      margin-bottom: 10px
     }
 
     .cat-title {
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       font-weight: 800;
-      color: #fff;
+      color: #fff
     }
 
     .cat-arrow {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      color: rgba(255, 255, 255, .7);
+      color: rgba(255, 255, 255, .75);
       font-size: .82rem;
       font-weight: 600;
-      margin-top: 8px;
-      transform: translateX(-4px);
+      margin-top: 10px;
+      transform: translateX(-6px);
       opacity: 0;
-      transition: var(--tr);
+      transition: var(--tr)
     }
 
     .cat-card:hover .cat-arrow {
       transform: translateX(0);
-      opacity: 1;
+      opacity: 1
     }
 
-    /* ─── BRAND SLIDER ────────────────────────────── */
+    /* BRANDS */
     .brands-section {
-      padding: 80px 0;
+      padding: 90px 0
     }
 
     .brands-scroll {
-      overflow: hidden;
+      overflow: hidden
     }
 
     .brands-track {
       display: flex;
-      gap: 0;
       width: max-content;
-      animation: brandsScroll 38s linear infinite;
+      animation: brandsScroll 38s linear infinite
     }
 
     .brands-track:hover {
-      animation-play-state: paused;
+      animation-play-state: paused
     }
 
     @keyframes brandsScroll {
@@ -744,169 +1138,104 @@
       align-items: center;
       justify-content: center;
       min-width: 190px;
-      height: 88px;
-      margin-right: 18px;
+      height: 90px;
+      margin-right: 16px;
       background: #fff;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 18px 24px;
       box-shadow: var(--shadow-xs);
-      transition: var(--tr);
+      transition: var(--tr)
     }
 
     .brand-tile:hover {
       border-color: rgba(var(--ac-rgb), .3);
       box-shadow: 0 8px 24px rgba(var(--ac-rgb), .12);
-      transform: translateY(-4px) scale(1.03);
+      transform: translateY(-4px) scale(1.03)
     }
 
     .brand-tile img {
       max-height: 48px;
       max-width: 130px;
-      object-fit: contain;
+      object-fit: contain
     }
 
-    /* ─── WHY ────────────────────────────────────── */
-    .why-section {
-      padding: 100px 0;
-    }
-
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 52px;
-    }
-
-    .why-card {
-      border-radius: var(--radius-xl);
-      padding: 36px 30px;
-      border: 1px solid var(--border);
-      background: #fff;
-      transition: var(--tr-spring);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .why-card::before {
-      content: '';
-      position: absolute;
-      bottom: -40px;
-      right: -40px;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: rgba(var(--ac-rgb), .045);
-      transition: var(--tr-slow);
-    }
-
-    .why-card:hover::before {
-      transform: scale(2.2);
-      opacity: .8;
-    }
-
-    .why-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 24px 48px rgba(var(--ac-rgb), .10);
-      border-color: rgba(var(--ac-rgb), .2);
-    }
-
-    .why-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      background: var(--ac-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--ac);
-      font-size: 1.3rem;
-      margin-bottom: 20px;
-      transition: var(--tr-spring);
-    }
-
-    .why-card:hover .why-icon {
-      background: var(--ac);
-      color: #fff;
-      transform: scale(1.08);
-    }
-
-    .why-card h3 {
-      font-size: 1.1rem;
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-
-    .why-card p {
-      color: var(--text-2);
-      font-size: .92rem;
-      line-height: 1.75;
-    }
-
-    /* ─── PRODUCTS STRIP ──────────────────────────── */
+    /* PRODUCTS */
     .products-strip {
       background: var(--bg-dark);
-      padding: 90px 0;
+      padding: 100px 0;
       overflow: hidden;
-      position: relative;
+      position: relative
     }
 
     .products-strip::before {
       content: '';
       position: absolute;
       inset: 0;
-      background-image:
-        linear-gradient(rgba(255, 255, 255, .02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, .02) 1px, transparent 1px);
-      background-size: 48px 48px;
+      background-image: linear-gradient(rgba(255, 255, 255, .018) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .018) 1px, transparent 1px);
+      background-size: 52px 52px
     }
 
     .products-strip-inner {
       position: relative;
-      z-index: 1;
+      z-index: 1
     }
 
     .products-strip h2 {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
       font-weight: 900;
       color: #fff;
       letter-spacing: -.03em;
-      margin-bottom: 8px;
+      margin-bottom: 8px
     }
 
     .products-strip h2 span {
-      color: var(--ac);
+      color: var(--ac)
     }
 
     .products-strip .sub {
       color: rgba(255, 255, 255, .45);
       margin-bottom: 48px;
-      font-size: 1rem;
+      font-size: 1rem
+    }
+
+    .badge-dark {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 16px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 100px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: rgba(255, 255, 255, .65);
+      text-transform: uppercase;
+      margin-bottom: 16px
     }
 
     .products-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+      gap: 14px
     }
 
     .prod-item {
       background: rgba(255, 255, 255, .04);
-      border: 1px solid rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .07);
       border-radius: var(--radius);
       padding: 20px 18px;
       display: flex;
       align-items: flex-start;
       gap: 14px;
-      transition: var(--tr);
-      cursor: default;
+      transition: var(--tr)
     }
 
     .prod-item:hover {
       background: rgba(var(--ac-rgb), .08);
       border-color: rgba(var(--ac-rgb), .3);
-      transform: translateY(-2px);
+      transform: translateY(-2px)
     }
 
     .prod-item-icon {
@@ -919,37 +1248,298 @@
       justify-content: center;
       color: var(--ac);
       font-size: .9rem;
-      flex-shrink: 0;
+      flex-shrink: 0
     }
 
     .prod-item p {
       font-size: .82rem;
-      color: rgba(255, 255, 255, .5);
-      line-height: 1.55;
+      color: rgba(255, 255, 255, .52);
+      line-height: 1.6
     }
 
-    /* ─── CTA SECTION ────────────────────────────── */
-    .cta-section {
+    /* WHY */
+    .why-section {
+      padding: 110px 0;
+      background: var(--bg)
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 52px
+    }
+
+    .why-card {
+      border-radius: var(--radius-xl);
+      padding: 38px 32px;
+      border: 1px solid var(--border);
+      background: #fff;
+      transition: all .4s cubic-bezier(.34, 1.56, .64, 1);
+      position: relative;
+      overflow: hidden
+    }
+
+    .why-card::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: rgba(var(--ac-rgb), .05);
+      transition: all .5s
+    }
+
+    .why-card:hover::after {
+      transform: scale(2.4)
+    }
+
+    .why-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 28px 56px rgba(var(--ac-rgb), .12);
+      border-color: rgba(var(--ac-rgb), .22)
+    }
+
+    .why-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      background: var(--ac-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ac);
+      font-size: 1.35rem;
+      margin-bottom: 22px;
+      transition: all .4s cubic-bezier(.34, 1.56, .64, 1)
+    }
+
+    .why-card:hover .why-icon {
       background: var(--ac);
-      padding: 90px 0;
+      color: #fff;
+      transform: scale(1.1) rotate(-5deg)
+    }
+
+    .why-card h3 {
+      font-size: 1.12rem;
+      font-weight: 800;
+      margin-bottom: 12px
+    }
+
+    .why-card p {
+      color: var(--text-2);
+      font-size: .92rem;
+      line-height: 1.8;
+      text-align: justify
+    }
+
+    /* ============ OFFICES + GOOGLE MAPS ============ */
+    .offices-section {
+      padding: 110px 0;
+      background: var(--bg-2)
+    }
+
+    .offices-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start
+    }
+
+    .offices-map-card {
+      background: #fff;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--border)
+    }
+
+    .offices-map-header {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .offices-map-header h4 {
+      font-size: .95rem;
+      font-weight: 700;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .map-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--ac);
+      flex-shrink: 0;
+      animation: pulse-dot 2s ease infinite
+    }
+
+    @keyframes pulse-dot {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(var(--ac-rgb), .4)
+      }
+
+      50% {
+        box-shadow: 0 0 0 8px rgba(var(--ac-rgb), 0)
+      }
+    }
+
+    .gmap-wrap {
+      height: 420px;
       position: relative;
       overflow: hidden;
+      background: var(--bg-2)
+    }
+
+    .gmap-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      transition: opacity .4s
+    }
+
+    .offices-list-side {
+      display: flex;
+      flex-direction: column;
+      gap: 14px
+    }
+
+    .office-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 20px 22px;
+      border: 1px solid var(--border);
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: var(--tr-spring)
+    }
+
+    .office-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--ac);
+      border-radius: 4px 0 0 4px;
+      transform: scaleY(0);
+      transition: transform .3s;
+      transform-origin: center
+    }
+
+    .office-card.active-card::before,
+    .office-card:hover::before {
+      transform: scaleY(1)
+    }
+
+    .office-card.active-card {
+      border-color: rgba(var(--ac-rgb), .25);
+      background: var(--ac-light);
+      transform: translateX(5px)
+    }
+
+    .office-card:hover:not(.active-card) {
+      transform: translateX(5px);
+      box-shadow: 0 8px 28px rgba(var(--ac-rgb), .09);
+      border-color: rgba(var(--ac-rgb), .18)
+    }
+
+    .office-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      background: var(--ac-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ac);
+      font-size: 1.05rem;
+      transition: var(--tr)
+    }
+
+    .office-card.active-card .office-icon {
+      background: var(--ac);
+      color: #fff
+    }
+
+    .office-info {
+      flex: 1
+    }
+
+    .office-city {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .office-badge {
+      padding: 2px 10px;
+      background: var(--ac);
+      color: #fff;
+      border-radius: 100px;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase
+    }
+
+    .office-desc {
+      font-size: .83rem;
+      color: var(--text-2);
+      line-height: 1.6
+    }
+
+    .office-contact {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--ac)
+    }
+
+    /* CTA */
+    .cta-section {
+      background: var(--ac);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden
     }
 
     .cta-section::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='200' cy='200' r='180' fill='none' stroke='rgba(255,255,255,.06)' stroke-width='1'/%3E%3Ccircle cx='200' cy='200' r='120' fill='none' stroke='rgba(255,255,255,.06)' stroke-width='1'/%3E%3Ccircle cx='200' cy='200' r='60' fill='none' stroke='rgba(255,255,255,.06)' stroke-width='1'/%3E%3C/svg%3E") center no-repeat;
-      background-size: 700px;
-      pointer-events: none;
-      opacity: .8;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='200' cy='200' r='180' fill='none' stroke='rgba(255,255,255,.06)' stroke-width='1'/%3E%3Ccircle cx='200' cy='200' r='120' fill='none' stroke='rgba(255,255,255,.06)' stroke-width='1'/%3E%3Ccircle cx='200' cy='200' r='60' fill='none' stroke='rgba(255,255,255,.06)' stroke-width='1'/%3E%3C/svg%3E") center/700px no-repeat;
+      pointer-events: none
     }
 
     .cta-inner {
       position: relative;
       z-index: 1;
-      text-align: center;
+      text-align: center
     }
 
     .cta-inner h2 {
@@ -958,108 +1548,367 @@
       font-weight: 900;
       color: #fff;
       letter-spacing: -.03em;
-      margin-bottom: 14px;
+      margin-bottom: 14px
     }
 
     .cta-inner p {
-      color: rgba(255, 255, 255, .82);
+      color: rgba(255, 255, 255, .85);
       margin-bottom: 36px;
       font-size: 1.05rem;
       max-width: 520px;
       margin-left: auto;
-      margin-right: auto;
+      margin-right: auto
     }
 
     .cta-btns {
       display: flex;
       gap: 14px;
       justify-content: center;
-      flex-wrap: wrap;
+      flex-wrap: wrap
     }
 
+    /* FOOTER */
+    .site-footer {
+      background: var(--bg-dark);
+      color: rgba(255, 255, 255, .7);
+      padding: 80px 0 0
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding: 0 32px 60px;
+      max-width: 1260px;
+      margin: 0 auto
+    }
+
+    .footer-logo {
+      height: 36px;
+      margin-bottom: 8px;
+      filter: brightness(10)
+    }
+
+    .footer-logo-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 12px
+    }
+
+    .footer-logo-text span {
+      color: var(--ac)
+    }
+
+    .footer-desc {
+      font-size: .88rem;
+      line-height: 1.75;
+      max-width: 240px
+    }
+
+    .footer-col h4 {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .4);
+      margin-bottom: 18px
+    }
+
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .footer-col a {
+      font-size: .88rem;
+      color: rgba(255, 255, 255, .6);
+      transition: var(--tr);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .footer-col a:hover {
+      color: #fff
+    }
+
+    .footer-col a i {
+      width: 16px;
+      color: rgba(var(--ac-rgb), .7)
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, .07);
+      padding: 24px 32px;
+      max-width: 1260px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px
+    }
+
+    .footer-copy {
+      font-size: .82rem;
+      color: rgba(255, 255, 255, .35)
+    }
+
+    .footer-copy a {
+      color: rgba(255, 255, 255, .5)
+    }
+
+    .footer-copy a:hover {
+      color: #fff
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px
+    }
+
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .88rem;
+      color: rgba(255, 255, 255, .5);
+      transition: var(--tr)
+    }
+
+    .footer-social a:hover {
+      background: var(--ac);
+      border-color: var(--ac);
+      color: #fff;
+      transform: translateY(-3px)
+    }
+
+    /* PAGE LOADER */
+    #page-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--bg-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px
+    }
+
+    .loader-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -.04em
+    }
+
+    .loader-logo span {
+      color: var(--ac)
+    }
+
+    .loader-bar-wrap {
+      width: 180px;
+      height: 3px;
+      background: rgba(255, 255, 255, .1);
+      border-radius: 2px;
+      overflow: hidden
+    }
+
+    .loader-bar {
+      height: 100%;
+      background: var(--ac);
+      border-radius: 2px;
+      animation: loaderAnim 1.6s ease forwards
+    }
+
+    @keyframes loaderAnim {
+      from {
+        width: 0
+      }
+
+      to {
+        width: 100%
+      }
+    }
+
+    .loader-text {
+      font-size: .72rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .35)
+    }
+
+    #page-loader.done {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .5s .3s
+    }
+
+    /* REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s, transform .7s
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    .reveal-l {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity .7s, transform .7s
+    }
+
+    .reveal-l.visible {
+      opacity: 1;
+      transform: translateX(0)
+    }
+
+    .reveal-r {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity .7s, transform .7s
+    }
+
+    .reveal-r.visible {
+      opacity: 1;
+      transform: translateX(0)
+    }
+
+    .d1 {
+      transition-delay: .0s
+    }
+
+    .d2 {
+      transition-delay: .1s
+    }
+
+    .d3 {
+      transition-delay: .2s
+    }
+
+    .d4 {
+      transition-delay: .3s
+    }
+
+    /* RESPONSIVE */
     @media(max-width:1024px) {
       .hero-card {
-        display: none;
+        display: none
       }
 
       .hero-content {
-        padding: 0 48px;
+        padding: 0 48px
       }
 
-      .about-strip-grid {
+      .about-grid {
         grid-template-columns: 1fr;
-        gap: 52px;
+        gap: 56px
       }
 
       .about-img-float {
-        width: 140px;
+        width: 150px
       }
 
       .products-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr)
       }
 
       .why-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .offices-grid {
+        grid-template-columns: 1fr;
+        gap: 36px
+      }
+
+      .footer-grid {
         grid-template-columns: 1fr 1fr;
+        gap: 36px
       }
     }
 
     @media(max-width:768px) {
       .hero {
         height: auto;
-        padding: 80px 0 60px;
+        padding: 80px 0 60px
       }
 
       .hero-content {
-        padding: 0 24px;
+        padding: 0 24px
       }
 
       .hero-heading {
-        font-size: 2.4rem;
+        font-size: 2.3rem
       }
 
       .slide-nav {
         left: 24px;
+        bottom: 24px
       }
 
       .scroll-indicator {
-        display: none;
+        display: none
       }
 
       .cat-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 16px;
+        gap: 14px
       }
 
       .cat-card {
-        height: 220px;
+        height: 230px
       }
 
       .why-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr
       }
 
       .products-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr
+      }
+
+      .gmap-wrap {
+        height: 300px
       }
     }
 
     @media(max-width:540px) {
       .cat-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr
       }
 
       .hero-btns {
-        flex-direction: column;
+        flex-direction: column
       }
 
       .cta-btns {
         flex-direction: column;
-        align-items: center;
+        align-items: center
       }
 
       .about-img-float {
-        display: none;
+        display: none
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 0 20px 40px
       }
     }
   </style>
@@ -1067,20 +1916,16 @@
 
 <body>
 
-  <!-- ════ PAGE LOADER ════════════════════════════════ -->
+  <!-- PAGE LOADER -->
   <div id="page-loader">
     <div class="loader-logo">Haf<span>ten</span></div>
     <div class="loader-bar-wrap">
       <div class="loader-bar"></div>
     </div>
-    <p class="loader-text">HVAC/R · BMS · Instrumentación</p>
+    <p class="loader-text">HVAC/R - BMS - Instrumentacion</p>
   </div>
 
-  <!-- ════ CURSOR ════════════════════════════════════ -->
-  <div id="cursor-dot"></div>
-  <div id="cursor-ring"></div>
-
-  <!-- ════ NAVBAR ════════════════════════════════════ -->
+  <!-- NAVBAR -->
   <nav id="navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
@@ -1088,30 +1933,26 @@
           onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <span class="nav-logo-text" style="display:none">Haf<span>ten</span></span>
       </a>
-      <button id="menu-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+      <button id="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
       <ul class="nav-links" id="nav-links">
-        <li><a href="index.html" class="nav-link" data-page="index" data-i18n="nav_home"><i class="fa fa-house"
-              style="font-size:.8rem;color:var(--ac);margin-right:4px"></i>Inicio</a></li>
-        <li><a href="nosotros.html" class="nav-link" data-page="nosotros" data-i18n="nav_about">Nosotros</a></li>
-        <li><a href="marcas.html" class="nav-link" data-page="marcas" data-i18n="nav_brands">Marcas</a></li>
-        <li><a href="catalogos.html" class="nav-link" data-page="catalogos" data-i18n="nav_catalogs">Catálogos</a></li>
-        <li><a href="multimedia.html" class="nav-link" data-page="multimedia" data-i18n="nav_media">Multimedia</a></li>
-        <li><a href="redes.html" class="nav-link" data-page="redes" data-i18n="nav_social">Redes Sociales</a></li>
-        <li><a href="contacto.html" class="nav-cta"><span data-i18n="nav_contact">Contacto</span> <i
-              class="fa-solid fa-arrow-right"></i></a></li>
+        <li><a href="index.html" class="nav-link active"><i class="fa fa-house"
+              style="font-size:.75rem;color:var(--ac);margin-right:4px"></i>Inicio</a></li>
+        <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+        <li><a href="marcas.html" class="nav-link">Marcas</a></li>
+        <li><a href="catalogos.html" class="nav-link">Catalogos</a></li>
+        <li><a href="multimedia.html" class="nav-link">Multimedia</a></li>
+        <li><a href="redes.html" class="nav-link">Redes Sociales</a></li>
+        <li><a href="contacto.html" class="nav-cta"><span>Contacto</span> <i class="fa-solid fa-arrow-right"></i></a>
+        </li>
       </ul>
       <div class="nav-settings">
-        <!-- Theme Toggle -->
-        <button class="theme-toggle-btn magnetic-wrap" aria-label="Cambiar Tema">
-          <i class="fa-solid fa-palette"></i>
-        </button>
-        <!-- Language Pill -->
-        <div class="lang-pill magnetic-wrap" title="Cambiar Idioma">
-          <div class="lang-highlight"></div>
+        <button class="theme-toggle-btn" id="themeBtn" title="Color de acento"><i
+            class="fa-solid fa-palette"></i></button>
+        <div class="lang-pill" id="langPill">
+          <div class="lang-highlight" id="langHighlight"></div>
           <span class="lang-opt opt-es">ES</span>
           <span class="lang-opt opt-en">EN</span>
         </div>
-        <!-- Theme Panel -->
         <div id="accent-panel">
           <p class="panel-label">Color de acento</p>
           <div class="accent-options">
@@ -1127,90 +1968,87 @@
     </div>
   </nav>
 
-  <main class="page-transition-wrap">
+  <main>
 
-    <!-- ════ HERO ═══════════════════════════════════════ -->
+    <!-- HERO FULLSCREEN SLIDER -->
     <section class="hero" id="inicio">
-      <div class="hero-bg">
-        <div class="hero-slides-bg">
-          <img class="hero-slide-img active" src="Haften/Imagenes/1inicio.jpg" alt="Haften HVAC" data-parallax="0.18" />
-          <img class="hero-slide-img" src="Haften/Imagenes/image2.jpg" alt="Haften Marcas" />
-          <img class="hero-slide-img" src="Haften/Imagenes/3.jpg" alt="Haften Catálogos" />
+      <div class="hero-slides">
+        <div class="hero-slide active">
+          <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1600&q=85&fit=crop"
+            alt="HVAC Industrial" />
         </div>
-        <div class="hero-noise"></div>
-        <div class="hero-overlay"></div>
-        <div class="hero-grid"></div>
+        <div class="hero-slide">
+          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=85&fit=crop"
+            alt="BMS Automatizacion" />
+        </div>
       </div>
+      <div class="hero-grid"></div>
 
       <div class="hero-content">
         <div class="hero-left">
-          <p class="hero-eyebrow" data-i18n="idx_eyebrow">
+          <p class="hero-eyebrow">
             <i class="fa-solid fa-circle-check"></i>
-            Periféricos HVAC · BMS · Medición de Energía
+            Perifericos HVAC - BMS - Medicion de Energia
           </p>
           <h1 class="hero-heading">
-            Una solución<br>
-            <span class="outlined" data-i18n="hero_title1">Selección · Especificación</span> en<br>
-            <span class="ac-word" data-i18n="hero_title2">Asesoría · Distribución</span>
+            Una solucion<br>Seleccion - Especificacion <br>
+            <span class="ac-word"> en Asesoria - Distribucion</span>
           </h1>
-          <p class="hero-sub" data-i18n="hero_sub">Expertos en HVAC/R-BMS – Tu socio técnico de confianza</p>
+          <p class="hero-sub">
+            En Haften somos expertos en HVAC/R-BMS con mas de 20 anos de experiencia. Distribuimos instrumentacion,
+            sensores, actuadores, variadores y sistemas de control de las mejores marcas internacionales. Tu socio
+            tecnico de confianza en Mexico.
+          </p>
           <div class="hero-btns">
-            <a href="nosotros.html" class="btn btn-white" data-i18n="idx_btn1"><i
-                class="fa-solid fa-building"></i>Conócenos</a>
-            <a href="catalogos.html" class="btn btn-outline" style="border-color:rgba(255,255,255,.5);color:#fff;"
-              data-i18n="idx_btn2"><i class="fa-solid fa-file-pdf"></i>Catálogos</a>
+            <a href="nosotros.html" class="btn btn-white"><i class="fa-solid fa-building"></i>Conocenos</a>
+            <a href="catalogos.html" class="btn btn-dark"><i class="fa-solid fa-file-pdf"></i>Catalogos</a>
           </div>
         </div>
-        <!-- Floating metrics card -->
         <div class="hero-card">
-          <p class="hero-card-title" data-i18n="idx_num"><i class="fa-solid fa-chart-line"
-              style="color:rgba(255,255,255,.5);margin-right:6px"></i>Haften en números</p>
+          <p class="hero-card-title"><i class="fa-solid fa-chart-line"
+              style="color:rgba(255,255,255,.5);margin-right:6px"></i>Haften en numeros</p>
           <div class="hero-metric">
             <div class="hero-metric-icon"><i class="fa-solid fa-award"></i></div>
-            <div class="hero-metric-text">
+            <div>
               <div class="hero-metric-num">20+</div>
-              <div class="hero-metric-lbl" data-i18n="idx_n1">Años de experiencia</div>
+              <div class="hero-metric-lbl">Anos de experiencia</div>
             </div>
           </div>
           <div class="hero-metric">
             <div class="hero-metric-icon"><i class="fa-solid fa-tags"></i></div>
-            <div class="hero-metric-text">
+            <div>
               <div class="hero-metric-num">25+</div>
-              <div class="hero-metric-lbl" data-i18n="idx_n2">Marcas internacionales</div>
+              <div class="hero-metric-lbl">Marcas internacionales</div>
             </div>
           </div>
           <div class="hero-metric">
             <div class="hero-metric-icon"><i class="fa-solid fa-location-dot"></i></div>
-            <div class="hero-metric-text">
+            <div>
               <div class="hero-metric-num">5</div>
-              <div class="hero-metric-lbl" data-i18n="idx_n3">Oficinas en México</div>
+              <div class="hero-metric-lbl">Oficinas en Mexico</div>
             </div>
           </div>
           <div class="hero-metric">
             <div class="hero-metric-icon"><i class="fa-solid fa-users"></i></div>
-            <div class="hero-metric-text">
+            <div>
               <div class="hero-metric-num">1,000+</div>
-              <div class="hero-metric-lbl" data-i18n="idx_n4">Clientes atendidos</div>
+              <div class="hero-metric-lbl">Clientes atendidos</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Slide dots -->
-      <div class="slide-nav" id="heroNav">
-        <button class="slide-dot-btn active" data-idx="0" aria-label="Slide 1"></button>
-        <button class="slide-dot-btn" data-idx="1" aria-label="Slide 2"></button>
-        <button class="slide-dot-btn" data-idx="2" aria-label="Slide 3"></button>
+      <div class="slide-nav">
+        <button class="slide-dot-btn active" data-idx="0"></button>
+        <button class="slide-dot-btn" data-idx="1"></button>
       </div>
-
-      <!-- Scroll indicator -->
       <div class="scroll-indicator">
         <div class="scroll-line"></div>
         <span>Scroll</span>
       </div>
     </section>
 
-    <!-- ════ BRAND TICKER ═══════════════════════════════ -->
+    <!-- TICKER -->
     <div class="ticker-wrapper">
       <div class="ticker-track" aria-hidden="true">
         <span class="ticker-item"><i class="fa-solid fa-circle"></i>AIR MONITOR</span>
@@ -1233,27 +2071,24 @@
         <span class="ticker-item"><i class="fa-solid fa-circle"></i>SENVA</span>
         <span class="ticker-item"><i class="fa-solid fa-circle"></i>SETRA</span>
         <span class="ticker-item"><i class="fa-solid fa-circle"></i>VAISALA</span>
-        <!-- clone -->
         <span class="ticker-item"><i class="fa-solid fa-circle"></i>AIR MONITOR</span>
         <span class="ticker-item"><i class="fa-solid fa-circle"></i>BADGER METER</span>
         <span class="ticker-item"><i class="fa-solid fa-circle"></i>BELIMO</span>
         <span class="ticker-item"><i class="fa-solid fa-circle"></i>BRY-AIR</span>
         <span class="ticker-item"><i class="fa-solid fa-circle"></i>CONTEMPORARY CONTROLS</span>
         <span class="ticker-item"><i class="fa-solid fa-circle"></i>CONTROL TECHNIQUES</span>
-        <span class="ticker-item"><i class="fa-solid fa-circle"></i>COOL AUTOMATION</span>
         <span class="ticker-item"><i class="fa-solid fa-circle"></i>DELTA ELECTRONICS</span>
         <span class="ticker-item"><i class="fa-solid fa-circle"></i>DWYER OMEGA</span>
-        <span class="ticker-item"><i class="fa-solid fa-circle"></i>FLOWCON</span>
       </div>
     </div>
 
-    <!-- ════ STATS ═══════════════════════════════════════ -->
+    <!-- STATS -->
     <div class="stats-band">
       <div class="container">
         <div class="stats-inner">
           <div class="stat-item reveal">
             <span class="stat-num"><span data-count="20">0</span><span class="stat-suffix">+</span></span>
-            <p class="stat-lbl"><i class="fa-solid fa-calendar-check" style="margin-right:6px"></i>Años de experiencia
+            <p class="stat-lbl"><i class="fa-solid fa-calendar-check" style="margin-right:6px"></i>Anos de experiencia
             </p>
           </div>
           <div class="stat-item reveal d2">
@@ -1262,7 +2097,7 @@
           </div>
           <div class="stat-item reveal d3">
             <span class="stat-num"><span data-count="5">0</span></span>
-            <p class="stat-lbl"><i class="fa-solid fa-map-location-dot" style="margin-right:6px"></i>Oficinas en México
+            <p class="stat-lbl"><i class="fa-solid fa-map-location-dot" style="margin-right:6px"></i>Oficinas en Mexico
             </p>
           </div>
           <div class="stat-item reveal d4">
@@ -1273,88 +2108,87 @@
       </div>
     </div>
 
-    <!-- ════ ABOUT STRIP ════════════════════════════════ -->
-    <section class="about-strip section">
+    <!-- ABOUT -->
+    <section class="about-strip">
       <div class="container">
-        <div class="about-strip-grid">
+        <div class="about-grid">
           <div class="about-img-stack reveal-l">
             <div class="about-accent-dot"></div>
             <div class="about-img-main">
-              <img src="Haften/sección  nosotros/do-more.jpg" alt="Do More Haften" data-parallax="0.12" />
+              <img src="Haften/sección  nosotros/do-more.jpg" alt="Haften equipo"
+                onerror="this.src='https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80&fit=crop'" />
             </div>
             <div class="about-img-float">
-              <img src="Haften/Imagenes/image.jpg" alt="Haften Team" />
+              <img src="Haften/Imagenes/image.jpg" alt="Haften Team"
+                onerror="this.src='https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=300&q=80&fit=crop'" />
             </div>
             <div class="about-chip">
               <div class="about-chip-num">+25</div>
-              <div class="about-chip-lbl" data-i18n="idx_ab_chip">Marcas<br>representadas</div>
+              <div class="about-chip-lbl">Marcas<br>representadas</div>
             </div>
           </div>
           <div class="about-text reveal-r">
-            <span class="eyebrow" data-i18n="idx_ab_eyb"><i class="fa-solid fa-building-columns"></i> Nosotros</span>
-            <h2 data-i18n="idx_ab_title">Expertos en <span>HVAC/R‑BMS</span><br>a tu servicio</h2>
-            <p data-i18n="idx_ab_p">En Haften nos especializamos en la comercialización de productos de <strong>control
-                e instrumentación
-                para
-                sistemas HVAC</strong>, humidificadores, deshumidificadores y calefactores eléctricos. Nuestro objetivo
-              es
-              brindar soluciones técnicas confiables, eficientes y adaptadas a las necesidades de cada proyecto.</p>
-            <blockquote class="about-quote" data-i18n="ft_tagline">"Una solución completa en el mismo lugar."
-            </blockquote>
+            <span class="eyebrow"><i class="fa-solid fa-building-columns"></i> Nosotros</span>
+            <h2>Expertos en <span>HVAC/R-BMS</span><br>a tu servicio</h2>
+            <p>En Haften nos especializamos en la comercializacion de productos de <strong>control e instrumentacion
+                para sistemas HVAC</strong>, humidificadores, deshumidificadores y calefactores electricos. Nuestro
+              objetivo es brindar soluciones tecnicas confiables, eficientes y adaptadas a las necesidades de cada
+              proyecto.</p>
+            <blockquote class="about-quote">"Una solucion completa en el mismo lugar."</blockquote>
             <div class="about-pills">
-              <span class="pill" data-i18n="idx_ab_p1"><i class="fa-solid fa-wind"></i>Humidificadores</span>
-              <span class="pill" data-i18n="idx_ab_p2"><i
-                  class="fa-solid fa-temperature-half"></i>Deshumidificadores</span>
-              <span class="pill" data-i18n="idx_ab_p3"><i class="fa-solid fa-fire-flame-curved"></i>Calefactores</span>
-              <span class="pill" data-i18n="idx_ab_p4"><i class="fa-solid fa-gauge-high"></i>Instrumentación</span>
-              <span class="pill" data-i18n="idx_ab_p5"><i class="fa-solid fa-microchip"></i>BMS</span>
-              <span class="pill" data-i18n="idx_ab_p6"><i class="fa-solid fa-bolt"></i>Variadores VFD</span>
+              <span class="pill"><i class="fa-solid fa-wind"></i>Humidificadores</span>
+              <span class="pill"><i class="fa-solid fa-temperature-half"></i>Deshumidificadores</span>
+              <span class="pill"><i class="fa-solid fa-fire-flame-curved"></i>Calefactores</span>
+              <span class="pill"><i class="fa-solid fa-gauge-high"></i>Instrumentacion</span>
+              <span class="pill"><i class="fa-solid fa-microchip"></i>BMS</span>
+              <span class="pill"><i class="fa-solid fa-bolt"></i>Variadores VFD</span>
             </div>
-            <a href="nosotros.html" class="btn btn-ac" data-i18n="idx_ab_btn"><i class="fa-solid fa-arrow-right"></i>
-              Conoce más</a>
+            <a href="nosotros.html" class="btn btn-ac"><i class="fa-solid fa-arrow-right"></i> Conoce mas</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ════ CATEGORIES ══════════════════════════════════ -->
+    <!-- CATEGORIES -->
     <section class="categories-section">
       <div class="container">
         <div class="section-header reveal">
-          <span class="eyebrow" data-i18n="idx_cat_eyb"><i class="fa-solid fa-grid-2"></i> Portafolio</span>
-          <h2 class="section-title" data-i18n="idx_cat_title">Explora Nuestras <span>Categorías</span></h2>
+          <span class="eyebrow"><i class="fa-solid fa-grid-2"></i> Portafolio</span>
+          <h2 class="section-title">Explora Nuestras <span>Categorias</span></h2>
           <span class="accent-line"></span>
-          <p class="section-sub" data-i18n="idx_cat_sub">Soluciones integrales para cada necesidad de tu sistema HVAC/R
-          </p>
+          <p class="section-sub">Soluciones integrales para cada necesidad de tu sistema HVAC/R</p>
         </div>
         <div class="cat-grid">
           <div class="cat-card reveal d1">
-            <img src="Haften/imagenes  humificadores/skh4-600x600.png" alt="Humidificadores" />
+            <img src="Haften/imagenes  humificadores/skh4-600x600.png" alt="Humidificadores"
+              onerror="this.src='https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=600&q=80&fit=crop'" />
             <div class="cat-overlay">
-              <div class="cat-body">
+              <div>
                 <div class="cat-icon"><i class="fa-solid fa-droplet"></i></div>
-                <div class="cat-title" data-i18n="idx_c1">Humidificadores</div>
-                <a href="nosotros.html" class="cat-arrow"><i class="fa-solid fa-arrow-right"></i> Ver más</a>
+                <div class="cat-title">Humidificadores</div>
+                <a href="nosotros.html" class="cat-arrow"><i class="fa-solid fa-arrow-right"></i> Ver mas</a>
               </div>
             </div>
           </div>
           <div class="cat-card reveal d2">
-            <img src="Haften/imagenes y pdfs deshumidificadores/deshumificadores.fw.png" alt="Deshumidificadores" />
+            <img src="Haften/imagenes y pdfs deshumidificadores/deshumificadores.fw.png" alt="Deshumidificadores"
+              onerror="this.src='https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80&fit=crop'" />
             <div class="cat-overlay">
-              <div class="cat-body">
+              <div>
                 <div class="cat-icon"><i class="fa-solid fa-fan"></i></div>
-                <div class="cat-title" data-i18n="idx_c2">Deshumidificadores</div>
-                <a href="nosotros.html" class="cat-arrow"><i class="fa-solid fa-arrow-right"></i> Ver más</a>
+                <div class="cat-title">Deshumidificadores</div>
+                <a href="nosotros.html" class="cat-arrow"><i class="fa-solid fa-arrow-right"></i> Ver mas</a>
               </div>
             </div>
           </div>
           <div class="cat-card reveal d3">
-            <img src="Haften/imagenes claefacciones y pdfs/calefactores1.fw.png" alt="Calefactores" />
+            <img src="Haften/imagenes claefacciones y pdfs/calefactores1.fw.png" alt="Calefactores"
+              onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&fit=crop'" />
             <div class="cat-overlay">
-              <div class="cat-body">
+              <div>
                 <div class="cat-icon"><i class="fa-solid fa-fire"></i></div>
-                <div class="cat-title" data-i18n="idx_c3">Calefactores</div>
-                <a href="nosotros.html" class="cat-arrow"><i class="fa-solid fa-arrow-right"></i> Ver más</a>
+                <div class="cat-title">Calefactores</div>
+                <a href="nosotros.html" class="cat-arrow"><i class="fa-solid fa-arrow-right"></i> Ver mas</a>
               </div>
             </div>
           </div>
@@ -1362,13 +2196,12 @@
       </div>
     </section>
 
-    <!-- ════ BRANDS ══════════════════════════════════════ -->
+    <!-- BRANDS -->
     <section class="brands-section">
       <div class="container">
         <div class="section-header reveal">
-          <span class="eyebrow" data-i18n="idx_br_eyb"><i class="fa-solid fa-star"></i> Distribuidores
-            autorizados</span>
-          <h2 class="section-title" data-i18n="idx_br_title">Marcas de <span>Clase Mundial</span></h2>
+          <span class="eyebrow"><i class="fa-solid fa-star"></i> Distribuidores autorizados</span>
+          <h2 class="section-title">Marcas de <span>Clase Mundial</span></h2>
           <span class="accent-line"></span>
         </div>
       </div>
@@ -1378,8 +2211,7 @@
           <div class="brand-tile"><img src="Haften/Marcas/belimo.fw.png" alt="Belimo"></div>
           <div class="brand-tile"><img src="Haften/Marcas/4 Bry-Air .png" alt="Bry-Air"></div>
           <div class="brand-tile"><img src="Haften/Marcas/CCSI logo stacked 4 (00000003).png"
-              alt="Contemporary Controls">
-          </div>
+              alt="Contemporary Controls"></div>
           <div class="brand-tile"><img src="Haften/Marcas/LOG_CT_RGB.png" alt="Control Techniques"></div>
           <div class="brand-tile"><img src="Haften/Marcas/delta-500w-trim-vert.png" alt="Delta"></div>
           <div class="brand-tile"><img src="Haften/Marcas/9.1 -DO-logo-horiz-full-color-TM.png" alt="Dwyer Omega"></div>
@@ -1395,148 +2227,220 @@
           <div class="brand-tile"><img src="Haften/Marcas/Senva-Logo-BLK-2022 (002).png" alt="Senva"></div>
           <div class="brand-tile"><img src="Haften/Marcas/1200px-Setra_Systems_Logo.png" alt="Setra"></div>
           <div class="brand-tile"><img src="Haften/Marcas/19 Vaisala-authorized-parter-logo-blue-cmyk.png"
-              alt="Vaisala">
-          </div>
-          <!-- clone -->
+              alt="Vaisala"></div>
           <div class="brand-tile"><img src="Haften/Marcas/Logos_Air Monitor Logo.png" alt="Air Monitor"></div>
           <div class="brand-tile"><img src="Haften/Marcas/belimo.fw.png" alt="Belimo"></div>
           <div class="brand-tile"><img src="Haften/Marcas/4 Bry-Air .png" alt="Bry-Air"></div>
           <div class="brand-tile"><img src="Haften/Marcas/CCSI logo stacked 4 (00000003).png"
-              alt="Contemporary Controls">
-          </div>
+              alt="Contemporary Controls"></div>
           <div class="brand-tile"><img src="Haften/Marcas/LOG_CT_RGB.png" alt="Control Techniques"></div>
           <div class="brand-tile"><img src="Haften/Marcas/delta-500w-trim-vert.png" alt="Delta"></div>
-          <div class="brand-tile"><img src="Haften/Marcas/9.1 -DO-logo-horiz-full-color-TM.png" alt="Dwyer Omega"></div>
           <div class="brand-tile"><img src="Haften/Marcas/FlowCon-Logo.png" alt="FlowCon"></div>
           <div class="brand-tile"><img src="Haften/Marcas/11-GPI-Inc-Logo-Registered.png" alt="GPI"></div>
         </div>
       </div>
     </section>
 
-    <!-- ════ PRODUCTS STRIP (dark) ════════════════════ -->
+    <!-- PRODUCTS -->
     <section class="products-strip">
       <div class="container products-strip-inner">
         <div class="reveal">
-          <span class="badge badge-dark" style="margin-bottom:16px" data-i18n="idx_pf_bdg"><i
-              class="fa-solid fa-boxes-stacked" style="margin-right:6px"></i>Nuestro portafolio completo</span>
-          <h2 data-i18n="idx_pf_title">Todo lo que necesitas<br>para tu sistema <span>HVAC/R</span></h2>
-          <p class="sub" data-i18n="idx_pf_sub">Instrumentación · Control · Automatización · Climatización</p>
+          <span class="badge-dark"><i class="fa-solid fa-boxes-stacked" style="margin-right:6px"></i>Nuestro portafolio
+            completo</span>
+          <h2>Todo lo que necesitas<br>para tu sistema <span>HVAC/R</span></h2>
+          <p class="sub">Instrumentacion - Control - Automatizacion - Climatizacion</p>
         </div>
         <div class="products-grid">
           <div class="prod-item reveal d1">
             <div class="prod-item-icon"><i class="fa-solid fa-wind"></i></div>
-            <p data-i18n="idx_p1">Medidores de flujo de aire, agua y gas</p>
+            <p>Medidores de flujo de aire, agua y gas</p>
           </div>
           <div class="prod-item reveal d2">
-            <div class="prod-item-icon"><i class="fa-solid fa-valve"></i></div>
-            <p data-i18n="idx_p2">Válvulas de control, balanceo y energy valves</p>
+            <div class="prod-item-icon"><i class="fa-solid fa-faucet-drip"></i></div>
+            <p>Valvulas de control, balanceo y energy valves</p>
           </div>
           <div class="prod-item reveal d3">
             <div class="prod-item-icon"><i class="fa-solid fa-gear"></i></div>
-            <p data-i18n="idx_p3">Actuadores para damper y válvulas</p>
+            <p>Actuadores para damper y valvulas</p>
           </div>
           <div class="prod-item reveal d4">
             <div class="prod-item-icon"><i class="fa-solid fa-satellite-dish"></i></div>
-            <p data-i18n="idx_p4">Sensores de humedad, temperatura, CO/CO2, presión, VOC</p>
+            <p>Sensores de humedad, temperatura, CO/CO2, presion, VOC</p>
           </div>
           <div class="prod-item reveal d1">
             <div class="prod-item-icon"><i class="fa-solid fa-gauge-high"></i></div>
-            <p data-i18n="idx_p5">Manómetros y termómetros industriales</p>
+            <p>Manometros y termometros industriales</p>
           </div>
           <div class="prod-item reveal d2">
             <div class="prod-item-icon"><i class="fa-solid fa-bolt"></i></div>
-            <p data-i18n="idx_p6">Variadores de frecuencia (VFDs)</p>
+            <p>Variadores de frecuencia (VFDs)</p>
           </div>
           <div class="prod-item reveal d3">
             <div class="prod-item-icon"><i class="fa-solid fa-network-wired"></i></div>
-            <p data-i18n="idx_p7">Gateways, routers y controladores BMS</p>
+            <p>Gateways, routers y controladores BMS</p>
           </div>
           <div class="prod-item reveal d4">
             <div class="prod-item-icon"><i class="fa-solid fa-microchip"></i></div>
-            <p data-i18n="idx_p8">HMIs, supervisores y power meters</p>
+            <p>HMIs, supervisores y power meters</p>
           </div>
         </div>
-        <div class="reveal" style="margin-top:40px">
-          <a href="catalogs.html" class="btn btn-ac" data-i18n="idx_dw_cat"><i
-              class="fa-solid fa-file-pdf"></i>Descargar catálogos</a>
-          <a href="nosotros.html" class="btn btn-outline"
-            style="border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.8);margin-left:14px;"
-            data-i18n="idx_vm"><i class="fa-solid fa-arrow-right"></i>Ver más</a>
+        <div class="reveal" style="margin-top:44px;display:flex;gap:14px;flex-wrap:wrap">
+          <a href="catalogos.html" class="btn btn-ac"><i class="fa-solid fa-file-pdf"></i>Descargar catalogos</a>
+          <a href="nosotros.html" class="btn btn-dark"><i class="fa-solid fa-arrow-right"></i>Ver mas</a>
         </div>
       </div>
     </section>
 
-    <!-- ════ WHY HAFTEN ═══════════════════════════════ -->
+    <!-- WHY -->
     <section class="why-section">
       <div class="container">
         <div class="section-header reveal">
-          <span class="eyebrow" data-i18n="idx_wh_eyb"><i class="fa-solid fa-shield-halved"></i> ¿Por qué
-            elegirnos?</span>
-          <h2 class="section-title" data-i18n="idx_wh_title">La diferencia <span>Haften</span></h2>
+          <span class="eyebrow"><i class="fa-solid fa-shield-halved"></i> Por que elegirnos?</span>
+          <h2 class="section-title">La diferencia <span>Haften</span></h2>
           <span class="accent-line"></span>
-          <p class="section-sub" data-i18n="idx_wh_sub">Más que distribución: somos tu socio técnico de confianza</p>
+          <p class="section-sub">Mas que distribucion: somos tu socio tecnico de confianza</p>
         </div>
         <div class="why-grid">
           <div class="why-card reveal d1">
             <div class="why-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
-            <h3 data-i18n="idx_w1_t">Inventario Inmediato</h3>
-            <p data-i18n="idx_w1_p">Amplio stock disponible para entrega inmediata. Minimizamos tiempos de paro en tus
-              proyectos industriales
-              y
-              de construcción.</p>
+            <h3>Inventario Inmediato</h3>
+            <p>Amplio stock disponible para entrega inmediata. Minimizamos tiempos de paro en tus proyectos industriales
+              y de construccion con disponibilidad garantizada.</p>
           </div>
           <div class="why-card reveal d2">
             <div class="why-icon"><i class="fa-solid fa-helmet-safety"></i></div>
-            <h3 data-i18n="idx_w2_t">Ingenieros Especializados</h3>
-            <p data-i18n="idx_w2_p">Personal técnico capacitado en selección, integración y operación de equipos
-              HVAC/R-BMS. Asesoría
-              personalizada sin costo.</p>
+            <h3>Ingenieros Especializados</h3>
+            <p>Personal tecnico capacitado en seleccion, integracion y operacion de equipos HVAC/R-BMS. Asesoria
+              personalizada sin costo adicional para tu proyecto.</p>
           </div>
           <div class="why-card reveal d3">
             <div class="why-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-            <h3 data-i18n="idx_w3_t">Cobertura Nacional</h3>
-            <p data-i18n="idx_w3_p">CDMX · Monterrey · Guadalajara · León · Cancún. Atención personalizada en todo
-              México con logística
-              optimizada.</p>
+            <h3>Cobertura Nacional</h3>
+            <p>CDMX - Monterrey - Guadalajara - Leon - Cancun. Atencion personalizada en todo Mexico con logistica
+              optimizada y tiempos de entrega competitivos.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ════ CTA ══════════════════════════════════════ -->
+    <!-- OFFICES + GOOGLE MAPS -->
+    <section class="offices-section">
+      <div class="container">
+        <div class="section-header reveal" style="margin-bottom:48px">
+          <span class="eyebrow"><i class="fa-solid fa-location-dot"></i> Presencia nacional</span>
+          <h2 class="section-title">Nuestras <span>Oficinas</span></h2>
+          <span class="accent-line"></span>
+          <p class="section-sub">Cinco puntos estrategicos en toda la Republica. Haz clic en cada ciudad para ver su
+            ubicacion en el mapa.</p>
+        </div>
+
+        <div class="offices-grid">
+          <!-- Google Maps Panel -->
+          <div class="offices-map-side reveal-l">
+            <div class="offices-map-card">
+              <div class="offices-map-header">
+                <div class="map-dot"></div>
+                <h4 id="map-city-title">Ciudad de Mexico - Casa Matriz</h4>
+              </div>
+              <div class="gmap-wrap">
+                <iframe id="gmap-frame"
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15052.2!2d-99.16758!3d19.42847!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff35f5bd1563%3A0x6c366f0e2de02ff7!2sCiudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1"
+                  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+              </div>
+            </div>
+          </div>
+
+          <!-- Office Cards -->
+          <div class="offices-list-side reveal-r">
+
+            <div class="office-card hq active-card" data-title="Ciudad de Mexico - Casa Matriz"
+              data-src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15052.2!2d-99.16758!3d19.42847!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff35f5bd1563%3A0x6c366f0e2de02ff7!2sCiudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1">
+              <div class="office-icon"><i class="fa-solid fa-building"></i></div>
+              <div class="office-info">
+                <div class="office-city">Ciudad de Mexico <span class="office-badge">Casa Matriz</span></div>
+                <p class="office-desc">Oficina central y principal punto de operaciones. Atencion a clientes, ingenieria
+                  de proyectos y coordinacion nacional.</p>
+                <div class="office-contact"><i class="fa-solid fa-envelope"></i> haften@haften.com.mx</div>
+              </div>
+            </div>
+
+            <div class="office-card" data-title="Monterrey, Nuevo Leon"
+              data-src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14374.0!2d-100.31609!3d25.68661!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662954ece4ea703%3A0x4a1e718a9b65fdef!2sMonterrey%2C%20N.L.!5e0!3m2!1ses-419!2smx!4v2">
+              <div class="office-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div class="office-info">
+                <div class="office-city">Monterrey, N.L.</div>
+                <p class="office-desc">Cobertura para el noreste de Mexico. Atencion especializada para la industria
+                  manufacturera y de construccion de la region.</p>
+              </div>
+            </div>
+
+            <div class="office-card" data-title="Guadalajara, Jalisco"
+              data-src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14927.0!2d-103.34960!3d20.65973!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428ae3e5f462bed%3A0x11a669328e1bd5ca!2sGuadalajara%2C%20Jal.!5e0!3m2!1ses-419!2smx!4v3">
+              <div class="office-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div class="office-info">
+                <div class="office-city">Guadalajara, Jal.</div>
+                <p class="office-desc">Presencia en el occidente del pais, sirviendo a los sectores industrial,
+                  comercial y residencial de la Zona Metropolitana.</p>
+              </div>
+            </div>
+
+            <div class="office-card" data-title="Leon, Guanajuato"
+              data-src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14885.0!2d-101.68200!3d21.12200!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842bbf2e897b28cf%3A0xe4a5dd3ded7ba2c2!2sLe%C3%B3n%2C%20Gto.!5e0!3m2!1ses-419!2smx!4v4">
+              <div class="office-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div class="office-info">
+                <div class="office-city">Leon, Gto.</div>
+                <p class="office-desc">Oficina para el Bajio, atendiendo los corredores industriales de Guanajuato,
+                  Queretaro y estados circundantes.</p>
+              </div>
+            </div>
+
+            <div class="office-card" data-title="Cancun, Quintana Roo"
+              data-src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14891.0!2d-86.85150!3d21.16190!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f4c2b08b85d80cd%3A0xef6f7c85f5ca8e9e!2sCancun%2C%20Q.R.!5e0!3m2!1ses-419!2smx!4v5">
+              <div class="office-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div class="office-info">
+                <div class="office-city">Cancun, Q. Roo</div>
+                <p class="office-desc">Atencion al sureste y Caribe mexicano. Enfocados en el sector hotelero,
+                  hospitalario y de grandes edificaciones turisticas.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
     <section class="cta-section">
       <div class="container">
         <div class="cta-inner reveal">
-          <h2 data-i18n="idx_cta_t">¿Tienes un proyecto en mente?</h2>
-          <p data-i18n="idx_cta_p">Nuestros ingenieros especializados están listos para asesorarte en la selección y
-            distribución del equipo
-            correcto.</p>
+          <h2>Tienes un proyecto en mente?</h2>
+          <p>Nuestros ingenieros especializados estan listos para asesorarte en la seleccion y distribucion del equipo
+            correcto para tu sistema.</p>
           <div class="cta-btns">
-            <a href="contacto.html" class="btn btn-white" data-i18n="idx_cta_b1"><i
-                class="fa-solid fa-envelope"></i>Contáctanos</a>
-            <a href="catalogos.html" class="btn btn-dark" data-i18n="idx_cta_b2"><i class="fa-solid fa-file-pdf"></i>Ver
-              catálogos</a>
+            <a href="contacto.html" class="btn btn-white"><i class="fa-solid fa-envelope"></i>Contactanos</a>
+            <a href="catalogos.html" class="btn btn-dark"><i class="fa-solid fa-file-pdf"></i>Ver catalogos</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ════ FOOTER ═══════════════════════════════════ -->
+    <!-- FOOTER -->
     <footer class="site-footer">
       <div class="footer-grid">
         <div>
           <img src="Haften/Marcas/Logo Haften.png" alt="Haften" class="footer-logo" onerror="this.style.display='none'">
           <div class="footer-logo-text">Haf<span>ten</span></div>
-          <p class="footer-desc">"Una solución completa en el mismo lugar."<br>Periféricos HVAC · BMS · Medición de
-            Energía</p>
+          <p class="footer-desc">"Una solucion completa en el mismo lugar."<br>Perifericos HVAC - BMS - Medicion de
+            Energia</p>
         </div>
         <div class="footer-col">
-          <h4>Navegación</h4>
+          <h4>Navegacion</h4>
           <ul>
             <li><a href="index.html"><i class="fa-solid fa-house"></i>Inicio</a></li>
             <li><a href="nosotros.html"><i class="fa-solid fa-building"></i>Nosotros</a></li>
             <li><a href="marcas.html"><i class="fa-solid fa-tag"></i>Marcas</a></li>
-            <li><a href="catalogos.html"><i class="fa-solid fa-file-pdf"></i>Catálogos</a></li>
+            <li><a href="catalogos.html"><i class="fa-solid fa-file-pdf"></i>Catalogos</a></li>
             <li><a href="multimedia.html"><i class="fa-solid fa-play-circle"></i>Multimedia</a></li>
             <li><a href="redes.html"><i class="fa-solid fa-share-nodes"></i>Redes Sociales</a></li>
             <li><a href="contacto.html"><i class="fa-solid fa-envelope"></i>Contacto</a></li>
@@ -1548,14 +2452,14 @@
             <li><a href="mailto:haften@haften.com.mx"><i class="fa-solid fa-envelope"></i>haften@haften.com.mx</a></li>
             <li><a href="https://haften.com.mx" target="_blank"><i class="fa-solid fa-globe"></i>www.haften.com.mx</a>
             </li>
-            <li><a href="#"><i class="fa-solid fa-map-pin"></i>Ciudad de México</a></li>
+            <li><a href="#"><i class="fa-solid fa-map-pin"></i>Ciudad de Mexico</a></li>
             <li><a href="#"><i class="fa-solid fa-map-pin"></i>Monterrey</a></li>
             <li><a href="#"><i class="fa-solid fa-map-pin"></i>Guadalajara</a></li>
-            <li><a href="#"><i class="fa-solid fa-map-pin"></i>León · Cancún</a></li>
+            <li><a href="#"><i class="fa-solid fa-map-pin"></i>Leon - Cancun</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Síguenos</h4>
+          <h4>Siguenos</h4>
           <ul>
             <li><a href="https://www.facebook.com/HaftenOficial" target="_blank"><i
                   class="fa-brands fa-facebook"></i>Facebook</a></li>
@@ -1573,57 +2477,167 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span class="footer-copy">© 2025 Haften. Todos los derechos reservados · <a href="https://haften.com.mx"
+        <span class="footer-copy">2025 Haften. Todos los derechos reservados - <a href="https://haften.com.mx"
             target="_blank">haften.com.mx</a></span>
         <div class="footer-social">
-          <a href="https://www.facebook.com/HaftenOficial" target="_blank" title="Facebook"><i
-              class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/Haftenoficial" target="_blank" title="Instagram"><i
-              class="fa-brands fa-instagram"></i></a>
-          <a href="https://www.youtube.com/@Haftenoficial/videos" target="_blank" title="YouTube"><i
+          <a href="https://www.facebook.com/HaftenOficial" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/Haftenoficial" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.youtube.com/@Haftenoficial/videos" target="_blank"><i
               class="fa-brands fa-youtube"></i></a>
-          <a href="https://www.linkedin.com/company/haften/" target="_blank" title="LinkedIn"><i
+          <a href="https://www.linkedin.com/company/haften/" target="_blank"><i
               class="fa-brands fa-linkedin-in"></i></a>
-          <a href="https://x.com/haften1" target="_blank" title="X"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="https://www.tiktok.com/@Haftenoficial/" target="_blank" title="TikTok"><i
-              class="fa-brands fa-tiktok"></i></a>
+          <a href="https://x.com/haften1" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://www.tiktok.com/@Haftenoficial/" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
         </div>
       </div>
     </footer>
 
+  </main>
 
+  <script>
+    /* PAGE LOADER */
+    window.addEventListener('load', () => {
+      setTimeout(() => { document.getElementById('page-loader').classList.add('done'); }, 1600);
+    });
 
-    <!-- ════ SCRIPTS ══════════════════════════════════ -->
-    <script src="haften-shared.js"></script>
-    <script>
-      /* ── Hero Slideshow ───────────────────────── */
-      (function () {
-        const imgs = document.querySelectorAll('.hero-slide-img');
-        const dots = document.querySelectorAll('.slide-dot-btn');
-        let cur = 0, timer;
-        function goTo(n) {
-          imgs[cur].classList.remove('active');
-          dots[cur].classList.remove('active');
-          cur = (n + imgs.length) % imgs.length;
-          imgs[cur].classList.add('active');
-          dots[cur].classList.add('active');
-        }
-        dots.forEach(d => d.addEventListener('click', () => { clearInterval(timer); goTo(+d.dataset.idx); start(); }));
-        function start() { timer = setInterval(() => goTo(cur + 1), 5500); }
-        start();
-      })();
+    /* NAVBAR SCROLL */
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+    });
 
-      // Forzar apertura del menú responsivo
-      const menuBtn = document.getElementById('menu-toggle');
-      const navMenu = document.getElementById('nav-links');
+    /* HAMBURGER */
+    const menuBtn = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-links');
+    menuBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      menuBtn.classList.toggle('open');
+    });
+    document.addEventListener('click', e => {
+      if (!e.target.closest('#navbar')) {
+        navMenu.classList.remove('active');
+        menuBtn.classList.remove('open');
+      }
+    });
 
-      if (menuBtn && navMenu) {
-        menuBtn.addEventListener('click', () => {
-          navMenu.classList.toggle('active');
-        });
+    /* ACCENT COLORS */
+    const themeBtn = document.getElementById('themeBtn');
+    const accentPanel = document.getElementById('accent-panel');
+    themeBtn.addEventListener('click', e => { e.stopPropagation(); accentPanel.classList.toggle('open'); });
+    document.addEventListener('click', () => accentPanel.classList.remove('open'));
+    const accentMap = {
+      red: { ac: '#C1272D', dark: '#8B1A1F', rgb: '193,39,45', light: '#FFF0F0' },
+      blue: { ac: '#2563EB', dark: '#1D4ED8', rgb: '37,99,235', light: '#EFF6FF' },
+      emerald: { ac: '#059669', dark: '#047857', rgb: '5,150,105', light: '#ECFDF5' },
+      violet: { ac: '#7C3AED', dark: '#6D28D9', rgb: '124,58,237', light: '#F5F3FF' },
+      orange: { ac: '#EA580C', dark: '#C2410C', rgb: '234,88,12', light: '#FFF7ED' },
+      rose: { ac: '#E11D48', dark: '#BE123C', rgb: '225,29,72', light: '#FFF1F2' },
+    };
+    document.querySelectorAll('.ac-swatch').forEach(sw => {
+      sw.addEventListener('click', e => {
+        e.stopPropagation();
+        const m = accentMap[sw.dataset.accent];
+        if (!m) return;
+        const r = document.documentElement;
+        r.style.setProperty('--ac', m.ac);
+        r.style.setProperty('--ac-dark', m.dark);
+        r.style.setProperty('--ac-rgb', m.rgb);
+        r.style.setProperty('--ac-light', m.light);
+        document.querySelectorAll('.ac-swatch').forEach(s => s.classList.remove('active'));
+        sw.classList.add('active');
+      });
+    });
+
+    /* LANG TOGGLE */
+    let isEN = false;
+    document.getElementById('langPill').addEventListener('click', () => {
+      isEN = !isEN;
+      document.getElementById('langHighlight').style.left = isEN ? '50%' : '0';
+      document.querySelector('.opt-es').style.color = isEN ? 'var(--text-2)' : '#fff';
+      document.querySelector('.opt-en').style.color = isEN ? '#fff' : 'var(--text-2)';
+    });
+
+    /* HERO SLIDER */
+    (function () {
+      const slides = document.querySelectorAll('.hero-slide');
+      const dots = document.querySelectorAll('.slide-dot-btn');
+      let cur = 0, timer;
+
+      function goTo(n) {
+        slides[cur].classList.remove('active');
+        dots[cur].classList.remove('active');
+        cur = (n + slides.length) % slides.length;
+        slides[cur].classList.add('active');
+        dots[cur].classList.add('active');
       }
 
-    </script>
+      dots.forEach(d => d.addEventListener('click', () => {
+        clearInterval(timer);
+        goTo(+d.dataset.idx);
+        timer = setInterval(() => goTo(cur + 1), 6000);
+      }));
+
+      timer = setInterval(() => goTo(cur + 1), 6000);
+    })();
+
+    /* GOOGLE MAPS SWAP ON OFFICE CLICK */
+    (function () {
+      const cards = document.querySelectorAll('.office-card');
+      const frame = document.getElementById('gmap-frame');
+      const title = document.getElementById('map-city-title');
+
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          cards.forEach(c => c.classList.remove('active-card'));
+          card.classList.add('active-card');
+
+          const newSrc = card.dataset.src;
+          const newTitle = card.dataset.title;
+
+          if (newSrc) {
+            frame.style.opacity = '0';
+            setTimeout(() => {
+              frame.src = newSrc;
+              frame.style.opacity = '1';
+            }, 280);
+          }
+          if (newTitle) title.textContent = newTitle;
+
+          if (window.innerWidth <= 1024) {
+            document.querySelector('.offices-map-side').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    })();
+
+    /* REVEAL ON SCROLL */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => io.observe(el));
+
+    /* COUNTER ANIMATION */
+    function animateCount(el) {
+      const target = +el.dataset.count;
+      let cur = 0;
+      const step = Math.ceil(target / 60);
+      const t = setInterval(() => {
+        cur = Math.min(cur + step, target);
+        el.textContent = cur.toLocaleString();
+        if (cur >= target) clearInterval(t);
+      }, 25);
+    }
+    const countIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('[data-count]').forEach(animateCount);
+          countIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stats-band').forEach(el => countIO.observe(el));
+  </script>
 </body>
 
 </html>
