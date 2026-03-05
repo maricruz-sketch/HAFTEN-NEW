@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multimedia – Haften</title>
+    <meta name="description"
+        content="Videos, demos y contenido técnico de Haften y sus marcas representadas en YouTube." />
+    <link rel="stylesheet" href="haften.css" />
+    <style>
+        /* ─── PAGE LOADER (SPLASH SCREEN) ─────────────────────── */
+        #page-loader {
+            position: fixed;
+            inset: 0;
+            /* Cubre toda la pantalla */
+            background: #0a0c14;
+            /* Fondo oscuro elegante */
+            z-index: 99999;
+            /* Asegura que esté por encima de ABSOLUTAMENTE todo */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        /* Clase que usará JS para ocultarlo suavemente */
+        #page-loader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-logo {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 24px;
+            letter-spacing: -0.04em;
+        }
+
+        .loader-logo span {
+            color: var(--ac, #C1272D);
+            /* Color rojo Haften */
+        }
+
+        .loader-bar-wrap {
+            width: 220px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .loader-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--ac, #C1272D);
+            border-radius: 4px;
+            /* Animación simulada de carga de 1.5 segundos */
+            animation: loadingBar 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .loader-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        @keyframes loadingBar {
+            0% {
+                width: 0%;
+            }
+
+            40% {
+                width: 60%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        .mm-hero {
+            margin-top: var(--nav-h);
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .mm-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mm-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(199, 52, 34, 0.82), rgba(26, 26, 46, 0.55));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 24px;
+        }
+
+        .mm-hero-overlay h1 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .mm-hero-overlay p {
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 1.05rem;
+        }
+
+        .mm-section {
+            padding: 80px 0;
+        }
+
+        .mm-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .mm-card {
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--tr);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mm-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-6px);
+            border-color: var(--brand);
+        }
+
+        .mm-thumb {
+            position: relative;
+            padding-top: 56.25%;
+            background: var(--bg-3);
+            overflow: hidden;
+        }
+
+        .mm-thumb iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        .mm-info {
+            padding: 18px 20px;
+        }
+
+        .mm-info h4 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .mm-date {
+            font-size: 0.78rem;
+            color: var(--text-3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mm-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            background: var(--brand-light);
+            color: var(--brand);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            border-radius: 100px;
+            margin-bottom: 8px;
+        }
+
+        .mm-cta {
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        @media(max-width:960px) {
+            .mm-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width:600px) {
+            .mm-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="page-loader">
+        <div class="loader-logo">Haf<span>ten</span></div>
+        <div class="loader-bar-wrap">
+            <div class="loader-bar"></div>
+        </div>
+        <p class="loader-text">HVAC/R · BMS · Instrumentación</p>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <img src="Haften/Marcas/Logo Haften.png" alt="Haften"
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                <span class="nav-logo-text" style="display:none">Haften</span>
+            </a>
+            <button id="menu-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" class="nav-link">Inicio</a></li>
+                <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+                <li><a href="marcas.html" class="nav-link">Marcas</a></li>
+                <li><a href="catalogos.html" class="nav-link">Catálogos</a></li>
+                <li><a href="multimedia.html" class="nav-link active">Multimedia</a></li>
+                <li><a href="redes.html" class="nav-link">Redes Sociales</a></li>
+                <li><a href="contacto.html" class="nav-link btn btn-brand"
+                        style="margin-left:8px;padding:9px 20px;">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="mm-hero">
+        <img src="Haften/Multimedia/1 (1).jpg" alt="Multimedia Haften" />
+        <div class="mm-hero-overlay">
+            <h1 class="hero-title reveal" data-i18n="mm_hero_h1">Centro Multimedia</h1>
+            <p>Videos técnicos, demos de productos y contenido especializado</p>
+        </div>
+    </div>
+
+    <!-- VIDEOS -->
+    <section class="mm-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="eyebrow reveal" data-i18n="mm_lbl">Canal Oficial YouTube</span>
+                <h2 class="section-title reveal" data-i18n="mm_title">Nuestro Contenido <span>Multimedia</span></h2>
+                <div class="brand-divider"></div>
+                <p class="section-desc reveal" data-i18n="mm_sub">Descubre demos, capacitaciones y actualizaciones de
+                    todas nuestras marcas.</p>
+            </div>
+
+            <div class="mm-grid">
+
+                <div class="mm-card reveal d1">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/9GCXuoZhb_c" title="SENVA ECMSet PRO" loading="lazy"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">SENVA</span>
+                        <h4>SENVA ECMSet PRO – Interruptor de corriente ECM con tecnología ECTUNE</h4>
+                        <p class="mm-date">📅 22 Ene 2026</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d2">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/uMGepTQXN7Y" title="Sensores Belimo" loading="lazy"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">BELIMO</span>
+                        <h4>SENSORES PARA PARED BELIMO</h4>
+                        <p class="mm-date">📅 18 Dic 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d3">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/VwOG6WDJD3Q" title="Air Monitor DCAS" loading="lazy"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">AIR MONITOR</span>
+                        <h4>NUEVO DCAS – Data Center Aisle Sentry de Air Monitor</h4>
+                        <p class="mm-date">📅 18 Dic 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d1">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/N1NNZKEn-48" title="ONICON" loading="lazy"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">ONICON</span>
+                        <h4>Medidores de flujo ultrasónicos ONICON con abrazadera para sistemas HVAC</h4>
+                        <p class="mm-date">📅 16 Dic 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d2">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/CPdhDrYMkXg" title="Termostatos" loading="lazy"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">HVAC</span>
+                        <h4>TERMOSTATOS DE FAN &amp; COIL</h4>
+                        <p class="mm-date">📅 08 Dic 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d3">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/ot7BJDqsr2E" title="Loytec" loading="lazy"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">LOYTEC</span>
+                        <h4>LOYTEC, La nueva serie LVISxx-32Gx</h4>
+                        <p class="mm-date">📅 03 Dic 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d1">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/IdagknD5eV8" title="Belimo nueva generacion"
+                            loading="lazy" allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">BELIMO</span>
+                        <h4>BELIMO NUEVA GENERACIÓN DIGITAL</h4>
+                        <p class="mm-date">📅 25 Nov 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d2">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/NbnBOclgXBU" title="Sensores Belimo" loading="lazy"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">BELIMO</span>
+                        <h4>Sensores Belimo – Nueva línea</h4>
+                        <p class="mm-date">📅 20 Nov 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d3">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/5fEO06kjPmI" title="Contemporary Controls"
+                            loading="lazy" allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">CONTEMPORARY</span>
+                        <h4>Contemporary Controls / Interfaz gráfica de supervisión para sistemas de control</h4>
+                        <p class="mm-date">📅 14 Nov 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d1">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/kKOpDyE7fDo" title="SENVA ECMset Pro" loading="lazy"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">SENVA</span>
+                        <h4>SENVA ECMset Pro – Detección de encendido ultrabaja</h4>
+                        <p class="mm-date">📅 12 Nov 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d2">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/sYt2U9HQVO8" title="Belimo dispositivos"
+                            loading="lazy" allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">BELIMO</span>
+                        <h4>BELIMO NUEVA GENERACIÓN DE DISPOSITIVOS DE CAMPO HVAC</h4>
+                        <p class="mm-date">📅 12 Nov 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d3">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/rW-SeO4G4a4" title="Vaisala" loading="lazy"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">VAISALA</span>
+                        <h4>Transmisores HMT120 y HMT130 VAISALA</h4>
+                        <p class="mm-date">📅 03 Nov 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d1">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/-cCUikcOMzE" title="Neptronic" loading="lazy"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">NEPTRONIC</span>
+                        <h4>Neptronic Modelo HRO20</h4>
+                        <p class="mm-date">📅 15 Oct 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d2">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/00PWPOZAAxc" title="Belimo gas refrigerante"
+                            loading="lazy" allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">BELIMO</span>
+                        <h4>NUEVO Monitor de Gas Refrigerante de Belimo</h4>
+                        <p class="mm-date">📅 08 Oct 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d3">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/5iVQRNK9ykc" title="Greystone" loading="lazy"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">GREYSTONE</span>
+                        <h4>Descubre toda la línea de productos Greystone con Haften</h4>
+                        <p class="mm-date">📅 25 Sep 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d1">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/Kgw01yR30fM" title="Neptronic humidificacion"
+                            loading="lazy" allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">NEPTRONIC</span>
+                        <h4>Haften cuenta con la mejor solución en Humidificación de la marca Neptronic</h4>
+                        <p class="mm-date">📅 25 Sep 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d2">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/TYZ_vt8NGBQ" title="Loytec haften" loading="lazy"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">LOYTEC</span>
+                        <h4>Conoce todo lo que LOYTEC tiene preparado para ti en HAFTEN</h4>
+                        <p class="mm-date">📅 24 Sep 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d3">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/4DYfvJ2HyBs" title="Dwyer Omega" loading="lazy"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">DWYER OMEGA</span>
+                        <h4>Descubre más de esta tecnología de DWYER Omega en Haften</h4>
+                        <p class="mm-date">📅 24 Sep 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d1">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/qBfJ5ke66JI" title="AHR EXPO" loading="lazy"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">EVENTO</span>
+                        <h4>Haften en AHR EXPO Monterrey 2025</h4>
+                        <p class="mm-date">📅 26 Ago 2025</p>
+                    </div>
+                </div>
+
+                <div class="mm-card reveal d2">
+                    <div class="mm-thumb">
+                        <iframe src="https://www.youtube.com/embed/U-caIPwRAn0" title="Belimo energy valve"
+                            loading="lazy" allowfullscreen></iframe>
+                    </div>
+                    <div class="mm-info">
+                        <span class="mm-badge">BELIMO</span>
+                        <h4>Belimo Energy Valve con medidor de energía térmica</h4>
+                        <p class="mm-date">📅 19 Ago 2025</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mm-cta reveal">
+                <a href="https://www.youtube.com/@Haftenoficial/videos" target="_blank" class="btn btn-brand"
+                    style="font-size:1rem;padding:15px 36px;">
+                    🎬 Ver todos los videos en YouTube →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <img src="Haften/Marcas/Logo Haften.png" alt="Haften" onerror="this.style.display='none'">
+                <span class="footer-brand-text">Haften</span>
+                <p class="footer-tagline">"Una solución completa en el mismo lugar."</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="marcas.html">Marcas</a></li>
+                    <li><a href="catalogos.html">Catálogos</a></li>
+                    <li><a href="multimedia.html">Multimedia</a></li>
+                    <li><a href="redes.html">Redes Sociales</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="mailto:haften@haften.com.mx">haften@haften.com.mx</a></li>
+                    <li><a href="https://haften.com.mx" target="_blank">www.haften.com.mx</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Síguenos</h4>
+                <ul>
+                    <li><a href="https://www.facebook.com/HaftenOficial" target="_blank">Facebook</a></li>
+                    <li><a href="https://www.instagram.com/Haftenoficial" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.youtube.com/@Haftenoficial/videos" target="_blank">YouTube</a></li>
+                    <li><a href="https://www.linkedin.com/company/haften/" target="_blank">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2025 Haften. Todos los derechos reservados. · <a href="https://haften.com.mx"
+                    target="_blank">haften.com.mx</a></span>
+        </div>
+    </footer>
+
+    <script src="haften-shared.js">
+        /* ── Splash Screen Loader ───────────────────────── */
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                // Agregamos un pequeño retraso de medio segundo para asegurar 
+                // que la animación de la barrita se vea fluida antes de desaparecer
+                setTimeout(() => {
+                    loader.classList.add('fade-out');
+                }, 500);
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contacto – Haften</title>
+    <meta name="description"
+        content="Contáctanos para cotizaciones, soporte técnico o información de catálogos. Haften – soluciones HVAC/R-BMS en México." />
+    <link rel="stylesheet" href="haften.css" />
+    <style>
+        /* ─── PAGE LOADER (SPLASH SCREEN) ─────────────────────── */
+        #page-loader {
+            position: fixed;
+            inset: 0;
+            /* Cubre toda la pantalla */
+            background: #0a0c14;
+            /* Fondo oscuro elegante */
+            z-index: 99999;
+            /* Asegura que esté por encima de ABSOLUTAMENTE todo */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        /* Clase que usará JS para ocultarlo suavemente */
+        #page-loader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-logo {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 24px;
+            letter-spacing: -0.04em;
+        }
+
+        .loader-logo span {
+            color: var(--ac, #C1272D);
+            /* Color rojo Haften */
+        }
+
+        .loader-bar-wrap {
+            width: 220px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .loader-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--ac, #C1272D);
+            border-radius: 4px;
+            /* Animación simulada de carga de 1.5 segundos */
+            animation: loadingBar 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .loader-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        @keyframes loadingBar {
+            0% {
+                width: 0%;
+            }
+
+            40% {
+                width: 60%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        .ct-hero {
+            margin-top: var(--nav-h);
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .ct-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ct-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(199, 52, 34, 0.82), rgba(26, 26, 46, 0.55));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 24px;
+        }
+
+        .ct-hero-overlay h1 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .ct-hero-overlay p {
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 1.05rem;
+        }
+
+        .ct-section {
+            padding: 80px 0;
+        }
+
+        .ct-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* Info col */
+        .ct-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .ct-info h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+
+        .ct-info h2 span {
+            color: var(--brand);
+        }
+
+        .ct-info-lead {
+            color: var(--text-2);
+            margin-bottom: 8px;
+            line-height: 1.7;
+        }
+
+        .ct-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 18px;
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            transition: var(--tr);
+        }
+
+        .ct-item:hover {
+            border-color: var(--brand);
+            box-shadow: var(--shadow-sm);
+            transform: translateX(4px);
+        }
+
+        .ct-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--brand-light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .ct-item-body h4 {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--brand);
+            margin-bottom: 3px;
+        }
+
+        .ct-item-body p {
+            font-size: 0.88rem;
+            color: var(--text-2);
+            line-height: 1.5;
+        }
+
+        .ct-item-body a {
+            color: var(--brand);
+            font-weight: 600;
+        }
+
+        /* Form col */
+        .ct-form-card {
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 44px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .ct-form-card h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .ct-form-card .form-lead {
+            color: var(--text-2);
+            font-size: 0.9rem;
+            margin-bottom: 28px;
+        }
+
+        .required-note {
+            font-size: 0.78rem;
+            color: var(--text-3);
+            margin-bottom: 20px;
+        }
+
+        .form-double {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-grp {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .form-grp label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-2);
+            letter-spacing: 0.04em;
+        }
+
+        .form-grp label .req {
+            color: var(--brand);
+        }
+
+        .form-grp input,
+        .form-grp select,
+        .form-grp textarea {
+            padding: 12px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text);
+            background: #fff;
+            transition: var(--tr);
+        }
+
+        .form-grp input:focus,
+        .form-grp select:focus,
+        .form-grp textarea:focus {
+            outline: none;
+            border-color: var(--brand);
+            box-shadow: 0 0 0 3px rgba(199, 52, 34, 0.1);
+        }
+
+        .form-grp input::placeholder,
+        .form-grp textarea::placeholder {
+            color: var(--text-3);
+        }
+
+        .form-grp select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235a6070'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 22px;
+        }
+
+        .form-grp textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: var(--brand);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            transition: var(--tr);
+            letter-spacing: 0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            background: var(--brand-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(199, 52, 34, 0.3);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .form-success-msg {
+            display: none;
+            margin-top: 16px;
+            padding: 16px;
+            background: #e8f5e9;
+            border: 1.5px solid #4caf50;
+            border-radius: 8px;
+            color: #2e7d32;
+            font-weight: 600;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        /* Map placeholder */
+        .map-section {
+            background: var(--bg-2);
+            padding: 60px 0;
+        }
+
+        .map-placeholder {
+            background: var(--bg-3);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 14px;
+            color: var(--text-2);
+        }
+
+        .map-placeholder .map-icon {
+            font-size: 3rem;
+        }
+
+        .map-placeholder h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .map-placeholder p {
+            font-size: 0.9rem;
+            color: var(--text-2);
+        }
+
+        @media(max-width:900px) {
+            .ct-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .ct-form-card {
+                padding: 28px;
+            }
+        }
+
+        @media(max-width:540px) {
+            .form-double {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="page-loader">
+        <div class="loader-logo">Haf<span>ten</span></div>
+        <div class="loader-bar-wrap">
+            <div class="loader-bar"></div>
+        </div>
+        <p class="loader-text">HVAC/R · BMS · Instrumentación</p>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <img src="Haften/Marcas/Logo Haften.png" alt="Haften"
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                <span class="nav-logo-text" style="display:none">Haften</span>
+            </a>
+            <button id="menu-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" class="nav-link">Inicio</a></li>
+                <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+                <li><a href="marcas.html" class="nav-link">Marcas</a></li>
+                <li><a href="catalogos.html" class="nav-link">Catálogos</a></li>
+                <li><a href="multimedia.html" class="nav-link">Multimedia</a></li>
+                <li><a href="redes.html" class="nav-link">Redes Sociales</a></li>
+                <li><a href="contacto.html" class="nav-link btn btn-brand active"
+                        style="margin-left:8px;padding:9px 20px;">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="ct-hero">
+        <img src="Haften/Imagenes/image.jpg" alt="Contacto Haften" />
+        <div class="ct-hero-overlay">
+            <h1 class="hero-title reveal" data-i18n="ct_hero_h1">Hablemos de tu Proyecto</h1>
+            <p>Nuestros ingenieros están listos para asesorarte</p>
+        </div>
+    </div>
+
+    <!-- CONTACT SECTION -->
+    <section class="ct-section">
+        <div class="container">
+            <div class="ct-grid">
+
+                <!-- INFO -->
+                <div class="ct-info reveal-l">
+                    <div>
+                        <h2>Escríbenos <span>tus dudas</span></h2>
+                        <p class="section-desc reveal-l" data-i18n="ct_info_p">Contáctanos por cualquier medio. Nuestro
+                            equipo de ingenieros especializados te responderá a la brevedad.</p>
+                    </div>
+
+                    <div class="ct-item">
+                        <div class="ct-icon">📍</div>
+                        <div class="ct-item-body">
+                            <h4 data-i18n="ct_i1">Oficina Central</h4>
+                            <p>Ciudad de México, CDMX</p>
+                        </div>
+                    </div>
+                    <div class="ct-item">
+                        <div class="ct-icon">✉</div>
+                        <div class="ct-item-body">
+                            <h4 data-i18n="ct_i2">Email</h4>
+                            <p><a href="mailto:haften@haften.com.mx">haften@haften.com.mx</a></p>
+                        </div>
+                    </div>
+                    <div class="ct-item">
+                        <div class="ct-icon">🌐</div>
+                        <div class="ct-item-body">
+                            <h4 data-i18n="ct_i3">Sitio Web</h4>
+                            <p><a href="https://haften.com.mx" target="_blank">www.haften.com.mx</a></p>
+                        </div>
+                    </div>
+                    <div class="ct-item">
+                        <div class="ct-icon">🏙</div>
+                        <div class="ct-item-body">
+                            <h4 data-i18n="ct_i4">Sucursales</h4>
+                            <p>Monterrey · Guadalajara · León · Cancún</p>
+                        </div>
+                    </div>
+                    <div class="ct-item">
+                        <div class="ct-icon">🕐</div>
+                        <div class="ct-item-body">
+                            <h4 data-i18n="ct_i5">Horario de Atención</h4>
+                            <p>Lunes a Viernes: 8:00 am – 6:00 pm</p>
+                        </div>
+                    </div>
+                    <div class="ct-item">
+                        <div class="ct-icon">💬</div>
+                        <div class="ct-item-body">
+                            <h4 data-i18n="ct_i6">Redes Sociales</h4>
+                            <p>
+                                <a href="https://www.facebook.com/HaftenOficial" target="_blank">Facebook</a> ·
+                                <a href="https://www.instagram.com/Haftenoficial" target="_blank">Instagram</a> ·
+                                <a href="https://www.linkedin.com/company/haften/" target="_blank">LinkedIn</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORM -->
+                <div class="ct-form-card reveal-r">
+                    <h3 data-i18n="ct_form_h3">Envíanos un Mensaje</h3>
+                    <p class="form-lead" data-i18n="ct_form_p">Cuéntanos sobre tu proyecto y un experto de Haften te
+                        contactará.</p>
+                    <span class="req" data-i18n="ct_req">* Campos requeridos</span>
+
+                    <form id="contactForm" novalidate>
+                        <div class="form-double">
+                            <div class="form-grp">
+                                <label for="nombre">Nombre <span class="req">*</span></label>
+                                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+                            </div>
+                            <div class="form-grp">
+                                <label for="apellido">Apellido <span class="req">*</span></label>
+                                <input type="text" id="apellido" name="apellido" placeholder="Tu apellido" required />
+                            </div>
+                        </div>
+                        <div class="form-grp">
+                            <label for="empresa">Empresa <span class="req">*</span></label>
+                            <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa"
+                                required />
+                        </div>
+                        <div class="form-double">
+                            <div class="form-grp">
+                                <label for="whatsapp">WhatsApp <span class="req">*</span></label>
+                                <input type="tel" id="whatsapp" name="whatsapp" placeholder="+52 55 0000 0000"
+                                    required />
+                            </div>
+                            <div class="form-grp">
+                                <label for="telefono">Teléfono de Oficina <span class="req">*</span></label>
+                                <input type="tel" id="telefono" name="telefono" placeholder="+52 55 0000 0000"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="form-grp">
+                            <label for="email">Email <span class="req">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="correo@dominio.com" required />
+                        </div>
+                        <div class="form-grp">
+                            <label for="asunto">Asunto</label>
+                            <select id="asunto" name="asunto">
+                                <option value="">Selecciona un tema</option>
+                                <option value="cotizacion">Solicitar cotización</option>
+                                <option value="soporte">Soporte técnico</option>
+                                <option value="catalogo">Información de catálogo</option>
+                                <option value="distribucion">Distribución / Marcas</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-grp">
+                            <label for="comentarios">Comentarios <span class="req">*</span></label>
+                            <textarea id="comentarios" name="comentarios"
+                                placeholder="Cuéntanos tu proyecto, requerimiento o pregunta..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <span>Enviar Mensaje</span>
+                            <span>→</span>
+                        </button>
+                        <div class="form-success-msg" id="successMsg">
+                            ✅ ¡Mensaje enviado con éxito! Nos comunicaremos contigo a la brevedad.
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MAP PLACEHOLDER -->
+    <section class="map-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="eyebrow reveal" data-i18n="map_lbl">Presencia nacional</span>
+                <h2 class="section-title reveal" data-i18n="map_title">Encuéntranos en <span>México</span></h2>
+                <div class="brand-divider"></div>
+            </div>
+            <div class="map-placeholder reveal">
+                <div class="map-icon">📍</div>
+                <h3>Ciudad de México – Oficina Central</h3>
+                <p>Monterrey · Guadalajara · León · Cancún – Oficinas Regionales</p>
+                <a href="https://maps.google.com/?q=Ciudad+de+Mexico" target="_blank" class="btn btn-brand"
+                    style="margin-top:12px;">
+                    Ver en Google Maps →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <img src="Haften/Marcas/Logo Haften.png" alt="Haften" onerror="this.style.display='none'">
+                <span class="footer-brand-text">Haften</span>
+                <p class="footer-tagline">"Una solución completa en el mismo lugar."</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="marcas.html">Marcas</a></li>
+                    <li><a href="catalogos.html">Catálogos</a></li>
+                    <li><a href="multimedia.html">Multimedia</a></li>
+                    <li><a href="redes.html">Redes Sociales</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="mailto:haften@haften.com.mx">haften@haften.com.mx</a></li>
+                    <li><a href="https://haften.com.mx" target="_blank">www.haften.com.mx</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Síguenos</h4>
+                <ul>
+                    <li><a href="https://www.facebook.com/HaftenOficial" target="_blank">Facebook</a></li>
+                    <li><a href="https://www.instagram.com/Haftenoficial" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.youtube.com/@Haftenoficial/videos" target="_blank">YouTube</a></li>
+                    <li><a href="https://www.linkedin.com/company/haften/" target="_blank">LinkedIn</a></li>
+                    <li><a href="https://x.com/haften1" target="_blank">X (Twitter)</a></li>
+                    <li><a href="https://www.tiktok.com/@Haftenoficial/" target="_blank">TikTok</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2025 Haften. Todos los derechos reservados. · <a href="https://haften.com.mx"
+                    target="_blank">haften.com.mx</a></span>
+        </div>
+    </footer>
+
+    <script src="haften-shared.js"></script>
+    <script>
+        // Form submit handler
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const btn = this.querySelector('.btn-submit');
+            btn.textContent = 'Enviando...';
+            btn.disabled = true;
+            setTimeout(() => {
+                document.getElementById('successMsg').style.display = 'block';
+                this.reset();
+                btn.innerHTML = '<span>Enviar Mensaje</span><span>→</span>';
+                btn.disabled = false;
+                setTimeout(() => { document.getElementById('successMsg').style.display = 'none'; }, 6000);
+            }, 1200);
+        });
+
+        /* ── Splash Screen Loader ───────────────────────── */
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                // Agregamos un pequeño retraso de medio segundo para asegurar 
+                // que la animación de la barrita se vea fluida antes de desaparecer
+                setTimeout(() => {
+                    loader.classList.add('fade-out');
+                }, 500);
+            }
+        });
+
+    </script>
+</body>
+
+</html>

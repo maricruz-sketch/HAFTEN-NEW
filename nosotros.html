@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es" data-accent="red">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nosotros – Haften</title>
+    <meta name="description"
+        content="Conoce a Haften: especialistas en comercialización de productos de control e instrumentación para sistemas HVAC/R-BMS en México." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" />
+    <link rel="stylesheet" href="haften.css" />
+    <style>
+        /* page-specific only */
+        .about-intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 72px;
+            align-items: center;
+        }
+
+        .about-img-wrap {
+            position: relative;
+        }
+
+        .about-img-wrap img {
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+        }
+
+        .about-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--ac);
+            color: #fff;
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .about-badge strong {
+            display: block;
+            font-size: 2.2rem;
+            font-weight: 900;
+        }
+
+        .about-badge span {
+            font-size: .82rem;
+            opacity: .9;
+            font-weight: 500;
+        }
+
+        .about-text {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .about-text h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.7rem, 3vw, 2.4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -.03em;
+        }
+
+        .about-text h2 span {
+            color: var(--ac);
+        }
+
+        .about-text p {
+            color: var(--text-2);
+            font-size: 1rem;
+            line-height: 1.75;
+        }
+
+        .about-quote {
+            border-left: 4px solid var(--ac);
+            background: var(--ac-light);
+            padding: 16px 22px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--ac-dark);
+            font-style: italic;
+        }
+
+        .brands-listed {
+            background: var(--bg-2);
+            padding: 70px 0;
+        }
+
+        .brands-tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 36px;
+        }
+
+        .brand-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: 100px;
+            font-size: .88rem;
+            font-weight: 600;
+            color: var(--text);
+            box-shadow: var(--shadow-sm);
+            transition: var(--tr);
+        }
+
+        .brand-tag:hover {
+            border-color: var(--ac);
+            color: var(--ac);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(var(--ac-rgb), .15);
+        }
+
+        .brand-tag img {
+            height: 22px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .products-section {
+            padding: 80px 0;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .product-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 18px;
+            transition: var(--tr);
+        }
+
+        .product-item:hover {
+            border-color: var(--ac);
+            box-shadow: var(--shadow-sm);
+            transform: translateX(4px);
+        }
+
+        .product-item-icon {
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            background: var(--ac-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ac);
+            font-size: 1rem;
+        }
+
+        .product-item p {
+            font-size: .9rem;
+            color: var(--text-2);
+            line-height: 1.5;
+        }
+
+        .offices-section {
+            background: var(--ac);
+            padding: 70px 0;
+        }
+
+        .offices-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .office-card {
+            background: rgba(255, 255, 255, .12);
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: var(--radius);
+            padding: 28px 20px;
+            text-align: center;
+            transition: var(--tr);
+        }
+
+        .office-card:hover {
+            background: rgba(255, 255, 255, .22);
+            transform: translateY(-4px);
+        }
+
+        .office-icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .office-name {
+            color: #fff;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .office-sub {
+            color: rgba(255, 255, 255, .75);
+            font-size: .8rem;
+            margin-top: 4px;
+        }
+
+        @media(max-width:900px) {
+            .about-intro-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .offices-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media(max-width:600px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .offices-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="page-loader">
+        <div class="loader-logo">Haf<span>ten</span></div>
+        <div class="loader-bar-wrap">
+            <div class="loader-bar"></div>
+        </div>
+        <p class="loader-text">HVAC/R · BMS · Instrumentación</p>
+    </div>
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <img src="Haften/Marcas/Logo Haften.png" alt="Haften"
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                <span class="nav-logo-text" style="display:none">Haf<span>ten</span></span>
+            </a>
+            <button id="menu-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" class="nav-link" data-page="index">Inicio</a></li>
+                <li><a href="nosotros.html" class="nav-link active" data-page="nosotros">Nosotros</a></li>
+                <li><a href="marcas.html" class="nav-link" data-page="marcas">Marcas</a></li>
+                <li><a href="catalogos.html" class="nav-link" data-page="catalogos">Catálogos</a></li>
+                <li><a href="multimedia.html" class="nav-link" data-page="multimedia">Multimedia</a></li>
+                <li><a href="redes.html" class="nav-link" data-page="redes">Redes Sociales</a></li>
+                <li><a href="contacto.html" class="nav-cta">Contacto <i class="fa-solid fa-arrow-right"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+        <img class="page-hero-img" src="Haften/sección  nosotros/1.jpg" alt="Haften Nosotros" />
+        <div class="page-hero-overlay">
+            <div class="page-hero-content">
+                <span class="page-hero-eyebrow"><i class="fa-solid fa-building"></i> Nosotros</span>
+                <h1>Selección · Especificación<br>Asesoría · Distribución</h1>
+                <p class="hero-subtitle" data-i18n="ab_hero_sub">Expertos en HVAC/R-BMS – Tu socio técnico de confianza
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- INTRO -->
+    <section class="section" style="padding:90px 0">
+        <div class="container">
+            <div class="about-intro-grid">
+                <div class="about-img-wrap reveal-l">
+                    <img src="Haften/sección  nosotros/do-more.jpg" alt="Haften Do More" />
+                    <div class="about-badge">
+                        <strong>
+                            <h2 data-i18n="ab_yr">20+</h2>
+                        </strong>
+                        <span>
+                            <p data-i18n="ab_yr_sub">Años de experiencia</p>
+                        </span>
+                    </div>
+                </div>
+                <div class="about-text reveal-r">
+                    <span class="eyebrow"><i class="fa-solid fa-building-columns"></i> Nosotros</span>
+                    <h2 class="section-title reveal-r" data-i18n="ab_exp">Expertos en <span>HVAC/R-BMS</span><br>a tu
+                        servicio</h2>
+                    <p>En <strong>Haften</strong>, nos especializamos en la comercialización de productos de
+                        <strong>control e instrumentación para sistemas HVAC</strong>, así como en humidificadores,
+                        deshumidificadores y calefactores eléctricos. Nuestro objetivo es brindar soluciones técnicas
+                        confiables, eficientes y adaptadas a las necesidades de cada proyecto.
+                    </p>
+                    <p class="reveal-r" style="transition-delay: 0.2s;" data-i18n="ab_p2">Representamos marcas
+                        reconocidas internacionalmente: Air Monitor, Badger Meter, Belimo, Bry-Air, Contemporary
+                        Controls, Control Techniques, Cool Automation, Delta Electronics, Dwyer Omega, FlowCon, GPI,
+                        Greystone Energy, Johnson Controls, Loytec, ONICON, Meitav-Tec, Neptronic, Senva y Vaisala.</p>
+                    <p class="reveal-r" style="transition-delay: 0.3s;" data-i18n="ab_p3">Contamos con un <strong>amplio
+                            inventario disponible para entrega inmediata</strong> y un equipo de ingenieros
+                        especializados que brindan asesoría técnica en HVAC, automatización de edificios, laboratorios,
+                        hospitales, centros de datos y procesos industriales.</p>
+                    <blockquote class="about-quote">"Una solución completa en el mismo lugar."</blockquote>
+                    <a href="contacto.html" class="btn btn-ac"><i class="fa-solid fa-envelope"></i> Contáctanos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTOS -->
+    <section class="products-section section-alt section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="eyebrow"><i class="fa-solid fa-boxes-stacked"></i> Portafolio</span>
+                <h2 class="section-title reveal-l" data-i18n="pf_title">Nuestros <span>Productos</span></h2>
+                <span class="accent-line"></span>
+                <p class="section-desc reveal-l" data-i18n="pf_sub">Soluciones técnicas para cada necesidad de tu
+                    proyecto HVAC/R</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-item reveal d1">
+                    <div class="product-item-icon"><i class="fa-solid fa-wind"></i></div>
+                    <p>Medidores de flujo de aire, agua y gas</p>
+                </div>
+                <div class="product-item reveal d2">
+                    <div class="product-item-icon"><i class="fa-solid fa-sliders"></i></div>
+                    <p>Válvulas de control, balanceo y energy valves</p>
+                </div>
+                <div class="product-item reveal d3">
+                    <div class="product-item-icon"><i class="fa-solid fa-gear"></i></div>
+                    <p>Actuadores para damper y válvulas</p>
+                </div>
+                <div class="product-item reveal d4">
+                    <div class="product-item-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+                    <p>Sensores de humedad, temperatura, CO/CO2, presión, VOC</p>
+                </div>
+                <div class="product-item reveal d5">
+                    <div class="product-item-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                    <p>Manómetros y termómetros industriales</p>
+                </div>
+                <div class="product-item reveal d6">
+                    <div class="product-item-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <p>Variadores de frecuencia (VFDs)</p>
+                </div>
+                <div class="product-item reveal d1">
+                    <div class="product-item-icon"><i class="fa-solid fa-network-wired"></i></div>
+                    <p>Gateways, routers y fuentes de alimentación</p>
+                </div>
+                <div class="product-item reveal d2">
+                    <div class="product-item-icon"><i class="fa-solid fa-desktop"></i></div>
+                    <p>Controladores, supervisores y HMIs</p>
+                </div>
+                <div class="product-item reveal d3">
+                    <div class="product-item-icon"><i class="fa-solid fa-temperature-half"></i></div>
+                    <p>Termostatos y humidostatos digitales</p>
+                </div>
+                <div class="product-item reveal d4">
+                    <div class="product-item-icon"><i class="fa-solid fa-plug"></i></div>
+                    <p>Power meters para 1 o múltiples circuitos</p>
+                </div>
+                <div class="product-item reveal d5">
+                    <div class="product-item-icon"><i class="fa-solid fa-microscope"></i></div>
+                    <p>Sensores para áreas críticas</p>
+                </div>
+                <div class="product-item reveal d6">
+                    <div class="product-item-icon"><i class="fa-solid fa-droplet"></i></div>
+                    <p>Humidificadores, deshumidificadores y calefactores eléctricos</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARCAS REPRESENTADAS -->
+    <section class="brands-listed section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="eyebrow reveal" data-i18n="br_lbl">Distribuidores autorizados</span>
+                <h2 class="section-title reveal" data-i18n="br_title">Marcas que <span>Representamos</span></h2>
+                <div class="brand-divider"></div>
+            </div>
+            <div class="brands-tag-cloud">
+                <span class="brand-tag reveal d1"><img src="Haften/Marcas/Logos_Air Monitor Logo.png" alt=""> Air
+                    Monitor</span>
+                <span class="brand-tag reveal d2"><img src="Haften/Marcas/belimo.fw.png" alt=""> Belimo</span>
+                <span class="brand-tag reveal d3"><img src="Haften/Marcas/4 Bry-Air .png" alt=""> Bry-Air</span>
+                <span class="brand-tag reveal d4"><img src="Haften/Marcas/CCSI logo stacked 4 (00000003).png" alt="">
+                    Contemporary Controls</span>
+                <span class="brand-tag reveal d5"><img src="Haften/Marcas/LOG_CT_RGB.png" alt=""> Control
+                    Techniques</span>
+                <span class="brand-tag reveal d6"><img src="Haften/Marcas/delta-500w-trim-vert.png" alt=""> Delta
+                    Electronics</span>
+                <span class="brand-tag reveal d1"><img src="Haften/Marcas/9.1 -DO-logo-horiz-full-color-TM.png" alt="">
+                    Dwyer Omega</span>
+                <span class="brand-tag reveal d2"><img src="Haften/Marcas/FlowCon-Logo.png" alt=""> FlowCon</span>
+                <span class="brand-tag reveal d3"><img src="Haften/Marcas/11-GPI-Inc-Logo-Registered.png" alt="">
+                    GPI</span>
+                <span class="brand-tag reveal d4"><img src="Haften/Marcas/Greystone Logo - Pantone 3295 - Large.png"
+                        alt=""> Greystone Energy</span>
+                <span class="brand-tag reveal d5"><img src="Haften/Marcas/Johnson_Controls.svg.png" alt=""> Johnson
+                    Controls</span>
+                <span class="brand-tag reveal d6"><img src="Haften/Marcas/14-LOGO Loytec.png" alt=""> Loytec</span>
+                <span class="brand-tag reveal d1"><img src="Haften/Marcas/15-meitav-tec.png" alt=""> Meitav-Tec</span>
+                <span class="brand-tag reveal d2"><img src="Haften/Marcas/16- Neptronic-Haften - copia.png" alt="">
+                    Neptronic</span>
+                <span class="brand-tag reveal d3"><img src="Haften/Marcas/Logos_ONICON Logo (2).png" alt="">
+                    ONICON</span>
+                <span class="brand-tag reveal d4"><img src="Haften/Marcas/Senva-Logo-BLK-2022 (002).png" alt="">
+                    Senva</span>
+                <span class="brand-tag reveal d5"><img src="Haften/Marcas/1200px-Setra_Systems_Logo.png" alt="">
+                    Setra</span>
+                <span class="brand-tag reveal d6"><img
+                        src="Haften/Marcas/19 Vaisala-authorized-parter-logo-blue-cmyk.png" alt=""> Vaisala</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- OFICINAS -->
+    <section class="offices-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2
+                    style="color:#fff;font-size:clamp(1.7rem,3vw,2.3rem);font-weight:900;margin-bottom:6px;font-family:'Plus Jakarta Sans',sans-serif;">
+                    Cobertura <span style="color:#ffccc7">Nacional</span></h2>
+                <p class="section-desc reveal" data-i18n="loc_sub">Oficina matriz en CDMX y presencia en todo México.
+                </p>
+            </div>
+            <div class="offices-grid">
+                <div class="office-card reveal d1">
+                    <div class="office-icon"><i class="fa-solid fa-city"></i></div>
+                    <div class="office-name">
+                        <h3 data-i18n="loc_cdmx">Ciudad de México</h3>
+                    </div>
+                    <div class="office-sub">
+                        <p data-i18n="loc_mat">Oficina Matriz</p>
+                    </div>
+                </div>
+                <div class="office-card reveal d2">
+                    <div class="office-icon"><i class="fa-solid fa-industry"></i></div>
+                    <div class="office-name">
+                        <h3 data-i18n="loc_mty">Monterrey</h3>
+                    </div>
+                    <div class="office-sub">Oficina Regional</div>
+                </div>
+                <div class="office-card reveal d3">
+                    <div class="office-icon"><i class="fa-solid fa-building"></i></div>
+                    <div class="office-name">
+                        <h3 data-i18n="loc_gdl">Guadalajara</h3>
+                    </div>
+                    <div class="office-sub">Oficina Regional</div>
+                </div>
+                <div class="office-card reveal d4">
+                    <div class="office-icon"><i class="fa-solid fa-landmark"></i></div>
+                    <div class="office-name">
+                        <h3 data-i18n="loc_leon">León</h3>
+                    </div>
+                    <div class="office-sub">Oficina Regional</div>
+                </div>
+                <div class="office-card reveal d5">
+                    <div class="office-icon"><i class="fa-solid fa-umbrella-beach"></i></div>
+                    <div class="office-name">
+                        <h3 data-i18n="loc_cun">Cancún</h3>
+                    </div>
+                    <div class="office-sub">Oficina Regional</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div>
+                <img src="Haften/Marcas/Logo Haften.png" alt="Haften" class="footer-logo"
+                    onerror="this.style.display='none'">
+                <div class="footer-logo-text">Haf<span>ten</span></div>
+                <p class="footer-desc">"Una solución completa en el mismo lugar."</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="index.html"><i class="fa-solid fa-house"></i>Inicio</a></li>
+                    <li><a href="nosotros.html"><i class="fa-solid fa-building"></i>Nosotros</a></li>
+                    <li><a href="marcas.html"><i class="fa-solid fa-tag"></i>Marcas</a></li>
+                    <li><a href="catalogos.html"><i class="fa-solid fa-file-pdf"></i>Catálogos</a></li>
+                    <li><a href="multimedia.html"><i class="fa-solid fa-play-circle"></i>Multimedia</a></li>
+                    <li><a href="redes.html"><i class="fa-solid fa-share-nodes"></i>Redes Sociales</a></li>
+                    <li><a href="contacto.html"><i class="fa-solid fa-envelope"></i>Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="mailto:haften@haften.com.mx"><i
+                                class="fa-solid fa-envelope"></i>haften@haften.com.mx</a></li>
+                    <li><a href="https://haften.com.mx" target="_blank"><i
+                                class="fa-solid fa-globe"></i>www.haften.com.mx</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Síguenos</h4>
+                <ul>
+                    <li><a href="https://www.facebook.com/HaftenOficial" target="_blank"><i
+                                class="fa-brands fa-facebook"></i>Facebook</a></li>
+                    <li><a href="https://www.instagram.com/Haftenoficial" target="_blank"><i
+                                class="fa-brands fa-instagram"></i>Instagram</a></li>
+                    <li><a href="https://www.youtube.com/@Haftenoficial/videos" target="_blank"><i
+                                class="fa-brands fa-youtube"></i>YouTube</a></li>
+                    <li><a href="https://www.linkedin.com/company/haften/" target="_blank"><i
+                                class="fa-brands fa-linkedin"></i>LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2025 Haften. Todos los derechos reservados. · <a href="https://haften.com.mx"
+                    target="_blank">haften.com.mx</a></span>
+            <div class="footer-social">
+                <a href="https://www.facebook.com/HaftenOficial" target="_blank"><i
+                        class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/Haftenoficial" target="_blank"><i
+                        class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@Haftenoficial/videos" target="_blank"><i
+                        class="fa-brands fa-youtube"></i></a>
+                <a href="https://www.linkedin.com/company/haften/" target="_blank"><i
+                        class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- COLOR SWITCHER -->
+    <div id="accent-switcher">
+        <button id="accent-btn" aria-label="Cambiar color"><i class="fa-solid fa-palette"></i></button>
+        <div id="accent-panel">
+            <p class="panel-label">Color de acento</p>
+            <div class="accent-options">
+                <div class="ac-swatch active" data-accent="red"></div>
+                <div class="ac-swatch" data-accent="blue"></div>
+                <div class="ac-swatch" data-accent="emerald"></div>
+                <div class="ac-swatch" data-accent="violet"></div>
+                <div class="ac-swatch" data-accent="orange"></div>
+                <div class="ac-swatch" data-accent="rose"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="haften-shared.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catálogos – Haften</title>
+    <meta name="description"
+        content="Descarga los catálogos digitales de todas las marcas representadas por Haften: Belimo, Bry-Air, ONICON, GPI, Loytec y más." />
+    <link rel="stylesheet" href="haften.css" />
+    <style>
+        .cat-hero {
+            margin-top: var(--nav-h);
+            position: relative;
+            height: 320px;
+            overflow: hidden;
+        }
+
+        .cat-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cat-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(199, 52, 34, 0.82), rgba(26, 26, 46, 0.5));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 24px;
+        }
+
+        .cat-hero-overlay h1 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .cat-hero-overlay p {
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 1.05rem;
+        }
+
+        .catalogos-main {
+            padding: 80px 0;
+        }
+
+        .cat-grid-full {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+
+        .cat-c {
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--tr);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cat-c:hover {
+            border-color: var(--brand);
+            box-shadow: 0 12px 40px rgba(199, 52, 34, 0.12);
+            transform: translateY(-6px);
+        }
+
+        .cat-c-header {
+            background: var(--bg-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            padding: 16px;
+            border-bottom: 1.5px solid var(--border);
+        }
+
+        .cat-c-header img {
+            max-height: 68px;
+            max-width: 130px;
+            object-fit: contain;
+        }
+
+        .cat-c-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .cat-c-body h4 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .cat-c-body p {
+            font-size: 0.8rem;
+            color: var(--text-2);
+            flex: 1;
+        }
+
+        .cat-c-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            background: var(--brand-light);
+            color: var(--brand);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            border-radius: 100px;
+            margin-bottom: 4px;
+        }
+
+        .cat-c-footer {
+            padding: 0 20px 20px;
+        }
+
+        .btn-download {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 11px;
+            background: var(--brand);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: var(--tr);
+        }
+
+        .btn-download:hover {
+            background: var(--brand-dark);
+            transform: translateY(-1px);
+        }
+
+        @media(max-width:1100px) {
+            .cat-grid-full {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media(max-width:768px) {
+            .cat-grid-full {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width:480px) {
+            .cat-grid-full {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ─── PAGE LOADER (SPLASH SCREEN) ─────────────────────── */
+        #page-loader {
+            position: fixed;
+            inset: 0;
+            /* Cubre toda la pantalla */
+            background: #0a0c14;
+            /* Fondo oscuro elegante */
+            z-index: 99999;
+            /* Asegura que esté por encima de ABSOLUTAMENTE todo */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        /* Clase que usará JS para ocultarlo suavemente */
+        #page-loader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-logo {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 24px;
+            letter-spacing: -0.04em;
+        }
+
+        .loader-logo span {
+            color: var(--ac, #C1272D);
+            /* Color rojo Haften */
+        }
+
+        .loader-bar-wrap {
+            width: 220px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .loader-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--ac, #C1272D);
+            border-radius: 4px;
+            /* Animación simulada de carga de 1.5 segundos */
+            animation: loadingBar 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .loader-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        @keyframes loadingBar {
+            0% {
+                width: 0%;
+            }
+
+            40% {
+                width: 60%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="page-loader">
+        <div class="loader-logo">Haf<span>ten</span></div>
+        <div class="loader-bar-wrap">
+            <div class="loader-bar"></div>
+        </div>
+        <p class="loader-text">HVAC/R · BMS · Instrumentación</p>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <img src="Haften/Marcas/Logo Haften.png" alt="Haften"
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                <span class="nav-logo-text" style="display:none">Haften</span>
+            </a>
+            <button id="menu-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" class="nav-link">Inicio</a></li>
+                <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+                <li><a href="marcas.html" class="nav-link">Marcas</a></li>
+                <li><a href="catalogos.html" class="nav-link active">Catálogos</a></li>
+                <li><a href="multimedia.html" class="nav-link">Multimedia</a></li>
+                <li><a href="redes.html" class="nav-link">Redes Sociales</a></li>
+                <li><a href="contacto.html" class="nav-link btn btn-brand"
+                        style="margin-left:8px;padding:9px 20px;">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="cat-hero">
+        <img src="Haften/Imagenes/general.png" alt="Catálogos Haften" />
+        <div class="cat-hero-overlay">
+            <h1 class="hero-title reveal" data-i18n="cat_hero_h1">Catálogos Digitales</h1>
+            <p>Descubre nuestras soluciones – ¡Descarga ahora nuestro catálogo digital!</p>
+        </div>
+    </div>
+
+    <!-- CATALOGOS -->
+    <section class="catalogos-main section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="eyebrow reveal" data-i18n="cat_lbl">Recursos técnicos</span>
+                <h2 class="section-title reveal" data-i18n="cat_title">Explora Nuestros <span>Catálogos</span></h2>
+                <div class="brand-divider"></div>
+                <p class="section-desc reveal" data-i18n="cat_sub">Documentación técnica completa para facilitar tu
+                    selección y especificación de
+                    equipos.</p>
+            </div>
+
+            <div class="cat-grid-full">
+
+                <div class="cat-c reveal d1">
+                    <div class="cat-c-header"><img src="Haften/Marcas/Logos_Air Monitor Logo.png" alt="Air Monitor">
+                    </div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>Air Monitor</h4>
+                        <p>Solutions – Medición de calidad y flujo de aire para sistemas HVAC</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/air monitor.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d2">
+                    <div class="cat-c-header"><img src="Haften/Marcas/belimo.fw.png" alt="Belimo"></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>Belimo</h4>
+                        <p>Introducción a la línea de actuadores, válvulas y sensores HVAC</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/belimo.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d3">
+                    <div class="cat-c-header"><img src="Haften/Marcas/4 Bry-Air .png" alt="Bry-Air"></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>Bry-Air</h4>
+                        <p>Ventajas del deshumidificador Idéec® y soluciones de desecación</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/bry air.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d4">
+                    <div class="cat-c-header"><img src="Haften/Marcas/CCSI logo stacked 4 (00000003).png"
+                            alt="Contemporary Controls"></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>Contemporary Controls</h4>
+                        <p>Construyendo sobre BACnet – Automatización de edificios BAS</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/Catalog.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d1">
+                    <div class="cat-c-header"><img src="Haften/Marcas/LOG_CT_RGB.png" alt="Control Techniques"></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>Control Techniques</h4>
+                        <p>Cartera de productos – Variadores de frecuencia VFDs</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/control techniques.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d2">
+                    <div class="cat-c-header" style="background:var(--bg-3);"><span
+                            style="font-size:1rem;font-weight:700;color:var(--text-2)">COOL AUTOMATION</span></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>Cool Automation</h4>
+                        <p>Soluciones de Integración, Control y Monitoreo para HVAC</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/cool automation.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d3">
+                    <div class="cat-c-header"><img src="Haften/Marcas/delta-500w-trim-vert.png" alt="Delta"></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>Delta Electronics</h4>
+                        <p>Delta AC Motor Drive – Variadores de velocidad industriales</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/delta.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d4">
+                    <div class="cat-c-header"><img src="Haften/Marcas/9.1 -DO-logo-horiz-full-color-TM.png"
+                            alt="Dwyer Omega"></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>Dwyer Omega</h4>
+                        <p>Catálogo general de instrumentación industrial</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/dwyer.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d1">
+                    <div class="cat-c-header"><img src="Haften/Marcas/FlowCon-Logo.png" alt="FlowCon"></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>FlowCon</h4>
+                        <p>Válvulas de balanceo y control de flujos hidrónicas</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/flowcon.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d2">
+                    <div class="cat-c-header"><img src="Haften/Marcas/11-GPI-Inc-Logo-Registered.png" alt="GPI"></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>GPI</h4>
+                        <p>Supply and Solutions – Medidores de flujo de precisión</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/GPI-Catalog.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d3">
+                    <div class="cat-c-header"><img src="Haften/Marcas/Johnson_Controls.svg.png" alt="Johnson Controls">
+                    </div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>Johnson Controls</h4>
+                        <p>Sistemas de automatización de edificios y BMS</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/JCI_OverviewBrochure.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d4">
+                    <div class="cat-c-header"><img src="Haften/Marcas/14-LOGO Loytec.png" alt="Loytec"></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>Loytec</h4>
+                        <p>The easiest choice in building automation – Soluciones BMS</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/loytec.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d1">
+                    <div class="cat-c-header"><img src="Haften/Marcas/15-meitav-tec.png" alt="Meitav-Tec"></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>Meitav-Tec</h4>
+                        <p>Calefactores eléctricos para uso industrial y comercial</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/meitav.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d2">
+                    <div class="cat-c-header"><img src="Haften/Marcas/Logos_ONICON Logo (2).png" alt="ONICON"></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>ONICON</h4>
+                        <p>Caudalímetros – Medidores de BTU y energía térmica</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/onicon.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d3">
+                    <div class="cat-c-header"><img src="Haften/Marcas/1200px-Setra_Systems_Logo.png" alt="Setra"></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>Setra</h4>
+                        <p>Sensores de presión diferencial y absoluta de alta precisión</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/SETRA.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d4">
+                    <div class="cat-c-header"><img src="Haften/Marcas/19 Vaisala-authorized-parter-logo-blue-cmyk.png"
+                            alt="Vaisala"></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>Vaisala</h4>
+                        <p>Transmisores de humedad y temperatura HMT – Instrumentación ambiental</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/VAISALA.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d1">
+                    <div class="cat-c-header"><img src="Haften/Marcas/Logo Haften.png" alt="Haften"></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>Haften Catálogo 2025</h4>
+                        <p>Catálogo corporativo general – soluciones industriales integrales</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/Catalogo HAFTEN 2025.pdf" target="_blank"
+                            class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+                <div class="cat-c reveal d2">
+                    <div class="cat-c-header" style="background:var(--bg-3);"><span
+                            style="font-size:0.9rem;font-weight:700;color:var(--text-2);text-align:center">PRODUCT
+                            CATEGORY</span></div>
+                    <div class="cat-c-body">
+                        <span class="cat-c-badge">CATÁLOGO</span>
+                        <h4>Product Category Brochure</h4>
+                        <p>Categorías de productos para automatización y control</p>
+                    </div>
+                    <div class="cat-c-footer"><a href="Haften/PDF´S Catalogos/Product Category Brochure.pdf"
+                            target="_blank" class="btn-download">📄 Ver documento</a></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="background:var(--bg-2);padding:70px 0;text-align:center;">
+        <div class="container reveal">
+            <h2 class="reveal" data-i18n="cat_cta_h2">¿Necesitas asesoría técnica?</h2>
+            <p class="reveal" data-i18n="cat_cta_p">Nuestros ingenieros especializados pueden ayudarte a seleccionar el
+                equipo correcto.</p>
+            <a href="contacto.html" class="btn btn-brand">Solicitar asesoría →</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <img src="Haften/Marcas/Logo Haften.png" alt="Haften" onerror="this.style.display='none'">
+                <span class="footer-brand-text">Haften</span>
+                <p class="footer-tagline">"Una solución completa en el mismo lugar."</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="marcas.html">Marcas</a></li>
+                    <li><a href="catalogos.html">Catálogos</a></li>
+                    <li><a href="multimedia.html">Multimedia</a></li>
+                    <li><a href="redes.html">Redes Sociales</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="mailto:haften@haften.com.mx">haften@haften.com.mx</a></li>
+                    <li><a href="https://haften.com.mx" target="_blank">www.haften.com.mx</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Síguenos</h4>
+                <ul>
+                    <li><a href="https://www.facebook.com/HaftenOficial" target="_blank">Facebook</a></li>
+                    <li><a href="https://www.instagram.com/Haftenoficial" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.youtube.com/@Haftenoficial/videos" target="_blank">YouTube</a></li>
+                    <li><a href="https://www.linkedin.com/company/haften/" target="_blank">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2025 Haften. Todos los derechos reservados. · <a href="https://haften.com.mx"
+                    target="_blank">haften.com.mx</a></span>
+        </div>
+    </footer>
+
+    <script src="haften-shared.js">
+        /* ── Splash Screen Loader ───────────────────────── */
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                // Agregamos un pequeño retraso de medio segundo para asegurar 
+                // que la animación de la barrita se vea fluida antes de desaparecer
+                setTimeout(() => {
+                    loader.classList.add('fade-out');
+                }, 500);
+            }
+        });
+
+    </script>
+</body>
+
+</html>
