@@ -1,260 +1,906 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-accent="red">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contacto – Haften</title>
+    <title>Contacto – Haften HVAC/R BMS Instrumentacion</title>
     <meta name="description"
         content="Contáctanos para cotizaciones, soporte técnico o información de catálogos. Haften – soluciones HVAC/R-BMS en México." />
-    <link rel="stylesheet" href="haften.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" />
     <style>
-        /* ─── PAGE LOADER (SPLASH SCREEN) ─────────────────────── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --ac: #C1272D;
+            --ac-dark: #8B1A1F;
+            --ac-rgb: 193, 39, 45;
+            --ac-light: #FFF0F0;
+            --bg: #FFFFFF;
+            --bg-2: #F7F7F8;
+            --bg-dark: #0D0F18;
+            --text: #0D0F18;
+            --text-2: #64748B;
+            --border: #E8E8EC;
+            --nav-h: 72px;
+            --radius: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --shadow-xs: 0 1px 3px rgba(0, 0, 0, .06);
+            --shadow-lg: 0 16px 40px rgba(0, 0, 0, .10);
+            --shadow-xl: 0 24px 64px rgba(0, 0, 0, .14);
+            --tr: all .22s ease;
+            --tr-spring: all .4s cubic-bezier(.34, 1.56, .64, 1);
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        html,
+        body {
+            max-width: 100vw;
+            overflow-x: hidden;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text);
+            background: var(--bg)
+        }
+
+        img {
+            display: block;
+            max-width: 100%
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        ul {
+            list-style: none
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1260px;
+            margin: 0 auto;
+            padding: 0 32px
+        }
+
+        @media(max-width:768px) {
+            .container {
+                padding: 0 18px
+            }
+        }
+
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 13px 26px;
+            border-radius: 100px;
+            font-size: .92rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--tr);
+            white-space: nowrap
+        }
+
+        .btn-ac {
+            background: var(--ac);
+            color: #fff;
+            border-color: var(--ac)
+        }
+
+        .btn-ac:hover {
+            background: var(--ac-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(var(--ac-rgb), .35)
+        }
+
+        .btn-white {
+            background: #fff;
+            color: var(--text);
+            border-color: #fff
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .18)
+        }
+
+        .btn-dark {
+            background: rgba(255, 255, 255, .12);
+            color: #fff;
+            border-color: rgba(255, 255, 255, .22);
+            backdrop-filter: blur(8px)
+        }
+
+        .btn-dark:hover {
+            background: rgba(255, 255, 255, .22);
+            transform: translateY(-2px)
+        }
+
+        /* ── TYPOGRAPHY ── */
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--ac);
+            margin-bottom: 14px
+        }
+
+        .section-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.7rem, 3.2vw, 2.8rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -.03em
+        }
+
+        .section-title span {
+            color: var(--ac)
+        }
+
+        .section-sub {
+            color: var(--text-2);
+            font-size: 1rem;
+            line-height: 1.75;
+            margin-top: 12px;
+            max-width: 560px
+        }
+
+        .accent-line {
+            display: block;
+            width: 48px;
+            height: 4px;
+            background: var(--ac);
+            border-radius: 2px;
+            margin: 16px 0 0
+        }
+
+        .section-header {
+            margin-bottom: 52px
+        }
+
+        /* ══════════════════════════════════
+       NAVBAR — IDENTICO AL INDEX
+    ══════════════════════════════════ */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: var(--nav-h);
+            background: rgba(255, 255, 255, .96);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow .3s
+        }
+
+        #navbar.scrolled {
+            box-shadow: 0 4px 24px rgba(0, 0, 0, .08)
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 0 32px;
+            position: relative
+        }
+
+        .nav-logo img {
+            height: 38px
+        }
+
+        .nav-logo-text {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900
+        }
+
+        .nav-logo-text span {
+            color: var(--ac)
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: nowrap
+        }
+
+        .nav-link {
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: .9rem;
+            font-weight: 600;
+            color: var(--text-2);
+            transition: var(--tr);
+            white-space: nowrap
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--ac);
+            background: var(--ac-light)
+        }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 22px;
+            background: var(--ac);
+            color: #fff;
+            border-radius: 100px;
+            font-size: .88rem;
+            font-weight: 700;
+            transition: var(--tr);
+            margin-left: 8px
+        }
+
+        .nav-cta:hover {
+            background: var(--ac-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(var(--ac-rgb), .3)
+        }
+
+        .nav-settings {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .theme-toggle-btn,
+        .lang-pill {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-size: .8rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            background: var(--bg-2);
+            cursor: pointer;
+            color: var(--text-2);
+            transition: var(--tr)
+        }
+
+        .theme-toggle-btn:hover,
+        .lang-pill:hover {
+            border-color: var(--ac);
+            color: var(--ac)
+        }
+
+        .lang-pill {
+            position: relative;
+            overflow: hidden
+        }
+
+        .lang-highlight {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            background: var(--ac);
+            border-radius: 6px;
+            transition: .3s
+        }
+
+        .lang-opt {
+            position: relative;
+            z-index: 1;
+            font-size: .75rem;
+            font-weight: 700;
+            padding: 0 4px;
+            transition: .3s
+        }
+
+        .lang-pill .opt-es {
+            color: #fff
+        }
+
+        .lang-pill .opt-en {
+            color: var(--text-2)
+        }
+
+        #accent-panel {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 32px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            box-shadow: var(--shadow-lg);
+            min-width: 200px;
+            display: none;
+            z-index: 100
+        }
+
+        #accent-panel.open {
+            display: block
+        }
+
+        .panel-label {
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text-2);
+            margin-bottom: 12px
+        }
+
+        .accent-options {
+            display: flex;
+            gap: 8px
+        }
+
+        .ac-swatch {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: var(--tr)
+        }
+
+        .ac-swatch.active {
+            border-color: var(--text)
+        }
+
+        .ac-swatch[data-accent="red"] {
+            background: #C1272D
+        }
+
+        .ac-swatch[data-accent="blue"] {
+            background: #2563EB
+        }
+
+        .ac-swatch[data-accent="emerald"] {
+            background: #059669
+        }
+
+        .ac-swatch[data-accent="violet"] {
+            background: #7C3AED
+        }
+
+        .ac-swatch[data-accent="orange"] {
+            background: #EA580C
+        }
+
+        .ac-swatch[data-accent="rose"] {
+            background: #E11D48
+        }
+
+        #menu-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            padding: 8px 10px;
+            gap: 5px;
+            flex-direction: column;
+            align-items: center
+        }
+
+        #menu-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: .3s
+        }
+
+        #menu-toggle.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg)
+        }
+
+        #menu-toggle.open span:nth-child(2) {
+            opacity: 0
+        }
+
+        #menu-toggle.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg)
+        }
+
+        @media(max-width:1100px) {
+            #menu-toggle {
+                display: flex
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #fff;
+                border-top: 1px solid var(--border);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 16px 24px 24px;
+                gap: 4px;
+                box-shadow: 0 16px 40px rgba(0, 0, 0, .1);
+                z-index: 999;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-8px);
+                transition: all .3s
+            }
+
+            .nav-links.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0)
+            }
+
+            .nav-link {
+                width: 100%
+            }
+
+            .nav-cta {
+                width: 100%;
+                justify-content: center;
+                margin: 8px 0 0;
+                text-align: center
+            }
+
+            .nav-settings .lang-pill {
+                display: none
+            }
+        }
+
+        @media(max-width:480px) {
+            .nav-inner {
+                padding: 0 18px
+            }
+
+            #accent-panel {
+                right: 18px
+            }
+        }
+
+        /* ── PAGE LOADER ── */
         #page-loader {
             position: fixed;
             inset: 0;
-            /* Cubre toda la pantalla */
-            background: #0a0c14;
-            /* Fondo oscuro elegante */
-            z-index: 99999;
-            /* Asegura que esté por encima de ABSOLUTAMENTE todo */
+            z-index: 9999;
+            background: var(--bg-dark);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-
-        /* Clase que usará JS para ocultarlo suavemente */
-        #page-loader.fade-out {
-            opacity: 0;
-            visibility: hidden;
+            gap: 20px
         }
 
         .loader-logo {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             font-weight: 900;
-            color: #ffffff;
-            margin-bottom: 24px;
-            letter-spacing: -0.04em;
+            color: #fff;
+            letter-spacing: -.04em
         }
 
         .loader-logo span {
-            color: var(--ac, #C1272D);
-            /* Color rojo Haften */
+            color: var(--ac)
         }
 
         .loader-bar-wrap {
-            width: 220px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 16px;
+            width: 180px;
+            height: 3px;
+            background: rgba(255, 255, 255, .1);
+            border-radius: 2px;
+            overflow: hidden
         }
 
         .loader-bar {
-            width: 0%;
             height: 100%;
-            background: var(--ac, #C1272D);
-            border-radius: 4px;
-            /* Animación simulada de carga de 1.5 segundos */
-            animation: loadingBar 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            background: var(--ac);
+            border-radius: 2px;
+            animation: loaderAnim 1.6s ease forwards
+        }
+
+        @keyframes loaderAnim {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
         }
 
         .loader-text {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 0.15em;
+            font-size: .72rem;
+            letter-spacing: .18em;
             text-transform: uppercase;
-            font-weight: 500;
+            color: rgba(255, 255, 255, .35)
         }
 
-        @keyframes loadingBar {
-            0% {
-                width: 0%;
-            }
-
-            40% {
-                width: 60%;
-            }
-
-            100% {
-                width: 100%;
-            }
+        #page-loader.done {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .5s .3s
         }
 
+        /* ── REVEAL ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity .7s, transform .7s
+        }
+
+        .reveal-l {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity .7s, transform .7s
+        }
+
+        .reveal-r {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity .7s, transform .7s
+        }
+
+        .reveal.visible,
+        .reveal-l.visible,
+        .reveal-r.visible {
+            opacity: 1;
+            transform: none
+        }
+
+        .d1 {
+            transition-delay: .0s
+        }
+
+        .d2 {
+            transition-delay: .1s
+        }
+
+        .d3 {
+            transition-delay: .2s
+        }
+
+        .d4 {
+            transition-delay: .3s
+        }
+
+        /* ── HERO ── */
         .ct-hero {
             margin-top: var(--nav-h);
             position: relative;
-            height: 280px;
-            overflow: hidden;
+            height: 340px;
+            overflow: hidden
         }
 
         .ct-hero img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover
         }
 
-        .ct-hero-overlay {
+        .ct-hero::after {
+            content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(199, 52, 34, 0.82), rgba(26, 26, 46, 0.55));
+            background: linear-gradient(135deg, rgba(var(--ac-rgb), .85) 0%, rgba(10, 12, 20, .58) 55%, rgba(10, 12, 20, .72) 100%)
+        }
+
+        .ct-hero-grid {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background-image: linear-gradient(rgba(255, 255, 255, .024) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .024) 1px, transparent 1px);
+            background-size: 64px 64px
+        }
+
+        .ct-hero-content {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             text-align: center;
-            padding: 24px;
+            padding: 24px
         }
 
-        .ct-hero-overlay h1 {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
+        .ct-hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, .12);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, .22);
+            border-radius: 100px;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            color: #fff;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            animation: heroIn .8s .3s cubic-bezier(.34, 1.56, .64, 1) forwards;
+            opacity: 0
+        }
+
+        .ct-hero-content h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
             font-weight: 900;
             color: #fff;
-            margin-bottom: 10px;
+            line-height: 1.06;
+            letter-spacing: -.04em;
+            margin-bottom: 14px;
+            animation: heroIn .9s .45s cubic-bezier(.34, 1.56, .64, 1) forwards;
+            opacity: 0
         }
 
-        .ct-hero-overlay p {
-            color: rgba(255, 255, 255, 0.88);
+        .ct-hero-content h1 .ac-word {
+            color: #ffccc7
+        }
+
+        .ct-hero-content p {
             font-size: 1.05rem;
+            color: rgba(255, 255, 255, .82);
+            animation: heroIn .8s .6s ease forwards;
+            opacity: 0
         }
 
+        @keyframes heroIn {
+            from {
+                opacity: 0;
+                transform: translateY(28px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        /* ── BREADCRUMB ── */
+        .breadcrumb-bar {
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .82rem;
+            color: var(--text-2)
+        }
+
+        .breadcrumb a {
+            color: var(--text-2);
+            transition: var(--tr)
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ac)
+        }
+
+        .breadcrumb .sep {
+            font-size: .6rem;
+            color: var(--border)
+        }
+
+        .breadcrumb .current {
+            color: var(--ac);
+            font-weight: 600
+        }
+
+        /* ── CONTACT SECTION ── */
         .ct-section {
-            padding: 80px 0;
+            padding: 90px 0
         }
 
         .ct-grid {
             display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 60px;
-            align-items: start;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 64px;
+            align-items: start
         }
 
-        /* Info col */
         .ct-info {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 14px
         }
 
-        .ct-info h2 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            margin-bottom: 4px;
-            color: var(--text);
+        .ct-info-header {
+            margin-bottom: 8px
         }
 
-        .ct-info h2 span {
-            color: var(--brand);
+        .ct-info-header h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: -.03em;
+            margin-bottom: 10px
+        }
+
+        .ct-info-header h2 span {
+            color: var(--ac)
         }
 
         .ct-info-lead {
             color: var(--text-2);
-            margin-bottom: 8px;
-            line-height: 1.7;
+            line-height: 1.75;
+            font-size: .95rem
         }
 
         .ct-item {
             display: flex;
             align-items: flex-start;
             gap: 14px;
-            padding: 18px;
-            background: #fff;
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius);
-            transition: var(--tr);
-        }
-
-        .ct-item:hover {
-            border-color: var(--brand);
-            box-shadow: var(--shadow-sm);
-            transform: translateX(4px);
-        }
-
-        .ct-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--brand-light);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .ct-item-body h4 {
-            font-size: 0.88rem;
-            font-weight: 700;
-            color: var(--brand);
-            margin-bottom: 3px;
-        }
-
-        .ct-item-body p {
-            font-size: 0.88rem;
-            color: var(--text-2);
-            line-height: 1.5;
-        }
-
-        .ct-item-body a {
-            color: var(--brand);
-            font-weight: 600;
-        }
-
-        /* Form col */
-        .ct-form-card {
+            padding: 18px 20px;
             background: #fff;
             border: 1.5px solid var(--border);
             border-radius: var(--radius-lg);
-            padding: 44px;
-            box-shadow: var(--shadow-md);
+            transition: var(--tr-spring)
         }
 
-        .ct-form-card h3 {
-            font-size: 1.25rem;
-            font-weight: 800;
-            margin-bottom: 6px;
-            color: var(--text);
+        .ct-item:hover {
+            border-color: rgba(var(--ac-rgb), .35);
+            box-shadow: 0 8px 28px rgba(var(--ac-rgb), .08);
+            transform: translateX(5px)
         }
 
-        .ct-form-card .form-lead {
+        .ct-icon {
+            width: 46px;
+            height: 46px;
+            min-width: 46px;
+            background: var(--ac-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ac);
+            font-size: 1.1rem;
+            transition: var(--tr)
+        }
+
+        .ct-item:hover .ct-icon {
+            background: var(--ac);
+            color: #fff
+        }
+
+        .ct-item-body h4 {
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--ac);
+            margin-bottom: 4px
+        }
+
+        .ct-item-body p {
+            font-size: .9rem;
             color: var(--text-2);
-            font-size: 0.9rem;
-            margin-bottom: 28px;
+            line-height: 1.6
         }
 
-        .required-note {
-            font-size: 0.78rem;
-            color: var(--text-3);
-            margin-bottom: 20px;
+        .ct-item-body a {
+            color: var(--ac);
+            font-weight: 600
+        }
+
+        .ct-item-body a:hover {
+            text-decoration: underline
+        }
+
+        .ct-social-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding-top: 6px
+        }
+
+        .ct-soc-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: .8rem;
+            font-weight: 700;
+            border: 1.5px solid var(--border);
+            background: #fff;
+            color: var(--text-2);
+            transition: var(--tr)
+        }
+
+        .ct-soc-btn:hover {
+            border-color: var(--ac);
+            color: var(--ac);
+            transform: translateY(-2px)
+        }
+
+        /* FORM */
+        .ct-form-card {
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 48px;
+            box-shadow: var(--shadow-xl);
+            position: sticky;
+            top: calc(var(--nav-h) + 24px)
+        }
+
+        .ct-form-card-header {
+            margin-bottom: 28px
+        }
+
+        .ct-form-card-header h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 6px;
+            letter-spacing: -.02em
+        }
+
+        .ct-form-card-header p {
+            color: var(--text-2);
+            font-size: .9rem;
+            line-height: 1.6
         }
 
         .form-double {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 16px
         }
 
         .form-grp {
             display: flex;
             flex-direction: column;
             gap: 6px;
-            margin-bottom: 16px;
+            margin-bottom: 16px
         }
 
         .form-grp label {
-            font-size: 0.82rem;
+            font-size: .78rem;
             font-weight: 700;
             color: var(--text-2);
-            letter-spacing: 0.04em;
+            letter-spacing: .05em;
+            text-transform: uppercase
         }
 
         .form-grp label .req {
-            color: var(--brand);
+            color: var(--ac);
+            margin-left: 2px
         }
 
         .form-grp input,
@@ -262,142 +908,374 @@
         .form-grp textarea {
             padding: 12px 16px;
             border: 1.5px solid var(--border);
-            border-radius: 8px;
+            border-radius: 10px;
             font-family: 'Outfit', sans-serif;
-            font-size: 0.95rem;
+            font-size: .95rem;
             color: var(--text);
             background: #fff;
-            transition: var(--tr);
+            transition: var(--tr)
         }
 
         .form-grp input:focus,
         .form-grp select:focus,
         .form-grp textarea:focus {
             outline: none;
-            border-color: var(--brand);
-            box-shadow: 0 0 0 3px rgba(199, 52, 34, 0.1);
+            border-color: var(--ac);
+            box-shadow: 0 0 0 3px rgba(var(--ac-rgb), .1)
         }
 
         .form-grp input::placeholder,
         .form-grp textarea::placeholder {
-            color: var(--text-3);
+            color: #b0b8c8
         }
 
         .form-grp select {
             appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235a6070'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2364748b'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 12px center;
-            background-size: 22px;
+            background-size: 22px
         }
 
         .form-grp textarea {
             resize: vertical;
-            min-height: 120px;
+            min-height: 130px
         }
 
         .btn-submit {
             width: 100%;
             padding: 15px;
-            background: var(--brand);
+            background: var(--ac);
             color: #fff;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 1rem;
             font-weight: 700;
             font-family: 'Outfit', sans-serif;
             cursor: pointer;
             transition: var(--tr);
-            letter-spacing: 0.02em;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            margin-top: 20px
         }
 
         .btn-submit:hover {
-            background: var(--brand-dark);
+            background: var(--ac-dark);
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(199, 52, 34, 0.3);
+            box-shadow: 0 10px 28px rgba(var(--ac-rgb), .35)
         }
 
         .btn-submit:active {
-            transform: translateY(0);
+            transform: translateY(0)
         }
 
         .form-success-msg {
             display: none;
             margin-top: 16px;
-            padding: 16px;
-            background: #e8f5e9;
-            border: 1.5px solid #4caf50;
-            border-radius: 8px;
-            color: #2e7d32;
+            padding: 16px 20px;
+            background: #ecfdf5;
+            border: 1.5px solid #6ee7b7;
+            border-radius: 10px;
+            color: #065f46;
             font-weight: 600;
             text-align: center;
-            font-size: 0.95rem;
+            font-size: .92rem
         }
 
-        /* Map placeholder */
+        /* ── MAP ── */
         .map-section {
             background: var(--bg-2);
-            padding: 60px 0;
+            padding: 90px 0
         }
 
-        .map-placeholder {
-            background: var(--bg-3);
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius-lg);
-            height: 320px;
+        .gmap-full {
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border);
+            height: 420px
+        }
+
+        .gmap-full iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block
+        }
+
+        /* ── CTA ── */
+        .cta-section {
+            background: var(--ac);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='200' cy='200' r='180' fill='none' stroke='rgba(255,255,255,.06)' stroke-width='1'/%3E%3Ccircle cx='200' cy='200' r='120' fill='none' stroke='rgba(255,255,255,.06)' stroke-width='1'/%3E%3Ccircle cx='200' cy='200' r='60' fill='none' stroke='rgba(255,255,255,.06)' stroke-width='1'/%3E%3C/svg%3E") center/700px no-repeat;
+            pointer-events: none
+        }
+
+        .cta-inner {
+            position: relative;
+            z-index: 1;
+            text-align: center
+        }
+
+        .cta-inner h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 3.2rem);
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -.03em;
+            margin-bottom: 14px
+        }
+
+        .cta-inner p {
+            color: rgba(255, 255, 255, .85);
+            margin-bottom: 36px;
+            font-size: 1.05rem;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        .cta-btns {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap
+        }
+
+        /* ══════════════════════════════════
+       FOOTER — IDENTICO AL INDEX
+    ══════════════════════════════════ */
+        .site-footer {
+            background: var(--bg-dark);
+            color: rgba(255, 255, 255, .7);
+            padding: 80px 0 0
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding: 0 32px 60px;
+            max-width: 1260px;
+            margin: 0 auto
+        }
+
+        .footer-logo {
+            height: 36px;
+            margin-bottom: 8px;
+            filter: brightness(10)
+        }
+
+        .footer-logo-text {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 12px
+        }
+
+        .footer-logo-text span {
+            color: var(--ac)
+        }
+
+        .footer-desc {
+            font-size: .88rem;
+            line-height: 1.75;
+            max-width: 240px
+        }
+
+        .footer-col h4 {
+            font-size: .78rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .4);
+            margin-bottom: 18px
+        }
+
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .footer-col a {
+            font-size: .88rem;
+            color: rgba(255, 255, 255, .6);
+            transition: var(--tr);
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .footer-col a:hover {
+            color: #fff
+        }
+
+        .footer-col a i {
+            width: 16px;
+            color: rgba(var(--ac-rgb), .7)
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, .07);
+            padding: 24px 32px;
+            max-width: 1260px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px
+        }
+
+        .footer-copy {
+            font-size: .82rem;
+            color: rgba(255, 255, 255, .35)
+        }
+
+        .footer-copy a {
+            color: rgba(255, 255, 255, .5)
+        }
+
+        .footer-copy a:hover {
+            color: #fff
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 10px
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .08);
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            gap: 14px;
-            color: var(--text-2);
+            font-size: .88rem;
+            color: rgba(255, 255, 255, .5);
+            transition: var(--tr)
         }
 
-        .map-placeholder .map-icon {
-            font-size: 3rem;
+        .footer-social a:hover {
+            background: var(--ac);
+            border-color: var(--ac);
+            color: #fff;
+            transform: translateY(-3px)
         }
 
-        .map-placeholder h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .map-placeholder p {
-            font-size: 0.9rem;
-            color: var(--text-2);
-        }
-
-        @media(max-width:900px) {
+        /* ── RESPONSIVE ── */
+        @media(max-width:1024px) {
             .ct-grid {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 48px
             }
 
             .ct-form-card {
-                padding: 28px;
+                position: static;
+                padding: 36px
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 36px
+            }
+        }
+
+        @media(max-width:768px) {
+            .ct-section {
+                padding: 64px 0
+            }
+
+            .ct-hero {
+                height: 260px
+            }
+
+            .map-section {
+                padding: 64px 0
+            }
+
+            .cta-section {
+                padding: 72px 0
+            }
+
+            .footer-grid {
+                padding: 0 18px 40px
+            }
+
+            .footer-bottom {
+                padding: 20px 18px
+            }
+
+            .gmap-full {
+                height: 300px
             }
         }
 
         @media(max-width:540px) {
             .form-double {
+                grid-template-columns: 1fr
+            }
+
+            .ct-form-card {
+                padding: 24px
+            }
+
+            .cta-btns {
+                flex-direction: column;
+                align-items: center
+            }
+
+            .cta-btns .btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center
+            }
+
+            .footer-grid {
                 grid-template-columns: 1fr;
+                gap: 28px
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                text-align: center
+            }
+        }
+
+        @media(max-width:380px) {
+            .nav-settings .theme-toggle-btn span {
+                display: none
             }
         }
     </style>
 </head>
 
 <body>
+
+    <!-- PAGE LOADER -->
     <div id="page-loader">
         <div class="loader-logo">Haf<span>ten</span></div>
         <div class="loader-bar-wrap">
             <div class="loader-bar"></div>
         </div>
-        <p class="loader-text">HVAC/R · BMS · Instrumentación</p>
+        <p class="loader-text">HVAC/R - BMS - Instrumentacion</p>
     </div>
 
     <!-- NAVBAR -->
@@ -406,205 +1284,265 @@
             <a href="index.html" class="nav-logo">
                 <img src="Haften/Marcas/Logo Haften.png" alt="Haften"
                     onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-                <span class="nav-logo-text" style="display:none">Haften</span>
+                <span class="nav-logo-text" style="display:none">Haf<span>ten</span></span>
             </a>
-            <button id="menu-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+            <button id="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
             <ul class="nav-links" id="nav-links">
-                <li><a href="index.html" class="nav-link">Inicio</a></li>
+                <li><a href="index.html" class="nav-link"><i class="fa fa-house"
+                            style="font-size:.75rem;color:var(--ac);margin-right:4px"></i>Inicio</a></li>
                 <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
                 <li><a href="marcas.html" class="nav-link">Marcas</a></li>
-                <li><a href="catalogos.html" class="nav-link">Catálogos</a></li>
+                <li><a href="catalogos.html" class="nav-link">Catalogos</a></li>
                 <li><a href="multimedia.html" class="nav-link">Multimedia</a></li>
                 <li><a href="redes.html" class="nav-link">Redes Sociales</a></li>
-                <li><a href="contacto.html" class="nav-link btn btn-brand active"
-                        style="margin-left:8px;padding:9px 20px;">Contacto</a></li>
+                <li><a href="contacto.html" class="nav-cta"><span>Contacto</span> <i
+                            class="fa-solid fa-arrow-right"></i></a></li>
             </ul>
+            <div class="nav-settings">
+                <button class="theme-toggle-btn" id="themeBtn" title="Color de acento"><i
+                        class="fa-solid fa-palette"></i></button>
+                <div class="lang-pill" id="langPill">
+                    <div class="lang-highlight" id="langHighlight"></div>
+                    <span class="lang-opt opt-es">ES</span>
+                    <span class="lang-opt opt-en">EN</span>
+                </div>
+                <div id="accent-panel">
+                    <p class="panel-label">Color de acento</p>
+                    <div class="accent-options">
+                        <div class="ac-swatch active" data-accent="red"></div>
+                        <div class="ac-swatch" data-accent="blue"></div>
+                        <div class="ac-swatch" data-accent="emerald"></div>
+                        <div class="ac-swatch" data-accent="violet"></div>
+                        <div class="ac-swatch" data-accent="orange"></div>
+                        <div class="ac-swatch" data-accent="rose"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <!-- HERO -->
-    <div class="ct-hero">
-        <img src="Haften/Imagenes/image.jpg" alt="Contacto Haften" />
-        <div class="ct-hero-overlay">
-            <h1 class="hero-title reveal" data-i18n="ct_hero_h1">Hablemos de tu Proyecto</h1>
-            <p>Nuestros ingenieros están listos para asesorarte</p>
+    <main>
+
+        <!-- HERO -->
+        <div class="ct-hero">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=85&fit=crop"
+                alt="Contacto Haften" />
+            <div class="ct-hero-grid"></div>
+            <div class="ct-hero-content">
+                <p class="ct-hero-eyebrow"><i class="fa-solid fa-headset"></i>&nbsp; Estamos para ayudarte</p>
+                <h1>Hablemos de tu <span class="ac-word">Proyecto</span></h1>
+                <p>Nuestros ingenieros especializados estan listos para asesorarte</p>
+            </div>
         </div>
-    </div>
 
-    <!-- CONTACT SECTION -->
-    <section class="ct-section">
-        <div class="container">
-            <div class="ct-grid">
+        <!-- BREADCRUMB -->
+        <div class="breadcrumb-bar">
+            <div class="container">
+                <nav class="breadcrumb">
+                    <a href="index.html"><i class="fa-solid fa-house"></i>&nbsp; Inicio</a>
+                    <i class="fa-solid fa-chevron-right sep"></i>
+                    <span class="current">Contacto</span>
+                </nav>
+            </div>
+        </div>
 
-                <!-- INFO -->
-                <div class="ct-info reveal-l">
-                    <div>
-                        <h2>Escríbenos <span>tus dudas</span></h2>
-                        <p class="section-desc reveal-l" data-i18n="ct_info_p">Contáctanos por cualquier medio. Nuestro
-                            equipo de ingenieros especializados te responderá a la brevedad.</p>
+        <!-- CONTACT SECTION -->
+        <section class="ct-section">
+            <div class="container">
+                <div class="ct-grid">
+
+                    <!-- INFO -->
+                    <div class="ct-info reveal-l">
+                        <div class="ct-info-header">
+                            <span class="eyebrow"><i class="fa-solid fa-envelope"></i> Contactanos</span>
+                            <h2>Escribenos tus <span>dudas</span></h2>
+                            <p class="ct-info-lead">Contactanos por cualquier medio. Nuestro equipo de ingenieros
+                                especializados te respondera a la brevedad con la solucion mas adecuada para tu
+                                proyecto.</p>
+                        </div>
+
+                        <div class="ct-item d1 reveal">
+                            <div class="ct-icon"><i class="fa-solid fa-building"></i></div>
+                            <div class="ct-item-body">
+                                <h4>Oficina Central</h4>
+                                <p>Ciudad de Mexico, CDMX &mdash; <span style="color:var(--ac);font-weight:600">Casa
+                                        Matriz</span></p>
+                            </div>
+                        </div>
+                        <div class="ct-item d2 reveal">
+                            <div class="ct-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div class="ct-item-body">
+                                <h4>Email</h4>
+                                <p><a href="mailto:haften@haften.com.mx">haften@haften.com.mx</a></p>
+                            </div>
+                        </div>
+                        <div class="ct-item d3 reveal">
+                            <div class="ct-icon"><i class="fa-solid fa-globe"></i></div>
+                            <div class="ct-item-body">
+                                <h4>Sitio Web</h4>
+                                <p><a href="https://haften.com.mx" target="_blank">www.haften.com.mx</a></p>
+                            </div>
+                        </div>
+                        <div class="ct-item d1 reveal">
+                            <div class="ct-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                            <div class="ct-item-body">
+                                <h4>Sucursales</h4>
+                                <p>Monterrey &bull; Guadalajara &bull; Leon &bull; Cancun</p>
+                            </div>
+                        </div>
+                        <div class="ct-item d2 reveal">
+                            <div class="ct-icon"><i class="fa-solid fa-clock"></i></div>
+                            <div class="ct-item-body">
+                                <h4>Horario de Atencion</h4>
+                                <p>Lunes a Viernes: 8:00 am &ndash; 6:00 pm</p>
+                            </div>
+                        </div>
+                        <div class="ct-item d3 reveal">
+                            <div class="ct-icon"><i class="fa-solid fa-share-nodes"></i></div>
+                            <div class="ct-item-body">
+                                <h4>Redes Sociales</h4>
+                                <div class="ct-social-row">
+                                    <a href="https://www.facebook.com/HaftenOficial" target="_blank"
+                                        class="ct-soc-btn"><i class="fa-brands fa-facebook-f"></i>Facebook</a>
+                                    <a href="https://www.instagram.com/Haftenoficial" target="_blank"
+                                        class="ct-soc-btn"><i class="fa-brands fa-instagram"></i>Instagram</a>
+                                    <a href="https://www.linkedin.com/company/haften/" target="_blank"
+                                        class="ct-soc-btn"><i class="fa-brands fa-linkedin-in"></i>LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="ct-item">
-                        <div class="ct-icon">📍</div>
-                        <div class="ct-item-body">
-                            <h4 data-i18n="ct_i1">Oficina Central</h4>
-                            <p>Ciudad de México, CDMX</p>
-                        </div>
-                    </div>
-                    <div class="ct-item">
-                        <div class="ct-icon">✉</div>
-                        <div class="ct-item-body">
-                            <h4 data-i18n="ct_i2">Email</h4>
-                            <p><a href="mailto:haften@haften.com.mx">haften@haften.com.mx</a></p>
-                        </div>
-                    </div>
-                    <div class="ct-item">
-                        <div class="ct-icon">🌐</div>
-                        <div class="ct-item-body">
-                            <h4 data-i18n="ct_i3">Sitio Web</h4>
-                            <p><a href="https://haften.com.mx" target="_blank">www.haften.com.mx</a></p>
-                        </div>
-                    </div>
-                    <div class="ct-item">
-                        <div class="ct-icon">🏙</div>
-                        <div class="ct-item-body">
-                            <h4 data-i18n="ct_i4">Sucursales</h4>
-                            <p>Monterrey · Guadalajara · León · Cancún</p>
-                        </div>
-                    </div>
-                    <div class="ct-item">
-                        <div class="ct-icon">🕐</div>
-                        <div class="ct-item-body">
-                            <h4 data-i18n="ct_i5">Horario de Atención</h4>
-                            <p>Lunes a Viernes: 8:00 am – 6:00 pm</p>
-                        </div>
-                    </div>
-                    <div class="ct-item">
-                        <div class="ct-icon">💬</div>
-                        <div class="ct-item-body">
-                            <h4 data-i18n="ct_i6">Redes Sociales</h4>
-                            <p>
-                                <a href="https://www.facebook.com/HaftenOficial" target="_blank">Facebook</a> ·
-                                <a href="https://www.instagram.com/Haftenoficial" target="_blank">Instagram</a> ·
-                                <a href="https://www.linkedin.com/company/haften/" target="_blank">LinkedIn</a>
+                    <!-- FORM -->
+                    <div class="ct-form-card reveal-r">
+                        <div class="ct-form-card-header">
+                            <h3>Envianos un Mensaje</h3>
+                            <p>Cuentanos sobre tu proyecto y un experto de Haften te contactara en menos de 24 horas.
                             </p>
                         </div>
+                        <form id="contactForm" novalidate>
+                            <div class="form-double">
+                                <div class="form-grp">
+                                    <label for="nombre">Nombre <span class="req">*</span></label>
+                                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+                                </div>
+                                <div class="form-grp">
+                                    <label for="apellido">Apellido <span class="req">*</span></label>
+                                    <input type="text" id="apellido" name="apellido" placeholder="Tu apellido"
+                                        required />
+                                </div>
+                            </div>
+                            <div class="form-grp">
+                                <label for="empresa">Empresa <span class="req">*</span></label>
+                                <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa"
+                                    required />
+                            </div>
+                            <div class="form-double">
+                                <div class="form-grp">
+                                    <label for="whatsapp">WhatsApp <span class="req">*</span></label>
+                                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="+52 55 0000 0000"
+                                        required />
+                                </div>
+                                <div class="form-grp">
+                                    <label for="telefono">Tel. Oficina</label>
+                                    <input type="tel" id="telefono" name="telefono" placeholder="+52 55 0000 0000" />
+                                </div>
+                            </div>
+                            <div class="form-grp">
+                                <label for="email">Email <span class="req">*</span></label>
+                                <input type="email" id="email" name="email" placeholder="correo@dominio.com" required />
+                            </div>
+                            <div class="form-grp">
+                                <label for="asunto">Asunto</label>
+                                <select id="asunto" name="asunto">
+                                    <option value="">Selecciona un tema</option>
+                                    <option value="cotizacion">Solicitar cotizacion</option>
+                                    <option value="soporte">Soporte tecnico</option>
+                                    <option value="catalogo">Informacion de catalogo</option>
+                                    <option value="distribucion">Distribucion / Marcas</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-grp">
+                                <label for="comentarios">Comentarios <span class="req">*</span></label>
+                                <textarea id="comentarios" name="comentarios"
+                                    placeholder="Cuentanos tu proyecto, requerimiento o pregunta..."
+                                    required></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>Enviar Mensaje</span>
+                            </button>
+                            <div class="form-success-msg" id="successMsg">
+                                <i class="fa-solid fa-circle-check" style="margin-right:8px"></i>Mensaje enviado con
+                                exito. Nos comunicaremos contigo a la brevedad.
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- MAP -->
+        <section class="map-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="eyebrow"><i class="fa-solid fa-location-dot"></i> Presencia nacional</span>
+                    <h2 class="section-title">Encuentranos en <span>Mexico</span></h2>
+                    <span class="accent-line"></span>
+                    <p class="section-sub">Ciudad de Mexico &ndash; Oficina Central &bull; Monterrey &bull; Guadalajara
+                        &bull; Leon &bull; Cancun</p>
+                </div>
+                <div class="gmap-full reveal">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15052.2!2d-99.16758!3d19.42847!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff35f5bd1563%3A0x6c366f0e2de02ff7!2sCiudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-inner reveal">
+                    <h2>Tienes un proyecto en mente?</h2>
+                    <p>Nuestros ingenieros especializados estan listos para asesorarte en la seleccion y distribucion
+                        del equipo correcto para tu sistema.</p>
+                    <div class="cta-btns">
+                        <a href="catalogos.html" class="btn btn-white"><i class="fa-solid fa-file-pdf"></i>Ver
+                            catalogos</a>
+                        <a href="nosotros.html" class="btn btn-dark"><i class="fa-solid fa-building"></i>Conoce
+                            Haften</a>
                     </div>
                 </div>
-
-                <!-- FORM -->
-                <div class="ct-form-card reveal-r">
-                    <h3 data-i18n="ct_form_h3">Envíanos un Mensaje</h3>
-                    <p class="form-lead" data-i18n="ct_form_p">Cuéntanos sobre tu proyecto y un experto de Haften te
-                        contactará.</p>
-                    <span class="req" data-i18n="ct_req">* Campos requeridos</span>
-
-                    <form id="contactForm" novalidate>
-                        <div class="form-double">
-                            <div class="form-grp">
-                                <label for="nombre">Nombre <span class="req">*</span></label>
-                                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
-                            </div>
-                            <div class="form-grp">
-                                <label for="apellido">Apellido <span class="req">*</span></label>
-                                <input type="text" id="apellido" name="apellido" placeholder="Tu apellido" required />
-                            </div>
-                        </div>
-                        <div class="form-grp">
-                            <label for="empresa">Empresa <span class="req">*</span></label>
-                            <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa"
-                                required />
-                        </div>
-                        <div class="form-double">
-                            <div class="form-grp">
-                                <label for="whatsapp">WhatsApp <span class="req">*</span></label>
-                                <input type="tel" id="whatsapp" name="whatsapp" placeholder="+52 55 0000 0000"
-                                    required />
-                            </div>
-                            <div class="form-grp">
-                                <label for="telefono">Teléfono de Oficina <span class="req">*</span></label>
-                                <input type="tel" id="telefono" name="telefono" placeholder="+52 55 0000 0000"
-                                    required />
-                            </div>
-                        </div>
-                        <div class="form-grp">
-                            <label for="email">Email <span class="req">*</span></label>
-                            <input type="email" id="email" name="email" placeholder="correo@dominio.com" required />
-                        </div>
-                        <div class="form-grp">
-                            <label for="asunto">Asunto</label>
-                            <select id="asunto" name="asunto">
-                                <option value="">Selecciona un tema</option>
-                                <option value="cotizacion">Solicitar cotización</option>
-                                <option value="soporte">Soporte técnico</option>
-                                <option value="catalogo">Información de catálogo</option>
-                                <option value="distribucion">Distribución / Marcas</option>
-                                <option value="otro">Otro</option>
-                            </select>
-                        </div>
-                        <div class="form-grp">
-                            <label for="comentarios">Comentarios <span class="req">*</span></label>
-                            <textarea id="comentarios" name="comentarios"
-                                placeholder="Cuéntanos tu proyecto, requerimiento o pregunta..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn-submit">
-                            <span>Enviar Mensaje</span>
-                            <span>→</span>
-                        </button>
-                        <div class="form-success-msg" id="successMsg">
-                            ✅ ¡Mensaje enviado con éxito! Nos comunicaremos contigo a la brevedad.
-                        </div>
-                    </form>
-                </div>
-
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- MAP PLACEHOLDER -->
-    <section class="map-section">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="eyebrow reveal" data-i18n="map_lbl">Presencia nacional</span>
-                <h2 class="section-title reveal" data-i18n="map_title">Encuéntranos en <span>México</span></h2>
-                <div class="brand-divider"></div>
-            </div>
-            <div class="map-placeholder reveal">
-                <div class="map-icon">📍</div>
-                <h3>Ciudad de México – Oficina Central</h3>
-                <p>Monterrey · Guadalajara · León · Cancún – Oficinas Regionales</p>
-                <a href="https://maps.google.com/?q=Ciudad+de+Mexico" target="_blank" class="btn btn-brand"
-                    style="margin-top:12px;">
-                    Ver en Google Maps →
-                </a>
-            </div>
-        </div>
-    </section>
+    </main>
 
     <!-- FOOTER -->
     <footer class="site-footer">
         <div class="footer-grid">
             <div>
                 <img src="Haften/Marcas/Logo Haften.png" alt="Haften" class="footer-logo"
-                    onerror="this.style.display='none'">
-
-                <p class="footer-desc">"Una solución completa en el mismo lugar."<br>Periféricos HVAC · BMS · Medición
-                    de Energía</p>
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                <p class="footer-logo-text" style="display:none">Haf<span>ten</span></p>
+                <p class="footer-desc">"Una solucion completa en el mismo lugar."<br>Perifericos HVAC &bull; BMS &bull;
+                    Medicion de Energia</p>
             </div>
-
             <div class="footer-col">
-                <h4>Navegación</h4>
+                <h4>Navegacion</h4>
                 <ul>
                     <li><a href="index.html"><i class="fa-solid fa-house"></i>Inicio</a></li>
                     <li><a href="nosotros.html"><i class="fa-solid fa-building"></i>Nosotros</a></li>
                     <li><a href="marcas.html"><i class="fa-solid fa-tag"></i>Marcas</a></li>
-                    <li><a href="catalogos.html"><i class="fa-solid fa-file-pdf"></i>Catálogos</a></li>
+                    <li><a href="catalogos.html"><i class="fa-solid fa-file-pdf"></i>Catalogos</a></li>
                     <li><a href="multimedia.html"><i class="fa-solid fa-play-circle"></i>Multimedia</a></li>
                     <li><a href="redes.html"><i class="fa-solid fa-share-nodes"></i>Redes Sociales</a></li>
                     <li><a href="contacto.html"><i class="fa-solid fa-envelope"></i>Contacto</a></li>
                 </ul>
             </div>
-
             <div class="footer-col">
                 <h4>Contacto</h4>
                 <ul>
@@ -612,15 +1550,14 @@
                                 class="fa-solid fa-envelope"></i>haften@haften.com.mx</a></li>
                     <li><a href="https://haften.com.mx" target="_blank"><i
                                 class="fa-solid fa-globe"></i>www.haften.com.mx</a></li>
-                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>Ciudad de México</a></li>
+                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>Ciudad de Mexico</a></li>
                     <li><a href="#"><i class="fa-solid fa-map-pin"></i>Monterrey</a></li>
                     <li><a href="#"><i class="fa-solid fa-map-pin"></i>Guadalajara</a></li>
-                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>León · Cancún</a></li>
+                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>Leon &bull; Cancun</a></li>
                 </ul>
             </div>
-
             <div class="footer-col">
-                <h4>Síguenos</h4>
+                <h4>Siguenos</h4>
                 <ul>
                     <li><a href="https://www.facebook.com/HaftenOficial" target="_blank"><i
                                 class="fa-brands fa-facebook"></i>Facebook</a></li>
@@ -637,10 +1574,9 @@
                 </ul>
             </div>
         </div>
-
         <div class="footer-bottom">
-            <span class="footer-copy">© 2025 Haften. Todos los derechos reservados · <a href="https://haften.com.mx"
-                    target="_blank">haften.com.mx</a></span>
+            <span class="footer-copy">&copy; 2025 Haften. Todos los derechos reservados &mdash; <a
+                    href="https://haften.com.mx" target="_blank">haften.com.mx</a></span>
             <div class="footer-social">
                 <a href="https://www.facebook.com/HaftenOficial" target="_blank"><i
                         class="fa-brands fa-facebook-f"></i></a>
@@ -655,177 +1591,82 @@
             </div>
         </div>
     </footer>
-    <style>
-        /* FOOTER */
-        .site-footer {
-            background: var(--bg-dark);
-            color: rgba(255, 255, 255, .7);
-            padding: 80px 0 0;
-        }
 
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr;
-            gap: 48px;
-            padding: 0 32px 60px;
-            max-width: 1260px;
-            margin: 0 auto;
-        }
-
-        .footer-logo {
-            height: 36px;
-            margin-bottom: 8px;
-            filter: brightness(10);
-        }
-
-        .footer-logo-text {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1.6rem;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 12px;
-        }
-
-        .footer-logo-text span {
-            color: var(--ac);
-        }
-
-        .footer-desc {
-            font-size: .88rem;
-            line-height: 1.75;
-            max-width: 240px;
-        }
-
-        .footer-col h4 {
-            font-size: .78rem;
-            font-weight: 700;
-            letter-spacing: .12em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, .4);
-            margin-bottom: 18px;
-        }
-
-        .footer-col ul {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .footer-col a {
-            font-size: .88rem;
-            color: rgba(255, 255, 255, .6);
-            transition: var(--tr);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-col a:hover {
-            color: #fff;
-        }
-
-        .footer-col a i {
-            width: 16px;
-            color: rgba(var(--ac-rgb), .7);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, .07);
-            padding: 24px 32px;
-            max-width: 1260px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .footer-copy {
-            font-size: .82rem;
-            color: rgba(255, 255, 255, .35);
-        }
-
-        .footer-copy a {
-            color: rgba(255, 255, 255, .5);
-        }
-
-        .footer-copy a:hover {
-            color: #fff;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 10px;
-        }
-
-        .footer-social a {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, .06);
-            border: 1px solid rgba(255, 255, 255, .08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .88rem;
-            color: rgba(255, 255, 255, .5);
-            transition: var(--tr);
-        }
-
-        .footer-social a:hover {
-            background: var(--ac);
-            border-color: var(--ac);
-            color: #fff;
-            transform: translateY(-3px);
-        }
-
-        /* Responsive */
-        @media(max-width:1024px) {
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 36px;
-            }
-        }
-
-        @media(max-width:540px) {
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 28px;
-                padding: 0 20px 40px;
-            }
-        }
-    </style>
-
-    <script src="haften-shared.js"></script>
     <script>
-        // Form submit handler
+        /* PAGE LOADER */
+        window.addEventListener('load', () => {
+            setTimeout(() => { document.getElementById('page-loader').classList.add('done'); }, 1600);
+        });
+        /* NAVBAR SCROLL */
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+        }, { passive: true });
+        /* HAMBURGER */
+        const menuBtn = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-links');
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+            menuBtn.classList.toggle('open');
+        });
+        document.addEventListener('click', e => {
+            if (!e.target.closest('#navbar')) { navMenu.classList.remove('active'); menuBtn.classList.remove('open'); }
+        });
+        navMenu.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => { navMenu.classList.remove('active'); menuBtn.classList.remove('open'); });
+        });
+        /* ACCENT COLORS */
+        const themeBtn = document.getElementById('themeBtn');
+        const accentPanel = document.getElementById('accent-panel');
+        themeBtn.addEventListener('click', e => { e.stopPropagation(); accentPanel.classList.toggle('open'); });
+        document.addEventListener('click', () => accentPanel.classList.remove('open'));
+        const accentMap = {
+            red: { ac: '#C1272D', dark: '#8B1A1F', rgb: '193,39,45', light: '#FFF0F0' },
+            blue: { ac: '#2563EB', dark: '#1D4ED8', rgb: '37,99,235', light: '#EFF6FF' },
+            emerald: { ac: '#059669', dark: '#047857', rgb: '5,150,105', light: '#ECFDF5' },
+            violet: { ac: '#7C3AED', dark: '#6D28D9', rgb: '124,58,237', light: '#F5F3FF' },
+            orange: { ac: '#EA580C', dark: '#C2410C', rgb: '234,88,12', light: '#FFF7ED' },
+            rose: { ac: '#E11D48', dark: '#BE123C', rgb: '225,29,72', light: '#FFF1F2' },
+        };
+        document.querySelectorAll('.ac-swatch').forEach(sw => {
+            sw.addEventListener('click', e => {
+                e.stopPropagation();
+                const m = accentMap[sw.dataset.accent]; if (!m) return;
+                const r = document.documentElement;
+                r.style.setProperty('--ac', m.ac); r.style.setProperty('--ac-dark', m.dark);
+                r.style.setProperty('--ac-rgb', m.rgb); r.style.setProperty('--ac-light', m.light);
+                document.querySelectorAll('.ac-swatch').forEach(s => s.classList.remove('active'));
+                sw.classList.add('active');
+            });
+        });
+        /* LANG TOGGLE */
+        let isEN = false;
+        document.getElementById('langPill').addEventListener('click', () => {
+            isEN = !isEN;
+            document.getElementById('langHighlight').style.left = isEN ? '50%' : '0';
+            document.querySelector('.opt-es').style.color = isEN ? 'var(--text-2)' : '#fff';
+            document.querySelector('.opt-en').style.color = isEN ? '#fff' : 'var(--text-2)';
+        });
+        /* REVEAL ON SCROLL */
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => io.observe(el));
+        /* FORM SUBMIT */
         document.getElementById('contactForm').addEventListener('submit', function (e) {
             e.preventDefault();
             const btn = this.querySelector('.btn-submit');
-            btn.textContent = 'Enviando...';
+            const span = btn.querySelector('span');
+            span.textContent = 'Enviando...';
             btn.disabled = true;
             setTimeout(() => {
                 document.getElementById('successMsg').style.display = 'block';
                 this.reset();
-                btn.innerHTML = '<span>Enviar Mensaje</span><span>→</span>';
+                span.textContent = 'Enviar Mensaje';
                 btn.disabled = false;
                 setTimeout(() => { document.getElementById('successMsg').style.display = 'none'; }, 6000);
-            }, 1200);
+            }, 1400);
         });
-
-        /* ── Splash Screen Loader ───────────────────────── */
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('page-loader');
-            if (loader) {
-                // Agregamos un pequeño retraso de medio segundo para asegurar 
-                // que la animación de la barrita se vea fluida antes de desaparecer
-                setTimeout(() => {
-                    loader.classList.add('fade-out');
-                }, 500);
-            }
-        });
-
     </script>
 </body>
 

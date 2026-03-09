@@ -1,158 +1,831 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-accent="red">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Multimedia – Haften</title>
     <meta name="description"
-        content="Videos, demos y contenido técnico de Haften y sus marcas representadas en YouTube." />
-    <link rel="stylesheet" href="haften.css" />
+        content="Centro multimedia de Haften con videos técnicos, demos y capacitaciones en HVAC/R y BMS." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" />
     <style>
-        /* ─── PAGE LOADER (SPLASH SCREEN) ─────────────────────── */
+        /* ── RESET & BASE ── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --ac: #C1272D;
+            --ac-dark: #8B1A1F;
+            --ac-rgb: 193, 39, 45;
+            --ac-light: #FFF0F0;
+            --bg: #FFFFFF;
+            --bg-2: #F7F7F8;
+            --bg-dark: #0D0F18;
+            --text: #0D0F18;
+            --text-2: #64748B;
+            --border: #E8E8EC;
+            --nav-h: 72px;
+            --radius: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --shadow-xs: 0 1px 3px rgba(0, 0, 0, .06);
+            --shadow-lg: 0 16px 40px rgba(0, 0, 0, .10);
+            --shadow-xl: 0 24px 64px rgba(0, 0, 0, .14);
+            --tr: all .22s ease;
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        html,
+        body {
+            max-width: 100vw;
+            overflow-x: hidden;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text);
+            background: var(--bg)
+        }
+
+        img {
+            display: block;
+            max-width: 100%
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        ul {
+            list-style: none
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1260px;
+            margin: 0 auto;
+            padding: 0 32px
+        }
+
+        @media(max-width:768px) {
+            .container {
+                padding: 0 18px
+            }
+        }
+
+        /* ── NAVBAR ── */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: var(--nav-h);
+            background: rgba(255, 255, 255, .96);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow .3s
+        }
+
+        #navbar.scrolled {
+            box-shadow: 0 4px 24px rgba(0, 0, 0, .08)
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 0 32px;
+            position: relative
+        }
+
+        .nav-logo img {
+            height: 38px
+        }
+
+        .nav-logo-text {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900
+        }
+
+        .nav-logo-text span {
+            color: var(--ac)
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: nowrap
+        }
+
+        .nav-link {
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: .9rem;
+            font-weight: 600;
+            color: var(--text-2);
+            transition: var(--tr);
+            white-space: nowrap
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--ac);
+            background: var(--ac-light)
+        }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 22px;
+            background: var(--ac);
+            color: #fff;
+            border-radius: 100px;
+            font-size: .88rem;
+            font-weight: 700;
+            transition: var(--tr);
+            margin-left: 8px
+        }
+
+        .nav-cta:hover {
+            background: var(--ac-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(var(--ac-rgb), .3)
+        }
+
+        .nav-settings {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .theme-toggle-btn,
+        .lang-pill {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-size: .8rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            background: var(--bg-2);
+            cursor: pointer;
+            color: var(--text-2);
+            transition: var(--tr)
+        }
+
+        .theme-toggle-btn:hover,
+        .lang-pill:hover {
+            border-color: var(--ac);
+            color: var(--ac)
+        }
+
+        .lang-pill {
+            position: relative;
+            overflow: hidden
+        }
+
+        .lang-highlight {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            background: var(--ac);
+            border-radius: 6px;
+            transition: .3s
+        }
+
+        .lang-opt {
+            position: relative;
+            z-index: 1;
+            font-size: .75rem;
+            font-weight: 700;
+            padding: 0 4px;
+            transition: .3s
+        }
+
+        .lang-pill .opt-es {
+            color: #fff
+        }
+
+        .lang-pill .opt-en {
+            color: var(--text-2)
+        }
+
+        #accent-panel {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 32px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            box-shadow: var(--shadow-lg);
+            min-width: 200px;
+            display: none;
+            z-index: 100
+        }
+
+        #accent-panel.open {
+            display: block
+        }
+
+        .panel-label {
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text-2);
+            margin-bottom: 12px
+        }
+
+        .accent-options {
+            display: flex;
+            gap: 8px
+        }
+
+        .ac-swatch {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: var(--tr)
+        }
+
+        .ac-swatch.active {
+            border-color: var(--text)
+        }
+
+        .ac-swatch[data-accent="red"] {
+            background: #C1272D
+        }
+
+        .ac-swatch[data-accent="blue"] {
+            background: #2563EB
+        }
+
+        .ac-swatch[data-accent="emerald"] {
+            background: #059669
+        }
+
+        .ac-swatch[data-accent="violet"] {
+            background: #7C3AED
+        }
+
+        .ac-swatch[data-accent="orange"] {
+            background: #EA580C
+        }
+
+        .ac-swatch[data-accent="rose"] {
+            background: #E11D48
+        }
+
+        #menu-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            padding: 8px 10px;
+            gap: 5px;
+            flex-direction: column;
+            align-items: center
+        }
+
+        #menu-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: .3s
+        }
+
+        #menu-toggle.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg)
+        }
+
+        #menu-toggle.open span:nth-child(2) {
+            opacity: 0
+        }
+
+        #menu-toggle.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg)
+        }
+
+        @media(max-width:1100px) {
+            #menu-toggle {
+                display: flex
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #fff;
+                border-top: 1px solid var(--border);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 16px 24px 24px;
+                gap: 4px;
+                box-shadow: 0 16px 40px rgba(0, 0, 0, .1);
+                z-index: 999;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-8px);
+                transition: all .3s
+            }
+
+            .nav-links.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0)
+            }
+
+            .nav-link {
+                width: 100%
+            }
+
+            .nav-cta {
+                width: 100%;
+                justify-content: center;
+                margin: 8px 0 0
+            }
+
+            .nav-settings .lang-pill {
+                display: none
+            }
+        }
+
+        @media(max-width:480px) {
+            .nav-inner {
+                padding: 0 18px
+            }
+
+            #accent-panel {
+                right: 18px
+            }
+        }
+
+        /* ── PAGE LOADER ── */
         #page-loader {
             position: fixed;
             inset: 0;
-            /* Cubre toda la pantalla */
-            background: #0a0c14;
-            /* Fondo oscuro elegante */
-            z-index: 99999;
-            /* Asegura que esté por encima de ABSOLUTAMENTE todo */
+            z-index: 9999;
+            background: var(--bg-dark);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-
-        /* Clase que usará JS para ocultarlo suavemente */
-        #page-loader.fade-out {
-            opacity: 0;
-            visibility: hidden;
+            gap: 20px
         }
 
         .loader-logo {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             font-weight: 900;
-            color: #ffffff;
-            margin-bottom: 24px;
-            letter-spacing: -0.04em;
+            color: #fff;
+            letter-spacing: -.04em
         }
 
         .loader-logo span {
-            color: var(--ac, #C1272D);
-            /* Color rojo Haften */
+            color: var(--ac)
         }
 
         .loader-bar-wrap {
-            width: 220px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 16px;
+            width: 180px;
+            height: 3px;
+            background: rgba(255, 255, 255, .1);
+            border-radius: 2px;
+            overflow: hidden
         }
 
         .loader-bar {
-            width: 0%;
             height: 100%;
-            background: var(--ac, #C1272D);
-            border-radius: 4px;
-            /* Animación simulada de carga de 1.5 segundos */
-            animation: loadingBar 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            background: var(--ac);
+            border-radius: 2px;
+            animation: loaderAnim 1.6s ease forwards
+        }
+
+        @keyframes loaderAnim {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
         }
 
         .loader-text {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 0.15em;
+            font-size: .72rem;
+            letter-spacing: .18em;
             text-transform: uppercase;
-            font-weight: 500;
+            color: rgba(255, 255, 255, .35)
         }
 
-        @keyframes loadingBar {
-            0% {
-                width: 0%;
-            }
-
-            40% {
-                width: 60%;
-            }
-
-            100% {
-                width: 100%;
-            }
+        #page-loader.done {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .5s .3s
         }
 
+        /* ── HERO ── */
         .mm-hero {
             margin-top: var(--nav-h);
             position: relative;
-            height: 300px;
+            height: 78vh;
+            min-height: 480px;
             overflow: hidden;
+            display: flex;
+            align-items: center
         }
 
-        .mm-hero img {
+        /* BG image */
+        .mm-hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0
+        }
+
+        .mm-hero-bg img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
+            transform: scale(1.06);
+            transition: transform 7s ease
         }
 
-        .mm-hero-overlay {
+        .mm-hero:hover .mm-hero-bg img {
+            transform: scale(1)
+        }
+
+        /* Overlays */
+        .mm-hero-bg::after {
+            content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(199, 52, 34, 0.82), rgba(26, 26, 46, 0.55));
+            background: linear-gradient(135deg,
+                    rgba(10, 10, 18, .82) 0%,
+                    rgba(10, 10, 18, .55) 50%,
+                    rgba(var(--ac-rgb), .28) 100%)
+        }
+
+        /* Grid pattern */
+        .mm-hero-grid {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background-image: linear-gradient(rgba(255, 255, 255, .022) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .022) 1px, transparent 1px);
+            background-size: 60px 60px
+        }
+
+        /* Glow accent */
+        .mm-hero-glow {
+            position: absolute;
+            width: 560px;
+            height: 560px;
+            background: radial-gradient(circle, rgba(var(--ac-rgb), .35) 0%, transparent 68%);
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: 1;
+            bottom: -80px;
+            right: -60px;
+            animation: heroPulse 5s ease-in-out infinite;
+            pointer-events: none
+        }
+
+        @keyframes heroPulse {
+
+            0%,
+            100% {
+                opacity: .35;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .6;
+                transform: scale(1.12)
+            }
+        }
+
+        /* Inner */
+        .mm-hero-inner {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1260px;
+            margin: 0 auto;
+            padding: 0 32px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-            padding: 24px;
+            height: 100%
         }
 
-        .mm-hero-overlay h1 {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
+        .mm-hero-content {
+            max-width: 680px;
+            opacity: 0;
+            animation: heroContentIn .9s .2s cubic-bezier(.34, 1.56, .64, 1) forwards
+        }
+
+        @keyframes heroContentIn {
+            from {
+                opacity: 0;
+                transform: translateY(32px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .mm-hero-content h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(2.4rem, 5.5vw, 4.8rem);
             font-weight: 900;
             color: #fff;
-            margin-bottom: 10px;
+            letter-spacing: -.05em;
+            line-height: 1.05;
+            margin-bottom: clamp(16px, 2.5vw, 26px);
+            text-shadow: 0 4px 16px rgba(0, 0, 0, .6)
         }
 
-        .mm-hero-overlay p {
-            color: rgba(255, 255, 255, 0.88);
-            font-size: 1.05rem;
+        .mm-hero-content p {
+            color: rgba(255, 255, 255, .82);
+            font-size: clamp(.95rem, 1.8vw, 1.12rem);
+            line-height: 1.78;
+            max-width: 520px;
+            margin-bottom: clamp(28px, 4vw, 42px)
         }
 
+        /* Eyebrow pill */
+        .mm-hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, .12);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, .22);
+            border-radius: 100px;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            color: #fff;
+            text-transform: uppercase;
+            margin-bottom: 22px
+        }
+
+        /* Scroll indicator */
+        .mm-hero-scroll {
+            position: absolute;
+            bottom: 32px;
+            right: 80px;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: heroContentIn .7s 1s ease forwards
+        }
+
+        .mm-hero-scroll span {
+            font-size: .65rem;
+            letter-spacing: .18em;
+            color: rgba(255, 255, 255, .4);
+            text-transform: uppercase;
+            writing-mode: vertical-rl
+        }
+
+        .scroll-line-mm {
+            width: 1px;
+            height: 48px;
+            background: rgba(255, 255, 255, .2);
+            position: relative;
+            overflow: hidden
+        }
+
+        .scroll-line-mm::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: #fff;
+            animation: scrollLine 1.6s ease infinite
+        }
+
+        @keyframes scrollLine {
+            0% {
+                transform: translateY(-100%);
+                opacity: 1
+            }
+
+            80% {
+                transform: translateY(200%);
+                opacity: .5
+            }
+
+            100% {
+                transform: translateY(200%);
+                opacity: 0
+            }
+        }
+
+        /* CTA buttons in hero */
+        .mm-hero-btns {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap
+        }
+
+        .btn-hero-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 13px 28px;
+            background: var(--ac);
+            color: #fff;
+            border-radius: 100px;
+            font-size: .92rem;
+            font-weight: 700;
+            border: 2px solid var(--ac);
+            transition: var(--tr)
+        }
+
+        .btn-hero-primary:hover {
+            background: var(--ac-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(var(--ac-rgb), .4)
+        }
+
+        .btn-hero-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 13px 28px;
+            background: rgba(255, 255, 255, .1);
+            color: #fff;
+            border-radius: 100px;
+            font-size: .92rem;
+            font-weight: 700;
+            border: 2px solid rgba(255, 255, 255, .25);
+            transition: var(--tr);
+            backdrop-filter: blur(8px)
+        }
+
+        .btn-hero-outline:hover {
+            background: rgba(255, 255, 255, .2);
+            transform: translateY(-2px)
+        }
+
+        /* ── SECTIONS ── */
         .mm-section {
-            padding: 80px 0;
+            padding: clamp(72px, 10vw, 110px) 0;
+            position: relative;
+            overflow: hidden
         }
 
+        .mm-section:nth-child(odd) {
+            background: #fff
+        }
+
+        .mm-section:nth-child(even) {
+            background: var(--bg-2)
+        }
+
+        .mm-section>.container {
+            position: relative;
+            z-index: 1
+        }
+
+        /* section header */
+        .section-header {
+            text-align: center;
+            margin-bottom: clamp(44px, 7vw, 72px)
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--ac);
+            margin-bottom: clamp(12px, 2vw, 20px)
+        }
+
+        .section-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.9rem, 4vw, 3rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -.03em;
+            color: var(--text)
+        }
+
+        .section-title span {
+            color: var(--ac)
+        }
+
+        .accent-line {
+            display: block;
+            width: 48px;
+            height: 4px;
+            background: var(--ac);
+            border-radius: 2px;
+            margin: 16px auto 0
+        }
+
+        .section-sub {
+            color: var(--text-2);
+            font-size: clamp(.93rem, 1.7vw, 1.05rem);
+            line-height: 1.75;
+            margin-top: 16px;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        /* ── VIDEO GRID ── */
         .mm-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            gap: clamp(22px, 3vw, 36px)
         }
 
+        /* VIDEO CARD */
         .mm-card {
             background: #fff;
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius-xl);
             overflow: hidden;
-            transition: var(--tr);
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 4px 24px rgba(26, 26, 46, .06);
+            border: 1px solid var(--border);
+            transition: all .5s cubic-bezier(.22, .68, 0, 1.2);
+            opacity: 0;
+            animation: fadeUp .8s cubic-bezier(.22, .68, 0, 1.2) forwards
+        }
+
+        .mm-card.d1 {
+            animation-delay: .08s
+        }
+
+        .mm-card.d2 {
+            animation-delay: .16s
+        }
+
+        .mm-card.d3 {
+            animation-delay: .24s
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(36px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
         }
 
         .mm-card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-6px);
-            border-color: var(--brand);
+            transform: translateY(-12px);
+            box-shadow: 0 32px 80px rgba(var(--ac-rgb), .12);
+            border-color: rgba(var(--ac-rgb), .18)
         }
 
+        /* Thumb */
         .mm-thumb {
             position: relative;
             padding-top: 56.25%;
-            background: var(--bg-3);
-            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f172a 100%);
+            overflow: hidden
         }
 
         .mm-thumb iframe {
@@ -160,56 +833,582 @@
             inset: 0;
             width: 100%;
             height: 100%;
-            border: none;
-            display: block;
+            border: none
         }
 
-        .mm-info {
-            padding: 18px 20px;
+        .mm-thumb::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(var(--ac-rgb), .15);
+            opacity: 0;
+            transition: opacity .4s;
+            z-index: 1
         }
 
-        .mm-info h4 {
-            font-size: 0.92rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 6px;
-            line-height: 1.4;
+        .mm-card:hover .mm-thumb::after {
+            opacity: 1
         }
 
-        .mm-date {
-            font-size: 0.78rem;
-            color: var(--text-3);
+        .mm-play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            width: 64px;
+            height: 64px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            justify-content: center;
+            background: rgba(var(--ac-rgb), .95);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all .4s cubic-bezier(.22, .68, 0, 1.2)
+        }
+
+        .mm-play-icon i {
+            color: #fff;
+            font-size: 24px;
+            margin-left: 4px
+        }
+
+        .mm-card:hover .mm-play-icon {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1)
+        }
+
+        /* Card info */
+        .mm-info {
+            padding: clamp(18px, 3vw, 28px)
         }
 
         .mm-badge {
-            display: inline-block;
-            padding: 3px 10px;
-            background: var(--brand-light);
-            color: var(--brand);
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            border-radius: 100px;
-            margin-bottom: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: var(--ac-light);
+            color: var(--ac);
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: .12em;
+            border-radius: 8px;
+            text-transform: uppercase;
+            border: 1px solid rgba(var(--ac-rgb), .2);
+            margin-bottom: 12px;
+            transition: var(--tr)
         }
 
-        .mm-cta {
+        .mm-card:hover .mm-badge {
+            background: var(--ac);
+            color: #fff;
+            border-color: var(--ac)
+        }
+
+        .mm-info h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(.92rem, 1.7vw, 1.08rem);
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 10px;
+            line-height: 1.35;
+            transition: color .3s
+        }
+
+        .mm-card:hover .mm-info h4 {
+            color: var(--ac)
+        }
+
+        .mm-date {
+            font-size: .82rem;
+            color: var(--text-2);
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        /* ── STATS ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(20px, 3vw, 32px);
+            margin-top: clamp(40px, 6vw, 60px)
+        }
+
+        .stat-card {
+            background: #fff;
+            border: 2px solid rgba(var(--ac-rgb), .08);
+            border-radius: var(--radius-xl);
+            padding: clamp(24px, 4vw, 40px) clamp(16px, 2.5vw, 28px);
             text-align: center;
-            margin-top: 48px;
+            transition: all .5s cubic-bezier(.22, .68, 0, 1.2);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(var(--ac-rgb), .05)
         }
 
-        @media(max-width:960px) {
+        .stat-card:hover {
+            transform: translateY(-14px);
+            border-color: var(--ac);
+            box-shadow: 0 28px 72px rgba(var(--ac-rgb), .15)
+        }
+
+        .stat-icon {
+            width: clamp(48px, 7vw, 64px);
+            height: clamp(48px, 7vw, 64px);
+            margin: 0 auto clamp(14px, 2.5vw, 22px);
+            background: var(--ac-light);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ac);
+            font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+            transition: all .5s cubic-bezier(.22, .68, 0, 1.2)
+        }
+
+        .stat-card:hover .stat-icon {
+            background: var(--ac);
+            color: #fff;
+            transform: scale(1.1) rotate(-8deg)
+        }
+
+        .stat-number {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            font-weight: 900;
+            color: var(--ac);
+            letter-spacing: -.03em;
+            line-height: 1;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: clamp(44px, 8vw, 64px)
+        }
+
+        .stat-label {
+            font-size: clamp(.82rem, 1.5vw, 1rem);
+            color: var(--text-2);
+            font-weight: 700;
+            line-height: 1.4
+        }
+
+        /* ── WEBINARS ── */
+        .webinar-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(20px, 3vw, 32px);
+            margin-top: clamp(40px, 6vw, 60px)
+        }
+
+        .webinar-card {
+            background: #fff;
+            border: 1.5px solid rgba(var(--ac-rgb), .1);
+            border-radius: var(--radius-xl);
+            padding: clamp(26px, 4vw, 40px);
+            transition: all .5s cubic-bezier(.22, .68, 0, 1.2);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(14px, 2vw, 20px)
+        }
+
+        .webinar-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--ac);
+            box-shadow: 0 24px 64px rgba(var(--ac-rgb), .12)
+        }
+
+        .webinar-icon {
+            width: clamp(52px, 8vw, 68px);
+            height: clamp(52px, 8vw, 68px);
+            border-radius: var(--radius);
+            background: var(--ac-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ac);
+            font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+            transition: all .4s
+        }
+
+        .webinar-card:hover .webinar-icon {
+            background: var(--ac);
+            color: #fff;
+            transform: scale(1.08) rotate(-5deg)
+        }
+
+        .webinar-card h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1rem, 1.9vw, 1.25rem);
+            font-weight: 800;
+            color: var(--text)
+        }
+
+        .webinar-card p {
+            font-size: clamp(.88rem, 1.5vw, .95rem);
+            color: var(--text-2);
+            line-height: 1.7;
+            flex: 1
+        }
+
+        .webinar-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--ac);
+            color: #fff;
+            border-radius: 8px;
+            font-size: .72rem;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            align-self: flex-start;
+            margin-top: 4px
+        }
+
+        /* ── CTA SECTION ── */
+        .cta-section {
+            background: var(--ac);
+            padding: clamp(72px, 10vw, 100px) 0;
+            position: relative;
+            overflow: hidden
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='200' cy='200' r='180' fill='none' stroke='rgba(255,255,255,.06)' stroke-width='1'/%3E%3Ccircle cx='200' cy='200' r='120' fill='none' stroke='rgba(255,255,255,.06)' stroke-width='1'/%3E%3Ccircle cx='200' cy='200' r='60' fill='none' stroke='rgba(255,255,255,.06)' stroke-width='1'/%3E%3C/svg%3E") center/700px no-repeat;
+            pointer-events: none
+        }
+
+        .cta-inner {
+            position: relative;
+            z-index: 1;
+            text-align: center
+        }
+
+        .cta-inner h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.9rem, 4.5vw, 3.2rem);
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -.03em;
+            margin-bottom: 14px
+        }
+
+        .cta-inner p {
+            color: rgba(255, 255, 255, .88);
+            font-size: clamp(.97rem, 1.8vw, 1.1rem);
+            line-height: 1.8;
+            max-width: 560px;
+            margin: 0 auto clamp(28px, 5vw, 44px)
+        }
+
+        .cta-btns {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap
+        }
+
+        .btn-white {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 13px 28px;
+            background: #fff;
+            color: var(--ac);
+            border-radius: 100px;
+            font-size: .92rem;
+            font-weight: 700;
+            border: 2px solid #fff;
+            transition: var(--tr)
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, .2)
+        }
+
+        .btn-outline-white {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 13px 28px;
+            background: rgba(255, 255, 255, .12);
+            color: #fff;
+            border-radius: 100px;
+            font-size: .92rem;
+            font-weight: 700;
+            border: 2px solid rgba(255, 255, 255, .28);
+            transition: var(--tr);
+            backdrop-filter: blur(8px)
+        }
+
+        .btn-outline-white:hover {
+            background: rgba(255, 255, 255, .22);
+            transform: translateY(-2px)
+        }
+
+        /* ── FOOTER ── */
+        .site-footer {
+            background: var(--bg-dark);
+            color: rgba(255, 255, 255, .7);
+            padding: 80px 0 0
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding: 0 32px 60px;
+            max-width: 1260px;
+            margin: 0 auto
+        }
+
+        .footer-logo {
+            height: 36px;
+            margin-bottom: 8px;
+            filter: brightness(10)
+        }
+
+        .footer-logo-text {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 12px
+        }
+
+        .footer-logo-text span {
+            color: var(--ac)
+        }
+
+        .footer-desc {
+            font-size: .88rem;
+            line-height: 1.75;
+            max-width: 240px
+        }
+
+        .footer-col h4 {
+            font-size: .78rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .4);
+            margin-bottom: 18px
+        }
+
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .footer-col a {
+            font-size: .88rem;
+            color: rgba(255, 255, 255, .6);
+            transition: var(--tr);
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .footer-col a:hover {
+            color: #fff
+        }
+
+        .footer-col a i {
+            width: 16px;
+            color: rgba(var(--ac-rgb), .7)
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, .07);
+            padding: 24px 32px;
+            max-width: 1260px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px
+        }
+
+        .footer-copy {
+            font-size: .82rem;
+            color: rgba(255, 255, 255, .35)
+        }
+
+        .footer-copy a {
+            color: rgba(255, 255, 255, .5)
+        }
+
+        .footer-copy a:hover {
+            color: #fff
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 10px
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .88rem;
+            color: rgba(255, 255, 255, .5);
+            transition: var(--tr)
+        }
+
+        .footer-social a:hover {
+            background: var(--ac);
+            border-color: var(--ac);
+            color: #fff;
+            transform: translateY(-3px)
+        }
+
+        /* ── REVEAL ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .7s, transform .7s
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /* ── I18N ── */
+        [data-lang="en"] {
+            display: none
+        }
+
+        /* ════════════════════════
+       RESPONSIVE BREAKPOINTS
+       ════════════════════════ */
+
+        @media(max-width:1200px) {
             .mm-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media(max-width:1024px) {
+            .mm-hero-scroll {
+                display: none
+            }
+
+            .webinar-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 36px
+            }
+        }
+
+        @media(max-width:768px) {
+            .mm-hero {
+                height: auto;
+                min-height: 520px
+            }
+
+            .mm-hero-inner {
+                padding: clamp(72px, 12vw, 96px) 18px clamp(64px, 10vw, 80px)
+            }
+
+            .mm-hero-content h1 {
+                font-size: clamp(2rem, 8vw, 3rem)
+            }
+
+            .mm-hero-content p {
+                font-size: .95rem
+            }
+
+            .mm-grid {
+                grid-template-columns: 1fr
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .webinar-grid {
+                grid-template-columns: 1fr
+            }
+
+            .section-title {
+                font-size: clamp(1.7rem, 6vw, 2.4rem)
+            }
+
+            .footer-grid {
+                padding: 0 18px 40px
+            }
+
+            .footer-bottom {
+                padding: 20px 18px
             }
         }
 
         @media(max-width:600px) {
-            .mm-grid {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media(max-width:540px) {
+            .footer-grid {
                 grid-template-columns: 1fr;
+                gap: 28px
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                text-align: center
+            }
+
+            .mm-hero-btns {
+                flex-direction: column;
+                align-items: center
+            }
+
+            .mm-hero-btns a {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center
+            }
+
+            .cta-btns {
+                flex-direction: column;
+                align-items: center
+            }
+
+            .cta-btns a {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center
+            }
+        }
+
+        @media(max-width:400px) {
+            .stats-grid {
+                grid-template-columns: 1fr
             }
         }
     </style>
@@ -217,332 +1416,363 @@
 
 <body>
 
+    <!-- PAGE LOADER -->
     <div id="page-loader">
         <div class="loader-logo">Haf<span>ten</span></div>
         <div class="loader-bar-wrap">
             <div class="loader-bar"></div>
         </div>
-        <p class="loader-text">HVAC/R · BMS · Instrumentación</p>
+        <p class="loader-text">HVAC/R &middot; BMS &middot; Instrumentacion</p>
     </div>
 
-    <!-- NAVBAR -->
+    <!-- NAVBAR — unificado con index -->
     <nav id="navbar">
         <div class="nav-inner">
             <a href="index.html" class="nav-logo">
                 <img src="Haften/Marcas/Logo Haften.png" alt="Haften"
                     onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-                <span class="nav-logo-text" style="display:none">Haften</span>
+                <span class="nav-logo-text" style="display:none">Haf<span>ten</span></span>
             </a>
-            <button id="menu-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+            <button id="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
             <ul class="nav-links" id="nav-links">
-                <li><a href="index.html" class="nav-link">Inicio</a></li>
+                <li><a href="index.html" class="nav-link"><i class="fa fa-house"
+                            style="font-size:.75rem;color:var(--ac);margin-right:4px"></i>Inicio</a></li>
                 <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
                 <li><a href="marcas.html" class="nav-link">Marcas</a></li>
-                <li><a href="catalogos.html" class="nav-link">Catálogos</a></li>
+                <li><a href="catalogos.html" class="nav-link">Catalogos</a></li>
                 <li><a href="multimedia.html" class="nav-link active">Multimedia</a></li>
                 <li><a href="redes.html" class="nav-link">Redes Sociales</a></li>
-                <li><a href="contacto.html" class="nav-link btn btn-brand"
-                        style="margin-left:8px;padding:9px 20px;">Contacto</a></li>
+                <li><a href="contacto.html" class="nav-cta"><span>Contacto</span> <i
+                            class="fa-solid fa-arrow-right"></i></a></li>
             </ul>
+            <div class="nav-settings">
+                <button class="theme-toggle-btn" id="themeBtn" title="Color de acento"><i
+                        class="fa-solid fa-palette"></i></button>
+                <div class="lang-pill" id="langPill">
+                    <div class="lang-highlight" id="langHighlight"></div>
+                    <span class="lang-opt opt-es">ES</span>
+                    <span class="lang-opt opt-en">EN</span>
+                </div>
+                <div id="accent-panel">
+                    <p class="panel-label">Color de acento</p>
+                    <div class="accent-options">
+                        <div class="ac-swatch active" data-accent="red"></div>
+                        <div class="ac-swatch" data-accent="blue"></div>
+                        <div class="ac-swatch" data-accent="emerald"></div>
+                        <div class="ac-swatch" data-accent="violet"></div>
+                        <div class="ac-swatch" data-accent="orange"></div>
+                        <div class="ac-swatch" data-accent="rose"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <!-- HERO -->
-    <div class="mm-hero">
-        <img src="Haften/Multimedia/1 (1).jpg" alt="Multimedia Haften" />
-        <div class="mm-hero-overlay">
-            <h1 class="hero-title reveal" data-i18n="mm_hero_h1">Centro Multimedia</h1>
-            <p>Videos técnicos, demos de productos y contenido especializado</p>
-        </div>
-    </div>
+    <main>
 
-    <!-- VIDEOS -->
-    <section class="mm-section">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="eyebrow reveal" data-i18n="mm_lbl">Canal Oficial YouTube</span>
-                <h2 class="section-title reveal" data-i18n="mm_title">Nuestro Contenido <span>Multimedia</span></h2>
-                <div class="brand-divider"></div>
-                <p class="section-desc reveal" data-i18n="mm_sub">Descubre demos, capacitaciones y actualizaciones de
-                    todas nuestras marcas.</p>
+        <!-- HERO -->
+        <div class="mm-hero">
+            <!-- Imagen de fondo -->
+            <div class="mm-hero-bg">
+                <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1800&q=80&fit=crop"
+                    alt="Centro de control industrial HVAC" />
             </div>
-
-            <div class="mm-grid">
-
-                <div class="mm-card reveal d1">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/9GCXuoZhb_c" title="SENVA ECMSet PRO" loading="lazy"
-                            allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">SENVA</span>
-                        <h4>SENVA ECMSet PRO – Interruptor de corriente ECM con tecnología ECTUNE</h4>
-                        <p class="mm-date">📅 22 Ene 2026</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d2">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/uMGepTQXN7Y" title="Sensores Belimo" loading="lazy"
-                            allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">BELIMO</span>
-                        <h4>SENSORES PARA PARED BELIMO</h4>
-                        <p class="mm-date">📅 18 Dic 2025</p>
+            <!-- Grid overlay -->
+            <div class="mm-hero-grid"></div>
+            <!-- Glow -->
+            <div class="mm-hero-glow"></div>
+            <!-- Contenido -->
+            <div class="mm-hero-inner">
+                <div class="mm-hero-content">
+                    <p class="mm-hero-pill"><i class="fa-solid fa-play-circle"></i> <span data-lang="es">Centro
+                            Multimedia</span><span data-lang="en">Multimedia Center</span></p>
+                    <h1 data-lang="es">Centro Multimedia<br><span style="color:rgba(255,160,160,.9)">Haften</span></h1>
+                    <h1 data-lang="en">Haften<br><span style="color:rgba(255,160,160,.9)">Multimedia</span></h1>
+                    <p data-lang="es">Videos tecnicos, demos de productos y contenido especializado de nuestras mejores
+                        marcas</p>
+                    <p data-lang="en">Technical videos, product demos and specialized content from our best brands</p>
+                    <div class="mm-hero-btns">
+                        <a href="#videos" class="btn-hero-primary"><i class="fa-solid fa-play"></i> <span
+                                data-lang="es">Ver Videos</span><span data-lang="en">Watch Videos</span></a>
+                        <a href="contacto.html" class="btn-hero-outline"><i class="fa-solid fa-envelope"></i> <span
+                                data-lang="es">Contacto</span><span data-lang="en">Contact</span></a>
                     </div>
                 </div>
-
-                <div class="mm-card reveal d3">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/VwOG6WDJD3Q" title="Air Monitor DCAS" loading="lazy"
-                            allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">AIR MONITOR</span>
-                        <h4>NUEVO DCAS – Data Center Aisle Sentry de Air Monitor</h4>
-                        <p class="mm-date">📅 18 Dic 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d1">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/N1NNZKEn-48" title="ONICON" loading="lazy"
-                            allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">ONICON</span>
-                        <h4>Medidores de flujo ultrasónicos ONICON con abrazadera para sistemas HVAC</h4>
-                        <p class="mm-date">📅 16 Dic 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d2">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/CPdhDrYMkXg" title="Termostatos" loading="lazy"
-                            allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">HVAC</span>
-                        <h4>TERMOSTATOS DE FAN &amp; COIL</h4>
-                        <p class="mm-date">📅 08 Dic 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d3">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/ot7BJDqsr2E" title="Loytec" loading="lazy"
-                            allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">LOYTEC</span>
-                        <h4>LOYTEC, La nueva serie LVISxx-32Gx</h4>
-                        <p class="mm-date">📅 03 Dic 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d1">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/IdagknD5eV8" title="Belimo nueva generacion"
-                            loading="lazy" allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">BELIMO</span>
-                        <h4>BELIMO NUEVA GENERACIÓN DIGITAL</h4>
-                        <p class="mm-date">📅 25 Nov 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d2">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/NbnBOclgXBU" title="Sensores Belimo" loading="lazy"
-                            allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">BELIMO</span>
-                        <h4>Sensores Belimo – Nueva línea</h4>
-                        <p class="mm-date">📅 20 Nov 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d3">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/5fEO06kjPmI" title="Contemporary Controls"
-                            loading="lazy" allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">CONTEMPORARY</span>
-                        <h4>Contemporary Controls / Interfaz gráfica de supervisión para sistemas de control</h4>
-                        <p class="mm-date">📅 14 Nov 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d1">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/kKOpDyE7fDo" title="SENVA ECMset Pro" loading="lazy"
-                            allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">SENVA</span>
-                        <h4>SENVA ECMset Pro – Detección de encendido ultrabaja</h4>
-                        <p class="mm-date">📅 12 Nov 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d2">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/sYt2U9HQVO8" title="Belimo dispositivos"
-                            loading="lazy" allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">BELIMO</span>
-                        <h4>BELIMO NUEVA GENERACIÓN DE DISPOSITIVOS DE CAMPO HVAC</h4>
-                        <p class="mm-date">📅 12 Nov 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d3">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/rW-SeO4G4a4" title="Vaisala" loading="lazy"
-                            allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">VAISALA</span>
-                        <h4>Transmisores HMT120 y HMT130 VAISALA</h4>
-                        <p class="mm-date">📅 03 Nov 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d1">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/-cCUikcOMzE" title="Neptronic" loading="lazy"
-                            allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">NEPTRONIC</span>
-                        <h4>Neptronic Modelo HRO20</h4>
-                        <p class="mm-date">📅 15 Oct 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d2">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/00PWPOZAAxc" title="Belimo gas refrigerante"
-                            loading="lazy" allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">BELIMO</span>
-                        <h4>NUEVO Monitor de Gas Refrigerante de Belimo</h4>
-                        <p class="mm-date">📅 08 Oct 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d3">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/5iVQRNK9ykc" title="Greystone" loading="lazy"
-                            allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">GREYSTONE</span>
-                        <h4>Descubre toda la línea de productos Greystone con Haften</h4>
-                        <p class="mm-date">📅 25 Sep 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d1">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/Kgw01yR30fM" title="Neptronic humidificacion"
-                            loading="lazy" allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">NEPTRONIC</span>
-                        <h4>Haften cuenta con la mejor solución en Humidificación de la marca Neptronic</h4>
-                        <p class="mm-date">📅 25 Sep 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d2">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/TYZ_vt8NGBQ" title="Loytec haften" loading="lazy"
-                            allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">LOYTEC</span>
-                        <h4>Conoce todo lo que LOYTEC tiene preparado para ti en HAFTEN</h4>
-                        <p class="mm-date">📅 24 Sep 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d3">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/4DYfvJ2HyBs" title="Dwyer Omega" loading="lazy"
-                            allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">DWYER OMEGA</span>
-                        <h4>Descubre más de esta tecnología de DWYER Omega en Haften</h4>
-                        <p class="mm-date">📅 24 Sep 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d1">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/qBfJ5ke66JI" title="AHR EXPO" loading="lazy"
-                            allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">EVENTO</span>
-                        <h4>Haften en AHR EXPO Monterrey 2025</h4>
-                        <p class="mm-date">📅 26 Ago 2025</p>
-                    </div>
-                </div>
-
-                <div class="mm-card reveal d2">
-                    <div class="mm-thumb">
-                        <iframe src="https://www.youtube.com/embed/U-caIPwRAn0" title="Belimo energy valve"
-                            loading="lazy" allowfullscreen></iframe>
-                    </div>
-                    <div class="mm-info">
-                        <span class="mm-badge">BELIMO</span>
-                        <h4>Belimo Energy Valve con medidor de energía térmica</h4>
-                        <p class="mm-date">📅 19 Ago 2025</p>
-                    </div>
-                </div>
-
             </div>
-
-            <div class="mm-cta reveal">
-                <a href="https://www.youtube.com/@Haftenoficial/videos" target="_blank" class="btn btn-brand"
-                    style="font-size:1rem;padding:15px 36px;">
-                    🎬 Ver todos los videos en YouTube →
-                </a>
+            <!-- Scroll indicator -->
+            <div class="mm-hero-scroll">
+                <div class="scroll-line-mm"></div>
+                <span>scroll</span>
             </div>
         </div>
-    </section>
 
-    <!-- FOOTER -->
+        <!-- VIDEOS -->
+        <section class="mm-section" id="videos">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="eyebrow"><i class="fa-solid fa-play-circle"></i> <span data-lang="es">CONTENIDO EN
+                            VIDEO</span><span data-lang="en">VIDEO CONTENT</span></span>
+                    <h2 class="section-title"><span data-lang="es">Nuestros Mejores</span><span data-lang="en">Our
+                            Best</span> <span>Videos</span></h2>
+                    <div class="accent-line"></div>
+                    <p class="section-sub" data-lang="es">Descubre demostraciones practicas, tutoriales y novedades de
+                        todas nuestras marcas representadas</p>
+                    <p class="section-sub" data-lang="en">Discover practical demonstrations, tutorials and news from all
+                        our represented brands</p>
+                </div>
+
+                <div class="mm-grid">
+                    <div class="mm-card d1">
+                        <div class="mm-thumb">
+                            <div class="mm-play-icon"><i class="fa-solid fa-play"></i></div>
+                            <iframe src="https://www.youtube.com/embed/9GCXuoZhb_c" loading="lazy"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="mm-info">
+                            <span class="mm-badge"><i class="fa-solid fa-tag"></i> SENVA</span>
+                            <h4>ECMSet PRO &ndash; Deteccion Ultrabaja</h4>
+                            <p class="mm-date"><i class="fa-regular fa-calendar" style="color:var(--ac)"></i> 22 Ene
+                                2026</p>
+                        </div>
+                    </div>
+                    <div class="mm-card d2">
+                        <div class="mm-thumb">
+                            <div class="mm-play-icon"><i class="fa-solid fa-play"></i></div>
+                            <iframe src="https://www.youtube.com/embed/uMGepTQXN7Y" loading="lazy"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="mm-info">
+                            <span class="mm-badge"><i class="fa-solid fa-tag"></i> BELIMO</span>
+                            <h4>Sensores para Pared &ndash; Nueva Linea</h4>
+                            <p class="mm-date"><i class="fa-regular fa-calendar" style="color:var(--ac)"></i> 18 Dic
+                                2025</p>
+                        </div>
+                    </div>
+                    <div class="mm-card d3">
+                        <div class="mm-thumb">
+                            <div class="mm-play-icon"><i class="fa-solid fa-play"></i></div>
+                            <iframe src="https://www.youtube.com/embed/VwOG6WDJD3Q" loading="lazy"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="mm-info">
+                            <span class="mm-badge"><i class="fa-solid fa-tag"></i> AIR MONITOR</span>
+                            <h4>NUEVO DCAS &ndash; Data Center</h4>
+                            <p class="mm-date"><i class="fa-regular fa-calendar" style="color:var(--ac)"></i> 18 Dic
+                                2025</p>
+                        </div>
+                    </div>
+                    <div class="mm-card d1">
+                        <div class="mm-thumb">
+                            <div class="mm-play-icon"><i class="fa-solid fa-play"></i></div>
+                            <iframe src="https://www.youtube.com/embed/N1NNZKEn-48" loading="lazy"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="mm-info">
+                            <span class="mm-badge"><i class="fa-solid fa-tag"></i> ONICON</span>
+                            <h4>Medidores Ultrasonicos ONICON</h4>
+                            <p class="mm-date"><i class="fa-regular fa-calendar" style="color:var(--ac)"></i> 16 Dic
+                                2025</p>
+                        </div>
+                    </div>
+                    <div class="mm-card d2">
+                        <div class="mm-thumb">
+                            <div class="mm-play-icon"><i class="fa-solid fa-play"></i></div>
+                            <iframe src="https://www.youtube.com/embed/CPdhDrYMkXg" loading="lazy"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="mm-info">
+                            <span class="mm-badge"><i class="fa-solid fa-tag"></i> HVAC</span>
+                            <h4>Termostatos Fan &amp; Coil</h4>
+                            <p class="mm-date"><i class="fa-regular fa-calendar" style="color:var(--ac)"></i> 08 Dic
+                                2025</p>
+                        </div>
+                    </div>
+                    <div class="mm-card d3">
+                        <div class="mm-thumb">
+                            <div class="mm-play-icon"><i class="fa-solid fa-play"></i></div>
+                            <iframe src="https://www.youtube.com/embed/ot7BJDqsr2E" loading="lazy"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="mm-info">
+                            <span class="mm-badge"><i class="fa-solid fa-tag"></i> LOYTEC</span>
+                            <h4>Nueva Serie LVISxx-32Gx</h4>
+                            <p class="mm-date"><i class="fa-regular fa-calendar" style="color:var(--ac)"></i> 03 Dic
+                                2025</p>
+                        </div>
+                    </div>
+                    <div class="mm-card d1">
+                        <div class="mm-thumb">
+                            <div class="mm-play-icon"><i class="fa-solid fa-play"></i></div>
+                            <iframe src="https://www.youtube.com/embed/IdagknD5eV8" loading="lazy"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="mm-info">
+                            <span class="mm-badge"><i class="fa-solid fa-tag"></i> BELIMO</span>
+                            <h4>Nueva Generacion Digital</h4>
+                            <p class="mm-date"><i class="fa-regular fa-calendar" style="color:var(--ac)"></i> 25 Nov
+                                2025</p>
+                        </div>
+                    </div>
+                    <div class="mm-card d2">
+                        <div class="mm-thumb">
+                            <div class="mm-play-icon"><i class="fa-solid fa-play"></i></div>
+                            <iframe src="https://www.youtube.com/embed/NbnBOclgXBU" loading="lazy"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="mm-info">
+                            <span class="mm-badge"><i class="fa-solid fa-tag"></i> BELIMO</span>
+                            <h4>Sensores &ndash; Precision Total</h4>
+                            <p class="mm-date"><i class="fa-regular fa-calendar" style="color:var(--ac)"></i> 20 Nov
+                                2025</p>
+                        </div>
+                    </div>
+                    <div class="mm-card d3">
+                        <div class="mm-thumb">
+                            <div class="mm-play-icon"><i class="fa-solid fa-play"></i></div>
+                            <iframe src="https://www.youtube.com/embed/5fEO06kjPmI" loading="lazy"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="mm-info">
+                            <span class="mm-badge"><i class="fa-solid fa-tag"></i> CONTEMPORARY</span>
+                            <h4>Interfaz de Supervision</h4>
+                            <p class="mm-date"><i class="fa-regular fa-calendar" style="color:var(--ac)"></i> 14 Nov
+                                2025</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS -->
+        <section class="mm-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="eyebrow"><i class="fa-solid fa-chart-line"></i> <span data-lang="es">NUESTRO
+                            IMPACTO</span><span data-lang="en">OUR IMPACT</span></span>
+                    <h2 class="section-title"><span data-lang="es">Numeros que</span><span data-lang="en">Numbers
+                            that</span> <span>Hablan</span></h2>
+                    <div class="accent-line"></div>
+                    <p class="section-sub" data-lang="es">Comprometidos con la educacion tecnica de excelencia</p>
+                    <p class="section-sub" data-lang="en">Committed to excellent technical education</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card reveal">
+                        <div class="stat-icon"><i class="fa-solid fa-play"></i></div>
+                        <div class="stat-number"><span data-target="150">0</span>+</div>
+                        <div class="stat-label" data-lang="es">Videos Publicados</div>
+                        <div class="stat-label" data-lang="en">Published Videos</div>
+                    </div>
+                    <div class="stat-card reveal">
+                        <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-number"><span data-target="25">0</span>K+</div>
+                        <div class="stat-label" data-lang="es">Suscriptores</div>
+                        <div class="stat-label" data-lang="en">Subscribers</div>
+                    </div>
+                    <div class="stat-card reveal">
+                        <div class="stat-icon"><i class="fa-solid fa-eye"></i></div>
+                        <div class="stat-number"><span data-target="500">0</span>K+</div>
+                        <div class="stat-label" data-lang="es">Visualizaciones</div>
+                        <div class="stat-label" data-lang="en">Views</div>
+                    </div>
+                    <div class="stat-card reveal">
+                        <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+                        <div class="stat-number"><span data-target="30">0</span>+</div>
+                        <div class="stat-label" data-lang="es">Marcas Representadas</div>
+                        <div class="stat-label" data-lang="en">Represented Brands</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WEBINARS -->
+        <section class="mm-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="eyebrow"><i class="fa-solid fa-graduation-cap"></i> <span
+                            data-lang="es">CAPACITACION</span><span data-lang="en">TRAINING</span></span>
+                    <h2 class="section-title"><span data-lang="es">Aprende de</span><span data-lang="en">Learn
+                            from</span> <span>Expertos</span></h2>
+                    <div class="accent-line"></div>
+                    <p class="section-sub" data-lang="es">Webinars exclusivos y sesiones de capacitacion tecnica</p>
+                    <p class="section-sub" data-lang="en">Exclusive webinars and technical training sessions</p>
+                </div>
+                <div class="webinar-grid">
+                    <div class="webinar-card reveal">
+                        <div class="webinar-icon"><i class="fa-solid fa-wind"></i></div>
+                        <h3 data-lang="es">Fundamentos HVAC/R</h3>
+                        <h3 data-lang="en">HVAC/R Fundamentals</h3>
+                        <p data-lang="es">Curso introductorio sobre sistemas de climatizacion y refrigeracion</p>
+                        <p data-lang="en">Introductory course on air conditioning and refrigeration systems</p>
+                        <span class="webinar-badge" data-lang="es">Proximamente</span>
+                        <span class="webinar-badge" data-lang="en">Coming Soon</span>
+                    </div>
+                    <div class="webinar-card reveal">
+                        <div class="webinar-icon"><i class="fa-solid fa-sliders"></i></div>
+                        <h3 data-lang="es">Control BMS Avanzado</h3>
+                        <h3 data-lang="en">Advanced BMS Control</h3>
+                        <p data-lang="es">Programacion y configuracion de sistemas de automatizacion</p>
+                        <p data-lang="en">Programming and configuration of automation systems</p>
+                        <span class="webinar-badge" data-lang="es">Proximamente</span>
+                        <span class="webinar-badge" data-lang="en">Coming Soon</span>
+                    </div>
+                    <div class="webinar-card reveal">
+                        <div class="webinar-icon"><i class="fa-solid fa-certificate"></i></div>
+                        <h3 data-lang="es">Certificacion Tecnica</h3>
+                        <h3 data-lang="en">Technical Certification</h3>
+                        <p data-lang="es">Programa de certificacion reconocido internacionalmente</p>
+                        <p data-lang="en">Internationally recognized certification program</p>
+                        <span class="webinar-badge" data-lang="es">Proximamente</span>
+                        <span class="webinar-badge" data-lang="en">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-inner reveal">
+                    <h2 data-lang="es">Necesitas Capacitacion Especializada?</h2>
+                    <h2 data-lang="en">Do You Need Specialized Training?</h2>
+                    <p data-lang="es">Contactanos para sesiones personalizadas, webinars exclusivos y contenido tecnico
+                        avanzado</p>
+                    <p data-lang="en">Contact us for personalized sessions, exclusive webinars and advanced technical
+                        content</p>
+                    <div class="cta-btns">
+                        <a href="contacto.html" class="btn-white"><i class="fa-solid fa-envelope"></i> <span
+                                data-lang="es">Solicitar Capacitacion</span><span data-lang="en">Request
+                                Training</span></a>
+                        <a href="catalogos.html" class="btn-outline-white"><i class="fa-solid fa-file-pdf"></i> <span
+                                data-lang="es">Ver Catalogos</span><span data-lang="en">View Catalogs</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER — unificado con index -->
     <footer class="site-footer">
         <div class="footer-grid">
             <div>
                 <img src="Haften/Marcas/Logo Haften.png" alt="Haften" class="footer-logo"
-                    onerror="this.style.display='none'">
-                <p class="footer-desc">"Una solución completa en el mismo lugar."<br>Periféricos HVAC · BMS · Medición
-                    de Energía</p>
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                <p class="footer-logo-text" style="display:none">Haf<span>ten</span></p>
+                <p class="footer-desc">"Una solucion completa en el mismo lugar."<br>Perifericos HVAC &bull; BMS &bull;
+                    Medicion de Energia</p>
             </div>
-
             <div class="footer-col">
-                <h4>Navegación</h4>
+                <h4>Navegacion</h4>
                 <ul>
                     <li><a href="index.html"><i class="fa-solid fa-house"></i>Inicio</a></li>
                     <li><a href="nosotros.html"><i class="fa-solid fa-building"></i>Nosotros</a></li>
                     <li><a href="marcas.html"><i class="fa-solid fa-tag"></i>Marcas</a></li>
-                    <li><a href="catalogos.html"><i class="fa-solid fa-file-pdf"></i>Catálogos</a></li>
+                    <li><a href="catalogos.html"><i class="fa-solid fa-file-pdf"></i>Catalogos</a></li>
                     <li><a href="multimedia.html"><i class="fa-solid fa-play-circle"></i>Multimedia</a></li>
                     <li><a href="redes.html"><i class="fa-solid fa-share-nodes"></i>Redes Sociales</a></li>
                     <li><a href="contacto.html"><i class="fa-solid fa-envelope"></i>Contacto</a></li>
                 </ul>
             </div>
-
             <div class="footer-col">
                 <h4>Contacto</h4>
                 <ul>
@@ -550,15 +1780,14 @@
                                 class="fa-solid fa-envelope"></i>haften@haften.com.mx</a></li>
                     <li><a href="https://haften.com.mx" target="_blank"><i
                                 class="fa-solid fa-globe"></i>www.haften.com.mx</a></li>
-                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>Ciudad de México</a></li>
+                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>Ciudad de Mexico</a></li>
                     <li><a href="#"><i class="fa-solid fa-map-pin"></i>Monterrey</a></li>
                     <li><a href="#"><i class="fa-solid fa-map-pin"></i>Guadalajara</a></li>
-                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>León · Cancún</a></li>
+                    <li><a href="#"><i class="fa-solid fa-map-pin"></i>Leon &bull; Cancun</a></li>
                 </ul>
             </div>
-
             <div class="footer-col">
-                <h4>Síguenos</h4>
+                <h4>Siguenos</h4>
                 <ul>
                     <li><a href="https://www.facebook.com/HaftenOficial" target="_blank"><i
                                 class="fa-brands fa-facebook"></i>Facebook</a></li>
@@ -575,10 +1804,9 @@
                 </ul>
             </div>
         </div>
-
         <div class="footer-bottom">
-            <span class="footer-copy">© 2025 Haften. Todos los derechos reservados · <a href="https://haften.com.mx"
-                    target="_blank">haften.com.mx</a></span>
+            <span class="footer-copy">&copy; 2025 Haften. Todos los derechos reservados &mdash; <a
+                    href="https://haften.com.mx" target="_blank">haften.com.mx</a></span>
             <div class="footer-social">
                 <a href="https://www.facebook.com/HaftenOficial" target="_blank"><i
                         class="fa-brands fa-facebook-f"></i></a>
@@ -594,18 +1822,104 @@
         </div>
     </footer>
 
-    <script src="haften-shared.js">
-        /* ── Splash Screen Loader ───────────────────────── */
+    <script>
+        /* PAGE LOADER */
         window.addEventListener('load', () => {
-            const loader = document.getElementById('page-loader');
-            if (loader) {
-                // Agregamos un pequeño retraso de medio segundo para asegurar 
-                // que la animación de la barrita se vea fluida antes de desaparecer
-                setTimeout(() => {
-                    loader.classList.add('fade-out');
-                }, 500);
+            setTimeout(() => { document.getElementById('page-loader').classList.add('done'); }, 1600);
+        });
+
+        /* NAVBAR SCROLL */
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+        }, { passive: true });
+
+        /* HAMBURGER */
+        const menuBtn = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-links');
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+            menuBtn.classList.toggle('open');
+        });
+        document.addEventListener('click', e => {
+            if (!e.target.closest('#navbar')) {
+                navMenu.classList.remove('active');
+                menuBtn.classList.remove('open');
             }
         });
+        /* Cerrar al hacer click en link */
+        navMenu.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuBtn.classList.remove('open');
+            });
+        });
+
+        /* ACCENT COLORS */
+        const themeBtn = document.getElementById('themeBtn');
+        const accentPanel = document.getElementById('accent-panel');
+        themeBtn.addEventListener('click', e => { e.stopPropagation(); accentPanel.classList.toggle('open'); });
+        document.addEventListener('click', () => accentPanel.classList.remove('open'));
+        const accentMap = {
+            red: { ac: '#C1272D', dark: '#8B1A1F', rgb: '193,39,45', light: '#FFF0F0' },
+            blue: { ac: '#2563EB', dark: '#1D4ED8', rgb: '37,99,235', light: '#EFF6FF' },
+            emerald: { ac: '#059669', dark: '#047857', rgb: '5,150,105', light: '#ECFDF5' },
+            violet: { ac: '#7C3AED', dark: '#6D28D9', rgb: '124,58,237', light: '#F5F3FF' },
+            orange: { ac: '#EA580C', dark: '#C2410C', rgb: '234,88,12', light: '#FFF7ED' },
+            rose: { ac: '#E11D48', dark: '#BE123C', rgb: '225,29,72', light: '#FFF1F2' },
+        };
+        document.querySelectorAll('.ac-swatch').forEach(sw => {
+            sw.addEventListener('click', e => {
+                e.stopPropagation();
+                const m = accentMap[sw.dataset.accent];
+                if (!m) return;
+                const r = document.documentElement;
+                r.style.setProperty('--ac', m.ac);
+                r.style.setProperty('--ac-dark', m.dark);
+                r.style.setProperty('--ac-rgb', m.rgb);
+                r.style.setProperty('--ac-light', m.light);
+                document.querySelectorAll('.ac-swatch').forEach(s => s.classList.remove('active'));
+                sw.classList.add('active');
+            });
+        });
+
+        /* LANG TOGGLE */
+        let isEN = false;
+        document.getElementById('langPill').addEventListener('click', () => {
+            isEN = !isEN;
+            document.getElementById('langHighlight').style.left = isEN ? '50%' : '0';
+            document.querySelector('.opt-es').style.color = isEN ? 'var(--text-2)' : '#fff';
+            document.querySelector('.opt-en').style.color = isEN ? '#fff' : 'var(--text-2)';
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                el.style.display = (el.dataset.lang === (isEN ? 'en' : 'es')) ? '' : 'none';
+            });
+        });
+
+        /* REVEAL + COUNTER */
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                e.target.classList.add('visible');
+
+                /* Contador animado */
+                const counter = e.target.querySelector('[data-target]');
+                if (counter && !counter.dataset.counted) {
+                    counter.dataset.counted = 'true';
+                    const target = parseInt(counter.dataset.target);
+                    const start = performance.now();
+                    const animate = ts => {
+                        const p = Math.min((ts - start) / 1800, 1);
+                        const ease = 1 - Math.pow(1 - p, 3);
+                        counter.textContent = Math.floor(ease * target).toLocaleString('es-MX');
+                        if (p < 1) requestAnimationFrame(animate);
+                        else counter.textContent = target.toLocaleString('es-MX');
+                    };
+                    requestAnimationFrame(animate);
+                }
+                io.unobserve(e.target);
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     </script>
 </body>
 
